@@ -1,0 +1,30 @@
+# MCP Configuration
+
+> ⚠️ **Important**: Do not commit sensitive tokens in this file!
+> 
+> For GitHub MCP server configuration, please see:
+> https://docs.github.com/zh/copilot/how-tos/provide-context/use-mcp/set-up-the-github-mcp-server
+
+## Example Configuration
+
+```json
+{
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",\      "requestInit": {
+        "headers": {
+          "Authorization": "Bearer YOUR_GITHUB_PAT_HERE"
+        }
+      }
+    }
+  }
+}
+```
+
+## Setup Instructions
+
+1. Create a GitHub Personal Access Token
+2. Replace `YOUR_GITHUB_PAT_HERE` with your actual token
+3. Add this file to `.gitignore` to prevent accidental commits
+

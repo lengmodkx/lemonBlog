@@ -6,12 +6,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "export": "next build && next export",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/mdx": "^2.0.13",
+    "date-fns": "^4.1.0",
+    "gray-matter": "^4.0.3",
     "next": "16.1.0",
+    "prism-themes": "^1.9.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "rehype-highlight": "^7.0.2",
+    "rehype-prism-plus": "^2.0.1",
+    "rehype-stringify": "^10.0.1",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
+    "remark-rehype": "^11.1.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
