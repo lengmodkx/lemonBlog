@@ -14,16 +14,18 @@ export default function ArticleCard({ post, className = '' }: ArticleCardProps) 
   return (
     <article className={`group border-b border-gray-200 dark:border-gray-700 pb-8 last:border-b-0 ${className}`}>
       <Link href={`/blog/${post.slug}`} className="block">
-        {/* Banner Image - 优化加载 */}
-        <div className="mb-4 aspect-video">
+        {/* Banner Image - 使用 contain 避免裁切 */}
+        <div className="mb-4 aspect-video bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
           <BannerImage
             tags={post.tags || []}
             title={post.title}
             width={800}
             height={400}
-            className="w-full rounded-lg"
+            className="w-full h-full"
             preferredSource="unsplash"
             showAttribution={false}
+            customImage={post.coverImage}
+            objectFit="contain"
           />
         </div>
 

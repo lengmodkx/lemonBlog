@@ -5,7 +5,7 @@ import { unsplashService, type UnsplashPhoto } from './unsplash';
 import { giphyService, type GiphyGif } from './giphy';
 import { storysetService, type StorysetIllustration } from './storyset';
 
-export type ImageSource = 'unsplash' | 'giphy' | 'storyset' | 'placeholder';
+export type ImageSource = 'unsplash' | 'giphy' | 'storyset' | 'placeholder' | 'custom';
 
 export interface ImageAsset {
   type: 'photo' | 'gif' | 'illustration';

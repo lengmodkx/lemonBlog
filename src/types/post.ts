@@ -9,4 +9,5 @@ export interface Post {
   tags: string[];
   content?: string;
   excerpt?: string;
+  coverImage?: string;
 }
