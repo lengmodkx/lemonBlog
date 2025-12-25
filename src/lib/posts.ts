@@ -10,6 +10,148 @@ import { Post } from '@/types/post';
 
 const postsDirectory = path.join(process.cwd(), 'content/articles');
 
+/**
+ * Convert relative image paths to absolute paths for static export
+ * Relative paths like "img/xxx.jpg" become "/articles/img/xxx.jpg"
+ * Also supports per-article images in content/articles/{slug}/img/
+ */
+function fixImagePathForCover(imagePath: string, slug: string): string {
+  // If already absolute path or external URL, return as is
+  if (imagePath.startsWith('/') || imagePath.startsWith('http')) {
+    return imagePath;
+  }
+
+  // Get the filename from the path
+  const filename = path.basename(imagePath);
+
+  // Check if the image exists in the per-article img folder first
+  const perArticleImgPath = path.join(postsDirectory, slug, 'img', filename);
+  if (fs.existsSync(perArticleImgPath)) {
+    return `/articles/${slug}/img/${filename}`;
+  }
+
+  // Otherwise use the shared img folder
+  return `/articles/img/${filename}`;
+}
+
+/**
+ * Convert relative image paths to absolute paths for static export
+ * Relative paths like "img/xxx.jpg" become "/articles/{slug}/img/xxx.jpg"
+ * Also supports per-article images in content/articles/{slug}/img/
+ */
+function fixImagePaths(content: string, slug: string): string {
+  // Check for per-article img folder
+  const perArticleImgDir = path.join(postsDirectory, slug, 'img');
+
+  // Fix markdown image syntax: ![alt](img/xxx.jpg) -> ![alt](/articles/.../xxx.jpg)
+  let fixed = content.replace(/!\[([^\]]*)\]\((img\/[^)]+)\)/g, (match, alt, imgPath) => {
+    const filename = path.basename(imgPath);
+
+    // Check if image exists in per-article folder
+    const usePerArticle = fs.existsSync(path.join(perArticleImgDir, filename));
+    const prefix = usePerArticle ? `${slug}/img` : 'img';
+
+    return `![${alt}](/articles/${prefix}/${filename})`;
+  });
+
+  // Fix HTML img tag with relative paths (double quotes)
+  fixed = fixed.replace(/<img\s+([^>]*)src="(img\/[^"]+)"([^>]*)>/gi, (match, before, imgPath, after) => {
+    const filename = path.basename(imgPath);
+    const usePerArticle = fs.existsSync(path.join(perArticleImgDir, filename));
+    const prefix = usePerArticle ? `${slug}/img` : 'img';
+
+    return `<img ${before}src="/articles/${prefix}/${filename}"${after}>`;
+  });
+
+  // Fix HTML img tag with relative paths (single quotes)
+  fixed = fixed.replace(/<img\s+([^>]*)src='(img\/[^']+)'([^>]*)>/gi, (match, before, imgPath, after) => {
+    const filename = path.basename(imgPath);
+    const usePerArticle = fs.existsSync(path.join(perArticleImgDir, filename));
+    const prefix = usePerArticle ? `${slug}/img` : 'img';
+
+    return `<img ${before}src="/articles/${prefix}/${filename}"${after}>`;
+  });
+
+  return fixed;
+}
+
+/**
+ * Extract the first image URL from markdown content
+ * Matches both markdown syntax ![alt](url) and HTML <img> tags
+ */
+export function extractFirstImage(content: string): string | null {
+  // Match markdown image syntax: ![alt](url)
+  const markdownImageRegex = /!\[([^\]]*)\]\(([^)]+)\)/;
+  const markdownMatch = content.match(markdownImageRegex);
+
+  if (markdownMatch) {
+    return markdownMatch[2];
+  }
+
+  // Match HTML img tag: <img src="url" alt="alt">
+  const htmlImageRegex = /<img\s+[^>]*src=["']([^"']+)["'][^>]*>/i;
+  const htmlMatch = content.match(htmlImageRegex);
+
+  if (htmlMatch) {
+    return htmlMatch[1];
+  }
+
+  return null;
+}
+
+/**
+ * Remove the first image from markdown content to avoid duplication
+ */
+export function removeFirstImage(content: string): string {
+  // Remove markdown image
+  let cleaned = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/, '');
+
+  // Remove HTML img tag
+  cleaned = cleaned.replace(/<img\s+[^>]*src=["']([^"']+)["'][^>]*>/gi, '');
+
+  return cleaned.trim();
+}
+
+/**
+ * Extract cover image from markdown content (synchronous version)
+ */
+function extractCoverImageSync(content: string, slug: string): string | undefined {
+  // Match markdown image syntax: ![alt](url)
+  const markdownImageRegex = /!\[([^\]]*)\]\(([^)]+)\)/;
+  const markdownMatch = content.match(markdownImageRegex);
+
+  let imagePath = null;
+  if (markdownMatch) {
+    imagePath = markdownMatch[2];
+  } else {
+    // Match HTML img tag
+    const htmlImageRegex = /<img\s+[^>]*src=["']([^"']+)["'][^>]*>/i;
+    const htmlMatch = content.match(htmlImageRegex);
+    if (htmlMatch) {
+      imagePath = htmlMatch[1];
+    }
+  }
+
+  if (!imagePath) return undefined;
+
+  // If already absolute path or external URL, return as is
+  if (imagePath.startsWith('/') || imagePath.startsWith('http')) {
+    return imagePath;
+  }
+
+  // Get the filename from the path
+  const filename = path.basename(imagePath);
+
+  // Check if the image exists in the per-article img folder first
+  const perArticleImgPath = path.join(postsDirectory, slug, 'img', filename);
+  if (fs.existsSync(perArticleImgPath)) {
+    return `/articles/${slug}/img/${filename}`;
+  }
+
+  // Otherwise use the shared img folder
+  return `/articles/img/${filename}`;
+}
+
 export function getAllPosts(): Post[] {
   if (!fs.existsSync(postsDirectory)) {
     return [];
@@ -22,7 +164,10 @@ export function getAllPosts(): Post[] {
       const slug = fileName.replace(/\.md$/, '');
       const fullPath = path.join(postsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
-      const { data } = matter(fileContents);
+      const { data, content } = matter(fileContents);
+
+      // Extract cover image from content
+      const coverImage = extractCoverImageSync(content, slug);
 
       // Ensure required fields with defaults
       const post: Post = {
@@ -32,6 +177,7 @@ export function getAllPosts(): Post[] {
         description: data.description || '',
         author: data.author || 'Anonymous',
         tags: Array.isArray(data.tags) ? data.tags : [],
+        coverImage,
       };
 
       return post;
@@ -65,6 +211,9 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
 
+    // Fix relative image paths before processing
+    const contentWithFixedPaths = fixImagePaths(content, slug);
+
     // Process markdown content
     const processedContent = await remark()
       .use(remarkRehype, { allowDangerousHtml: true })
@@ -73,9 +222,17 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
         showLineNumbers: true,
       })
       .use(rehypeStringify, { allowDangerousHtml: true })
-      .process(content);
+      .process(contentWithFixedPaths);
 
     const contentHtml = processedContent.toString();
+
+    // Extract first image as cover image
+    const coverImageRaw = extractFirstImage(content);
+    // Convert relative path to absolute path for cover image
+    const coverImage = coverImageRaw ? fixImagePathForCover(coverImageRaw, slug) : undefined;
+
+    // Remove first image from content to avoid duplication
+    const contentWithoutFirstImage = removeFirstImage(contentHtml);
 
     // Create excerpt from content if not provided in frontmatter
     const excerpt = data.excerpt ||
@@ -92,8 +249,9 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       description: data.description || '',
       author: data.author || 'Anonymous',
       tags: Array.isArray(data.tags) ? data.tags : [],
-      content: contentHtml,
+      content: contentWithoutFirstImage,
       excerpt,
+      coverImage,
     };
 
     return post;

@@ -162,9 +162,9 @@ class UnsplashService {
     return images.map((url, index) => ({
       id: `placeholder-${index}`,
       urls: {
-        regular: `${url}?w=1080&fit=crop`,
-        small: `${url}?w=400&fit=crop`,
-        thumb: `${url}?w=200&fit=crop`
+        regular: url,
+        small: url,
+        thumb: url
       },
       description: `${query} related image ${index + 1}`,
       alt_description: `${query} image from Unsplash`,
@@ -218,7 +218,10 @@ class UnsplashService {
     height?: number,
     format: 'jpg' | 'webp' = 'webp'
   ): string {
-    const baseUrl = photo.urls.regular.split('?')[0];
+    // 检查是否已经是完整URL（带参数的）
+    const url = photo.urls.regular;
+    const separator = url.includes('?') ? '&' : '?';
+
     const params = new URLSearchParams({
       w: width.toString(),
       fm: format,
@@ -231,7 +234,7 @@ class UnsplashService {
       params.set('fit', 'crop');
     }
 
-    return `${baseUrl}?${params.toString()}`;
+    return `${url}${separator}${params.toString()}`;
   }
 }
 
