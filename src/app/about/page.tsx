@@ -8,7 +8,7 @@ export const metadata = {
 const techStack = [
   'Java', 'Spring Boot', 'Spring Cloud',
   'MyBatis', 'MySQL', 'Redis',
-  'Docker', 'Kubernetes', 'RabbitMQ',
+  'Docker', 'RabbitMQ', 'Python',
   'Linux', 'Git',
 ];
 
@@ -68,23 +68,19 @@ export default function AboutPage() {
             <h2 className="text-lg font-semibold text-ink dark:text-text-primary mb-4">
               Work Experience
             </h2>
-            <div className="space-y-4">
+            <div className="border-l-2 border-lavender-300 dark:border-lavender-700 pl-6 space-y-6">
               {workExperience.map((exp, index) => (
-                <div
-                  key={index}
-                  className="flex gap-4 p-4 bg-card rounded-lg border border-lavender-100 dark:border-lavender-800/50"
-                >
-                  <div className="w-24 text-sm text-text-muted shrink-0">
+                <div key={index} className="relative">
+                  <div className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-lavender-500" />
+                  <div className="text-sm text-text-muted mb-1">
                     {exp.period}
                   </div>
-                  <div>
-                    <h3 className="font-medium text-ink dark:text-text-primary">
-                      {exp.company}
-                    </h3>
-                    <p className="text-sm text-text-secondary">
-                      {exp.description}
-                    </p>
-                  </div>
+                  <h3 className="font-medium text-ink dark:text-text-primary">
+                    {exp.company}
+                  </h3>
+                  <p className="text-sm text-text-secondary">
+                    {exp.description}
+                  </p>
                 </div>
               ))}
             </div>
