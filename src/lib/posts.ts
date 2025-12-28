@@ -11,6 +11,16 @@ import { Post } from '@/types/post';
 const postsDirectory = path.join(process.cwd(), 'content/articles');
 
 /**
+ * Calculate reading time for content (Chinese reading speed)
+ * Assumes ~200 characters per minute for Chinese content
+ */
+export function getReadingTime(content: string): number {
+  const wordsPerMinute = 200;
+  const wordCount = content.length;
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+
+/**
  * Convert relative image paths to absolute paths for static export
  * Relative paths like "img/xxx.jpg" become "/articles/img/xxx.jpg"
  * Also supports per-article images in content/articles/{slug}/img/
@@ -252,6 +262,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       content: contentWithoutFirstImage,
       excerpt,
       coverImage,
+      readingTime: getReadingTime(content),
     };
 
     return post;
