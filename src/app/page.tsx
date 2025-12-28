@@ -8,11 +8,11 @@ export const metadata = {
   description: 'Personal blog about web development, programming, and technology.',
 };
 
-const techStack = ['React', 'Next.js', 'TypeScript', 'Node.js', 'Tailwind CSS'];
+const techStack = ['Java', 'Spring Boot', 'MyBatis', 'MySQL', 'Redis', 'Docker'];
 const socialLinks = [
-  { name: 'GitHub', href: 'https://github.com' },
-  { name: 'Twitter', href: 'https://twitter.com' },
-  { name: 'Email', href: 'mailto:your@email.com' },
+  { name: 'GitHub', href: 'https://github.com/lengmodkx' },
+  { name: 'Twitter', href: 'https://twitter.com/DKX_LM' },
+  { name: 'Telegram', href: 'https://t.me/lemon2Judy' },
 ];
 
 export default function Home() {
@@ -44,7 +44,7 @@ export default function Home() {
           Hello, World
         </h1>
         <p className="text-ink-light dark:text-text-secondary text-base max-w-md mx-auto mb-8">
-          热爱编程，专注于 Web 开发与技术分享
+          Java 后端开发工程师 | 来自中国 | 热爱技术与生活分享
         </p>
 
         {/* Tech Stack Tags */}
@@ -92,8 +92,9 @@ export default function Home() {
             关于我
           </h3>
           <p className="text-sm text-text-secondary">
-            全栈开发者，热衷于探索新技术，喜欢通过博客记录学习心得和项目实践。
-            这里是分享知识、交流想法的地方，期待与你共同成长。
+            来自中国的 Java 后端开发者，专注于企业级应用开发。
+            熟悉 Spring Boot、MyBatis、MySQL、Redis 等技术栈，
+            热衷于通过博客记录学习心得和项目实践，期待与你交流成长。
           </p>
         </div>
       </section>
