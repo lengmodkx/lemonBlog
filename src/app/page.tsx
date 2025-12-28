@@ -28,12 +28,12 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative max-w-2xl mx-auto px-4 py-20 text-center">
+      <section className="relative max-w-2xl mx-auto px-4 py-16 text-center">
         {/* Avatar */}
         <div className="relative w-20 h-20 mx-auto mb-6">
           <Image
             src="/images/avatar.jpg"
-            alt="Lemon"
+            alt="lemon"
             fill
             className="rounded-full object-cover shadow-lg"
           />
@@ -44,7 +44,7 @@ export default function Home() {
           Hello, World
         </h1>
         <p className="text-ink-light dark:text-text-secondary text-base max-w-md mx-auto mb-8">
-          Java 后端开发工程师 | 来自中国 | 热爱技术与生活分享
+          Java Backend Developer from China | Passionate about technology
         </p>
 
         {/* Tech Stack Tags */}
@@ -66,8 +66,8 @@ export default function Home() {
               key={link.name}
               href={link.href}
               className="text-sm text-text-muted hover:text-primary transition-colors"
-              target={link.name === 'Email' ? undefined : '_blank'}
-              rel={link.name === 'Email' ? undefined : 'noopener noreferrer'}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               {link.name}
             </a>
@@ -77,10 +77,10 @@ export default function Home() {
         {/* Navigation */}
         <div className="flex justify-center gap-6 text-sm">
           <Link href="/blog" className="text-text-muted hover:text-primary transition-colors">
-            文章
+            Blog
           </Link>
           <Link href="/about" className="text-text-muted hover:text-primary transition-colors">
-            关于
+            About
           </Link>
         </div>
       </section>
@@ -89,12 +89,13 @@ export default function Home() {
       <section className="max-w-2xl mx-auto px-4 pb-8">
         <div className="bg-card rounded-xl p-6 mb-8 shadow-sm border border-lavender-100 dark:border-lavender-800/50">
           <h3 className="font-semibold text-ink dark:text-text-primary mb-3">
-            关于我
+            About Me
           </h3>
-          <p className="text-sm text-text-secondary">
-            来自中国的 Java 后端开发者，专注于企业级应用开发。
-            熟悉 Spring Boot、MyBatis、MySQL、Redis 等技术栈，
-            热衷于通过博客记录学习心得和项目实践，期待与你交流成长。
+          <p className="text-sm text-text-secondary leading-relaxed">
+            Hi, I&apos;m <span className="text-primary font-medium">lemon</span>, a Java backend developer from China.
+            I specialize in enterprise application development and am proficient with Spring Boot, MyBatis, MySQL, and Redis.
+            Through this blog, I share my learning experiences and project practices.
+            Looking forward to connecting with you!
           </p>
         </div>
       </section>
@@ -103,13 +104,13 @@ export default function Home() {
       <section className="max-w-2xl mx-auto px-4 pb-20">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-xl font-semibold text-ink dark:text-text-primary">
-            最新文章
+            Latest Posts
           </h2>
           <Link
             href="/blog"
             className="text-sm text-primary hover:text-primary-hover transition-colors"
           >
-            查看全部 →
+            View All →
           </Link>
         </div>
 
@@ -121,7 +122,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-text-muted">暂无文章</p>
+            <p className="text-text-muted">No posts yet</p>
           </div>
         )}
       </section>

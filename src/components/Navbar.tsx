@@ -24,27 +24,17 @@ export default function Navbar() {
   };
 
   const navigation = [
-    { name: '首页', href: '/' },
-    { name: '博客', href: '/blog' },
-    { name: '关于', href: '/about' },
+    { name: 'Home', href: '/' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'About', href: '/about' },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-ink-DEFAULT/80 backdrop-blur-md border-b border-lavender-200/50 dark:border-lavender-800/50">
+    <nav className="sticky top-0 z-50 bg-paper-50/80 dark:bg-ink-DEFAULT/80 backdrop-blur-sm">
       <div className="max-w-2xl mx-auto px-4">
-        <div className="flex justify-between items-center h-14">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-7 h-7 bg-gradient-to-br from-lavender-400 to-lavender-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">L</span>
-            </div>
-            <span className="text-base font-semibold text-ink dark:text-text-primary">
-              Lemon Blog
-            </span>
-          </Link>
-
+        <div className="flex justify-center items-center h-16">
           {/* Navigation Links */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center gap-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -52,7 +42,7 @@ export default function Navbar() {
                 className={`text-sm font-medium transition-colors ${
                   pathname === item.href
                     ? 'text-primary'
-                    : 'text-ink-light dark:text-text-secondary hover:text-primary'
+                    : 'text-text-muted hover:text-primary'
                 }`}
               >
                 {item.name}
@@ -62,7 +52,7 @@ export default function Navbar() {
             {/* Theme Toggle */}
             <button
               onClick={toggleDarkMode}
-              className="p-1.5 rounded-lg text-text-muted hover:text-primary transition-colors"
+              className="p-2 rounded-lg text-text-muted hover:text-primary hover:bg-lavender-100 dark:hover:bg-lavender-900/30 transition-all"
               aria-label="Toggle dark mode"
             >
               {isDarkMode ? (

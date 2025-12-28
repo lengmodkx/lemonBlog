@@ -1,23 +1,43 @@
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-lavender-200 dark:border-lavender-800 bg-white dark:bg-ink-DEFAULT">
+    <footer className="mt-auto">
       <div className="max-w-2xl mx-auto px-4 py-8">
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+        {/* Divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-lavender-300 dark:via-lavender-700 to-transparent mb-6" />
+
+        {/* Content */}
+        <div className="flex flex-col items-center gap-4">
           <p className="text-sm text-text-muted">
-            © {new Date().getFullYear()} Lemon Blog
+            © {currentYear} lemon. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm">
+
+          {/* Social Links */}
+          <div className="flex gap-6">
             <a
-              href="https://github.com"
-              className="text-text-muted hover:text-primary transition-colors"
+              href="https://github.com/lengmodkx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-text-muted hover:text-primary transition-colors"
             >
               GitHub
             </a>
             <a
-              href="https://twitter.com"
-              className="text-text-muted hover:text-primary transition-colors"
+              href="https://twitter.com/DKX_LM"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-text-muted hover:text-primary transition-colors"
             >
               Twitter
+            </a>
+            <a
+              href="https://t.me/lemon2Judy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-text-muted hover:text-primary transition-colors"
+            >
+              Telegram
             </a>
           </div>
         </div>
