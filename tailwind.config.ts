@@ -27,6 +27,22 @@ export default {
           900: '#1e3a8a',
           950: '#172554',
         },
+        paper: {
+          50: '#FAF9F6',
+          100: '#F5F3F0',
+          200: '#ECE9E4',
+        },
+        ink: {
+          DEFAULT: '#1A1A1A',
+          light: '#2D2D2D',
+          muted: '#6B7280',
+        },
+        accent: {
+          DEFAULT: '#F59E0B',
+          hover: '#D97706',
+          dark: '#FBBF24',
+          darkHover: '#F59E0B',
+        },
       },
       typography: {
         DEFAULT: {

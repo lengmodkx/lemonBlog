@@ -3,6 +3,31 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Custom theme variables for minimalist design */
+  --bg-paper: #FAF9F6;
+  --bg-card: #FFFFFF;
+  --text-primary: #1A1A1A;
+  --text-secondary: #2D2D2D;
+  --text-muted: #6B7280;
+  --accent-primary: #F59E0B;
+  --accent-hover: #D97706;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+
+    /* Dark mode theme variables */
+    --bg-paper: #1A1A1A;
+    --bg-card: #242424;
+    --text-primary: #FAF9F6;
+    --text-secondary: #E0E0E0;
+    --text-muted: #9CA3AF;
+    --accent-primary: #FBBF24;
+    --accent-hover: #F59E0B;
+  }
 }
 
 @theme inline {
