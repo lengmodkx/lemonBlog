@@ -57,3 +57,4 @@ nul
 
 # Claude
 .claude/
+.worktrees/
