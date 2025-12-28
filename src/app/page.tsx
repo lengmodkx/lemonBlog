@@ -23,36 +23,76 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative max-w-2xl mx-auto px-4 py-20">
         {/* Greeting */}
-        <p className="text-primary font-medium mb-4">Howdy, fellow!</p>
+        <p className="text-primary font-medium mb-4">👋 Howdy, fellow!</p>
 
-        {/* Avatar */}
-        <div className="relative w-24 h-24 mb-8">
-          <Image
-            src="/images/avatar.jpg"
-            alt="lemon"
-            fill
-            className="rounded-full object-cover shadow-lg"
-          />
-          <div className="absolute inset-0 rounded-full ring-4 ring-lavender-100 dark:ring-lavender-900/30" />
+        {/* Main Content with Avatar and Info Card */}
+        <div className="flex flex-col sm:flex-row gap-8 mb-8">
+          {/* Avatar */}
+          <div className="relative w-28 h-28 shrink-0">
+            <Image
+              src="/images/avatar.jpg"
+              alt="lemon"
+              fill
+              className="rounded-full object-cover shadow-lg"
+            />
+            <div className="absolute inset-0 rounded-full ring-4 ring-lavender-100 dark:ring-lavender-900/30" />
+          </div>
+
+          {/* Info Card */}
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold text-ink dark:text-text-primary mb-2">
+              I&apos;m <span className="text-primary">lemon</span>
+            </h1>
+            <p className="text-text-secondary text-sm mb-3">
+              Learner | Builder | Java Backend Developer
+            </p>
+            <div className="space-y-1 text-xs text-text-muted">
+              <p className="flex items-center gap-2">
+                <span>📍</span>
+                <span>China</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <span>💼</span>
+                <span>Backend Development Engineer</span>
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Introduction */}
-        <h1 className="text-4xl font-bold text-ink dark:text-text-primary mb-4">
-          I&apos;m <span className="text-primary">lemon</span> - a Java backend developer
-        </h1>
-
-        <div className="space-y-3 text-text-secondary mb-8">
-          <p>• I&apos;m a learner, builder, and knowledge seeker.</p>
-          <p>• I live in China and work as a backend engineer.</p>
-          <p>• My first programming language was Java.</p>
-          <p>• I work mostly with Java technologies.</p>
-          <p>• I love coding, reading, and sharing knowledge.</p>
-          <p>• I started this blog to document and share my experience.</p>
+        <div className="space-y-2 text-text-secondary mb-8 text-sm">
+          <p className="flex items-start gap-2">
+            <span className="shrink-0">•</span>
+            <span>I&apos;m a learner, builder, and knowledge seeker.</span>
+          </p>
+          <p className="flex items-start gap-2">
+            <span className="shrink-0">•</span>
+            <span>I live in China and work as a backend engineer.</span>
+          </p>
+          <p className="flex items-start gap-2">
+            <span className="shrink-0">•</span>
+            <span>My first programming language was Java.</span>
+          </p>
+          <p className="flex items-start gap-2">
+            <span className="shrink-0">•</span>
+            <span>I work mostly with Java technologies.</span>
+          </p>
+          <p className="flex items-start gap-2">
+            <span className="shrink-0">•</span>
+            <span>I love coding, reading, and sharing knowledge.</span>
+          </p>
+          <p className="flex items-start gap-2">
+            <span className="shrink-0">•</span>
+            <span>I started this blog to document and share my experience.</span>
+          </p>
         </div>
 
         {/* Tech Stack */}
         <div className="mb-8">
-          <p className="text-sm text-text-muted mb-2">I work with:</p>
+          <p className="text-sm text-text-muted mb-3 flex items-center gap-2">
+            <span>💻</span>
+            <span>I work with:</span>
+          </p>
           <div className="flex flex-wrap gap-2">
             {['Java', 'Spring Boot', 'MySQL', 'Redis', 'Docker', 'Python'].map((tech) => (
               <span
@@ -67,14 +107,17 @@ export default function Home() {
 
         {/* Quick Links */}
         <div className="flex flex-wrap gap-4 text-sm">
-          <Link href="/blog" className="text-text-muted hover:text-primary transition-colors">
-            → My writings
+          <Link href="/blog" className="text-text-muted hover:text-primary transition-colors flex items-center gap-1">
+            <span>📝</span>
+            <span>My writings</span>
           </Link>
-          <Link href="/about" className="text-text-muted hover:text-primary transition-colors">
-            → About me & this blog
+          <Link href="/about" className="text-text-muted hover:text-primary transition-colors flex items-center gap-1">
+            <span>👤</span>
+            <span>About me</span>
           </Link>
-          <a href="https://github.com/lengmodkx" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-primary transition-colors">
-            → GitHub
+          <a href="https://github.com/lengmodkx" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-primary transition-colors flex items-center gap-1">
+            <span>🔗</span>
+            <span>GitHub</span>
           </a>
         </div>
       </section>
@@ -86,8 +129,9 @@ export default function Home() {
 
       {/* Latest Posts */}
       <section className="max-w-2xl mx-auto px-4 py-12">
-        <h2 className="text-xl font-semibold text-ink dark:text-text-primary mb-6">
-          Latest posts
+        <h2 className="text-xl font-semibold text-ink dark:text-text-primary mb-6 flex items-center gap-2">
+          <span>📚</span>
+          <span>Latest posts</span>
         </h2>
 
         {latestPosts.length > 0 ? (
@@ -116,25 +160,29 @@ export default function Home() {
       <section className="max-w-2xl mx-auto px-4 pb-12">
         <div className="h-px bg-gradient-to-r from-transparent via-lavender-300 dark:via-lavender-700 to-transparent mb-8" />
 
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-3">
           <p className="text-text-muted text-sm">
             <span className="font-medium">lemon</span> | Java Backend Developer
           </p>
-          <p className="text-xs text-text-muted">
-            China · {new Date().getFullYear()}
+          <p className="text-xs text-text-muted flex items-center justify-center gap-1">
+            <span>📍</span>
+            <span>China · {new Date().getFullYear()}</span>
           </p>
           <div className="flex justify-center gap-4 text-xs text-text-muted">
-            <a href="https://github.com/lengmodkx" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-              GitHub
+            <a href="https://github.com/lengmodkx" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-1">
+              <span>GitHub</span>
             </a>
-            <a href="https://twitter.com/DKX_LM" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-              Twitter
+            <span>•</span>
+            <a href="https://twitter.com/DKX_LM" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-1">
+              <span>Twitter</span>
             </a>
-            <a href="https://t.me/lemon2Judy" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-              Telegram
+            <span>•</span>
+            <a href="https://t.me/lemon2Judy" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-1">
+              <span>Telegram</span>
             </a>
-            <a href="mailto:lengmodkx@gmail.com" className="hover:text-primary transition-colors">
-              Email
+            <span>•</span>
+            <a href="mailto:lengmodkx@gmail.com" className="hover:text-primary transition-colors flex items-center gap-1">
+              <span>Email</span>
             </a>
           </div>
         </div>
