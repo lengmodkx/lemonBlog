@@ -30,45 +30,50 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
+    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-ink-DEFAULT/80 backdrop-blur-md border-b border-lavender-200/50 dark:border-lavender-800/50">
+      <div className="max-w-2xl mx-auto px-4">
+        <div className="flex justify-between items-center h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-accent to-accent-hover rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">L</span>
+            <div className="w-7 h-7 bg-gradient-to-br from-lavender-400 to-lavender-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">L</span>
             </div>
-            <span className="text-lg font-semibold text-ink dark:text-text-primary">
+            <span className="text-base font-semibold text-ink dark:text-text-primary">
               Lemon Blog
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Navigation Links */}
+          <div className="flex items-center space-x-6">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-sm font-medium transition-colors relative ${
+                className={`text-sm font-medium transition-colors ${
                   pathname === item.href
-                    ? 'text-accent dark:text-accent-dark'
-                    : 'text-ink-light dark:text-text-secondary hover:text-accent dark:hover:text-accent-dark'
+                    ? 'text-primary'
+                    : 'text-ink-light dark:text-text-secondary hover:text-primary'
                 }`}
               >
                 {item.name}
-                {pathname === item.href && (
-                  <span className="absolute bottom-[-20px] left-0 right-0 h-0.5 bg-accent dark:bg-accent-dark" />
-                )}
               </Link>
             ))}
 
-            {/* Dark Mode Toggle */}
+            {/* Theme Toggle */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-lg text-muted hover:text-accent dark:hover:text-accent-dark transition-colors"
+              className="p-1.5 rounded-lg text-text-muted hover:text-primary transition-colors"
               aria-label="Toggle dark mode"
             >
-              {isDarkMode ? '☀️' : '🌙'}
+              {isDarkMode ? (
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              ) : (
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
