@@ -27,7 +27,7 @@ export default function Home() {
         <p className="text-primary font-medium mb-4">👋 Howdy, fellow!</p>
 
         {/* Main Content with Avatar, Info, and Fixed Card */}
-        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr_16rem] gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr_16rem] gap-8 mb-8">
           {/* Avatar */}
           <div className="relative w-28 h-28 shrink-0">
             <Image
