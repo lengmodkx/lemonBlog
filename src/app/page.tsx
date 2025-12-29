@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { getLatestPosts } from '@/lib/posts';
 import ArticleCard from '@/components/ArticleCard';
 import FixedInfoCard from '@/components/FixedInfoCard';
@@ -26,21 +25,10 @@ export default function Home() {
         {/* Greeting */}
         <p className="text-primary font-medium mb-4">👋 Howdy, fellow!</p>
 
-        {/* Main Content with Avatar, Info, and Fixed Card */}
-        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr_16rem] gap-8 mb-8">
-          {/* Avatar */}
-          <div className="relative w-28 h-28 shrink-0">
-            <Image
-              src="/images/avatar.jpg"
-              alt="lemon"
-              fill
-              className="rounded-full object-cover shadow-lg"
-            />
-            <div className="absolute inset-0 rounded-full ring-4 ring-lavender-100 dark:ring-lavender-900/30" />
-          </div>
-
+        {/* Main Content with Info and Fixed Card */}
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_16rem] gap-12 mb-8">
           {/* Self Introduction */}
-          <div className="flex-1">
+          <div>
             <h1 className="text-3xl font-bold text-ink dark:text-text-primary mb-2">
               I&apos;m <span className="text-primary">lemon</span>
             </h1>
