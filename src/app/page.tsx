@@ -22,7 +22,7 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative max-w-2xl mx-auto px-4 py-20">
+      <section className="relative max-w-2xl mx-auto px-4 py-24">
         {/* Greeting */}
         <p className="text-primary font-medium mb-4">👋 Howdy, fellow!</p>
 
