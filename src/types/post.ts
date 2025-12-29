@@ -10,4 +10,5 @@ export interface Post {
   content?: string;
   excerpt?: string;
   coverImage?: string;
+  readingTime?: number;
 }
