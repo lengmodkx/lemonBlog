@@ -22,6 +22,7 @@ export default function FixedInfoCard() {
 
   return (
     <div className="
+      flex flex-col
       backdrop-blur-md bg-white/80 dark:bg-ink-DEFAULT/80
       border border-lavender-200 dark:border-lavender-800
       rounded-2xl shadow-md p-5
@@ -30,6 +31,7 @@ export default function FixedInfoCard() {
       hover:-translate-y-1
       hover:border-primary
       transition-all duration-300 ease-out
+      h-full
     ">
       {/* Avatar Section */}
       <div className="flex justify-center mb-5">

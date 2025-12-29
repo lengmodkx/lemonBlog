@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -33,6 +34,19 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-paper-50/80 dark:bg-ink-DEFAULT/80 backdrop-blur-sm">
       <div className="max-w-2xl mx-auto px-4">
         <div className="flex justify-center items-center h-16">
+          {/* Avatar Logo */}
+          <Link href="/" className="flex items-center mr-8">
+            <div className="relative w-10 h-10">
+              <Image
+                src="/images/avatar.jpg"
+                alt="lemon"
+                fill
+                className="rounded-full object-cover shadow-md"
+              />
+              <div className="absolute inset-0 rounded-full ring-2 ring-lavender-200 dark:ring-lavender-800" />
+            </div>
+          </Link>
+
           {/* Navigation Links */}
           <div className="flex items-center gap-8">
             {navigation.map((item) => (
