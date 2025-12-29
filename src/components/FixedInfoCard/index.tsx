@@ -32,7 +32,7 @@ export default function FixedInfoCard() {
       transition-all duration-300 ease-out
     ">
       {/* Avatar Section */}
-      <div className="flex justify-center mb-4">
+      <div className="flex justify-center mb-5">
         <div className="relative w-20 h-20">
           {!imageError ? (
             <Image
@@ -61,7 +61,7 @@ export default function FixedInfoCard() {
       </div>
 
       {/* Contact Info Section */}
-      <div className="space-y-2 mb-4 text-xs">
+      <div className="space-y-3 mb-4 text-xs">
         <p className="flex items-center gap-2 text-text-muted">
           <span className="shrink-0">📍</span>
           <span>{profile.location}</span>
@@ -80,7 +80,7 @@ export default function FixedInfoCard() {
       </div>
 
       {/* Social Links Section */}
-      <div className="flex justify-center gap-3">
+      <div className="flex justify-center gap-4">
         <a
           href={profile.socialLinks.github}
           target="_blank"
