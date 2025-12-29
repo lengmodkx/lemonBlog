@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getLatestPosts } from '@/lib/posts';
+import { getLatestPosts, getAllPosts } from '@/lib/posts';
 import ArticleCard from '@/components/ArticleCard';
+import HoverInfoCard from '@/components/HoverInfoCard';
 
 export const metadata = {
   title: 'Lemon Blog',
@@ -10,6 +11,13 @@ export const metadata = {
 
 export default function Home() {
   const latestPosts = getLatestPosts(6);
+  const allPosts = getAllPosts();
+
+  // Calculate blog statistics
+  const stats = {
+    postCount: allPosts.length,
+    latestDate: allPosts.length > 0 ? allPosts[0].date : '-'
+  };
 
   return (
     <div className="min-h-screen bg-paper-50 dark:bg-ink-DEFAULT">
@@ -38,25 +46,27 @@ export default function Home() {
             <div className="absolute inset-0 rounded-full ring-4 ring-lavender-100 dark:ring-lavender-900/30" />
           </div>
 
-          {/* Info Card */}
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-ink dark:text-text-primary mb-2">
-              I&apos;m <span className="text-primary">lemon</span>
-            </h1>
-            <p className="text-text-secondary text-sm mb-3">
-              Learner | Builder | Java Backend Developer
-            </p>
-            <div className="space-y-1 text-xs text-text-muted">
-              <p className="flex items-center gap-2">
-                <span>📍</span>
-                <span>China</span>
+          {/* Info Card - Wrapped with HoverInfoCard */}
+          <HoverInfoCard stats={stats}>
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold text-ink dark:text-text-primary mb-2">
+                I&apos;m <span className="text-primary">lemon</span>
+              </h1>
+              <p className="text-text-secondary text-sm mb-3">
+                Learner | Builder | Java Backend Developer
               </p>
-              <p className="flex items-center gap-2">
-                <span>💼</span>
-                <span>Backend Development Engineer</span>
-              </p>
+              <div className="space-y-1 text-xs text-text-muted">
+                <p className="flex items-center gap-2">
+                  <span>📍</span>
+                  <span>China</span>
+                </p>
+                <p className="flex items-center gap-2">
+                  <span>💼</span>
+                  <span>Backend Development Engineer</span>
+                </p>
+              </div>
             </div>
-          </div>
+          </HoverInfoCard>
         </div>
 
         {/* Introduction */}
