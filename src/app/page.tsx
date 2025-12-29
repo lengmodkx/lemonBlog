@@ -26,57 +26,47 @@ export default function Home() {
         <p className="text-primary font-medium mb-4">👋 Howdy, fellow!</p>
 
         {/* Main Content with Info and Fixed Card */}
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_16rem] gap-12 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_16rem] items-stretch gap-0 sm:gap-12 lg:gap-16 mb-8">
           {/* Self Introduction */}
-          <div>
+          <div className="flex flex-col">
             <h1 className="text-3xl font-bold text-ink dark:text-text-primary mb-2">
               I&apos;m <span className="text-primary">lemon</span>
             </h1>
-            <p className="text-text-secondary text-sm mb-3">
+            <p className="text-text-secondary text-base mb-6">
               Learner | Builder | Java Backend Developer
             </p>
-            <div className="space-y-1 text-xs text-text-muted">
-              <p className="flex items-center gap-2">
-                <span>📍</span>
-                <span>China</span>
+
+            {/* Introduction */}
+            <div className="space-y-2 text-text-secondary text-sm">
+              <p className="flex items-start gap-2">
+                <span className="shrink-0">•</span>
+                <span>I&apos;m a learner, builder, and knowledge seeker.</span>
               </p>
-              <p className="flex items-center gap-2">
-                <span>💼</span>
-                <span>Backend Development Engineer</span>
+              <p className="flex items-start gap-2">
+                <span className="shrink-0">•</span>
+                <span>I live in China and work as a backend engineer.</span>
+              </p>
+              <p className="flex items-start gap-2">
+                <span className="shrink-0">•</span>
+                <span>My first programming language was Java.</span>
+              </p>
+              <p className="flex items-start gap-2">
+                <span className="shrink-0">•</span>
+                <span>I work mostly with Java technologies.</span>
+              </p>
+              <p className="flex items-start gap-2">
+                <span className="shrink-0">•</span>
+                <span>I love coding, reading, and sharing knowledge.</span>
+              </p>
+              <p className="flex items-start gap-2">
+                <span className="shrink-0">•</span>
+                <span>I started this blog to document and share my experience.</span>
               </p>
             </div>
           </div>
 
           {/* Fixed Info Card */}
           <FixedInfoCard />
-        </div>
-
-        {/* Introduction */}
-        <div className="space-y-2 text-text-secondary mb-8 text-sm">
-          <p className="flex items-start gap-2">
-            <span className="shrink-0">•</span>
-            <span>I&apos;m a learner, builder, and knowledge seeker.</span>
-          </p>
-          <p className="flex items-start gap-2">
-            <span className="shrink-0">•</span>
-            <span>I live in China and work as a backend engineer.</span>
-          </p>
-          <p className="flex items-start gap-2">
-            <span className="shrink-0">•</span>
-            <span>My first programming language was Java.</span>
-          </p>
-          <p className="flex items-start gap-2">
-            <span className="shrink-0">•</span>
-            <span>I work mostly with Java technologies.</span>
-          </p>
-          <p className="flex items-start gap-2">
-            <span className="shrink-0">•</span>
-            <span>I love coding, reading, and sharing knowledge.</span>
-          </p>
-          <p className="flex items-start gap-2">
-            <span className="shrink-0">•</span>
-            <span>I started this blog to document and share my experience.</span>
-          </p>
         </div>
 
         {/* Tech Stack */}
