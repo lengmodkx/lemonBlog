@@ -6,7 +6,7 @@ import remarkRehype from 'remark-rehype';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
 import rehypePrismPlus from 'rehype-prism-plus';
-import { Post } from '@/types/post';
+import { Post, VALID_CATEGORIES } from '@/types/post';
 
 const postsDirectory = path.join(process.cwd(), 'content/articles');
 
@@ -179,6 +179,15 @@ export function getAllPosts(): Post[] {
       // Extract cover image from content
       const coverImage = extractCoverImageSync(content, slug);
 
+      // Parse category from frontmatter (string or array)
+      let category: Post['category'];
+      if (typeof data.category === 'string') {
+        category = data.category as Post['category'];
+      } else if (Array.isArray(data.category) && data.category.length > 0) {
+        // If array, take first element
+        category = data.category[0] as Post['category'];
+      }
+
       // Ensure required fields with defaults
       const post: Post = {
         slug,
@@ -187,6 +196,7 @@ export function getAllPosts(): Post[] {
         description: data.description || '',
         author: data.author || 'Anonymous',
         tags: Array.isArray(data.tags) ? data.tags : [],
+        category,
         coverImage,
       };
 
@@ -297,5 +307,23 @@ export function getAllTags(): string[] {
   });
 
   return Array.from(tags).sort();
+}
+
+/**
+ * Get all categories (fixed list)
+ */
+export function getAllCategories(): string[] {
+  return [...VALID_CATEGORIES];
+}
+
+/**
+ * Filter posts by category
+ */
+export function getPostsByCategory(category?: string): Post[] {
+  const allPosts = getAllPosts();
+
+  if (!category) return allPosts;
+
+  return allPosts.filter((post) => post.category === category);
 }
 

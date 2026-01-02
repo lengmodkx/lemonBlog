@@ -14,6 +14,7 @@ lastReadDate: 2025-07-15
 
 title: 两汉风云
 created: 2025-07-15
+category: 读书笔记
 tags:
   - reading
   - history
