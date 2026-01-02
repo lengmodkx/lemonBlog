@@ -1,13 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable static exports for deployment
-  output: 'export',
-  trailingSlash: true,
+  // Vercel deployment optimization
+  // No 'output: export' needed - Vercel handles Next.js natively
 
   // Image configuration
   images: {
-    unoptimized: true, // Required for static export
+    // Vercel handles image optimization automatically
     remotePatterns: [
       {
         protocol: 'https',
