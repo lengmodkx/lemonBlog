@@ -113,11 +113,8 @@ export function extractFirstImage(content: string): string | null {
  * Remove the first image from markdown content to avoid duplication
  */
 export function removeFirstImage(content: string): string {
-  // Remove markdown image
-  let cleaned = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/, '');
-
-  // Remove HTML img tag
-  cleaned = cleaned.replace(/<img\s+[^>]*src=["']([^"']+)["'][^>]*>/gi, '');
+  // Remove only the first img tag (not all images)
+  let cleaned = content.replace(/<img\s+[^>]*src=["']([^"']+)["'][^>]*>/i, '');
 
   return cleaned.trim();
 }
