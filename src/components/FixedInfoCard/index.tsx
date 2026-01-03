@@ -23,7 +23,7 @@ export default function FixedInfoCard() {
   return (
     <div className="
       flex flex-col
-      backdrop-blur-md bg-white/80 dark:bg-ink-DEFAULT/80
+      backdrop-blur-md bg-paper-50/80 dark:bg-ink-DEFAULT/80
       border border-lavender-200 dark:border-lavender-800
       rounded-2xl shadow-md p-5
       hover:scale-105

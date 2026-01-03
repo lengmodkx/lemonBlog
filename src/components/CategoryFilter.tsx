@@ -24,28 +24,33 @@ export default function CategoryFilter({
     router.push(`/blog?${params.toString()}`);
   };
 
+  const buttonClasses = (isSelected: boolean) =>
+    `px-4 py-2 rounded-full text-sm font-bold
+    transition-all duration-300 ease-out
+    hover:scale-105 hover:-translate-y-0.5
+    hover:shadow-lg
+    ${isSelected
+      ? 'bg-primary hover:bg-primary-hover text-white shadow-xl shadow-primary/40 scale-105 border-2 border-primary ring-2 ring-primary/30'
+      : 'bg-lavender-100 dark:bg-lavender-900/30 hover:bg-lavender-200 dark:hover:bg-lavender-800/50 text-ink dark:text-text-primary shadow-md border border-transparent hover:border-lavender-300 dark:hover:border-lavender-700'
+    }
+    animate-fade-in`;
+
   return (
     <div className="mb-6">
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => updateFilter()}
-          className={`px-4 py-2 rounded-full text-sm transition-colors ${
-            !selectedCategory
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
-          }`}
+          className={buttonClasses(!selectedCategory)}
+          style={{ animationDelay: '0ms' }}
         >
           全部
         </button>
-        {categories.map((cat) => (
+        {categories.map((cat, index) => (
           <button
             key={cat}
             onClick={() => updateFilter(cat)}
-            className={`px-4 py-2 rounded-full text-sm transition-colors ${
-              selectedCategory === cat
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
-            }`}
+            className={buttonClasses(selectedCategory === cat)}
+            style={{ animationDelay: `${(index + 1) * 50}ms` }}
           >
             {cat}
           </button>
