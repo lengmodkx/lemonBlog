@@ -12,6 +12,31 @@ export default function GiscusComments() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Get environment variables with fallbacks
+  const repo = process.env.NEXT_PUBLIC_GISCUS_REPO || 'lengmodkx/lemonBlog';
+  const repoId = process.env.NEXT_PUBLIC_GISCUS_REPO_ID || '';
+  const category = process.env.NEXT_PUBLIC_GISCUS_CATEGORY || 'Announcements';
+  const categoryId = process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID || '';
+
+  // Only render Giscus if all required env vars are present
+  if (!repoId || !categoryId) {
+    return (
+      <div className="mt-12">
+        <div className="mb-6">
+          <h3 className="text-2xl font-bold text-ink dark:text-text-primary mb-2 flex items-center gap-2">
+            <span className="text-2xl">💬</span>
+            <span>文章评论</span>
+          </h3>
+        </div>
+        <div className="bg-lavender-50 dark:bg-lavender-900/20 rounded-xl p-6 border border-lavender-200 dark:border-lavender-800 text-center">
+          <p className="text-text-muted">
+            评论功能暂不可用，请配置环境变量
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-12">
       {/* 标题区域 */}
@@ -40,10 +65,10 @@ export default function GiscusComments() {
         {/* Giscus 组件 */}
         <Giscus
           id="comments"
-          repo={process.env.NEXT_PUBLIC_GISCUS_REPO}
-          repoId={process.env.NEXT_PUBLIC_GISCUS_REPO_ID}
-          category={process.env.NEXT_PUBLIC_GISCUS_CATEGORY}
-          categoryId={process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID}
+          repo={repo as `${string}/${string}`}
+          repoId={repoId}
+          category={category}
+          categoryId={categoryId}
           mapping="title"
           reactionsEnabled="1"
           emitMetadata="0"
@@ -51,7 +76,6 @@ export default function GiscusComments() {
           theme="preferred_color_scheme"
           lang="zh-CN"
           loading="lazy"
-          className="rounded-xl"
         />
       </div>
 
