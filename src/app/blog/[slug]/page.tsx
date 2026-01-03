@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getPostBySlug, getAllPosts } from '@/lib/posts';
 import TableOfContents from '@/components/TableOfContents';
+import ReadingProgress from '@/components/ReadingProgress';
+import GiscusComments from '@/components/GiscusComments';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -36,8 +38,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="min-h-screen bg-paper-50 dark:bg-ink-DEFAULT">
+      {/* Reading Progress Bar */}
+      <ReadingProgress />
       <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="flex gap-8">
+        <div className="flex gap-24">
           {/* Main Article Content */}
           <article className="flex-1 max-w-2xl">
             {/* Back Link */}
@@ -94,6 +98,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 感谢阅读
               </p>
             </footer>
+
+            {/* Comments Section */}
+            <GiscusComments />
           </article>
 
           {/* Table of Contents */}

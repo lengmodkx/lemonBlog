@@ -85,8 +85,8 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   if (headings.length === 0) return null;
 
   return (
-    <div className="hidden lg:block sticky top-24">
-      <div className="ml-8 w-64">
+    <div className="hidden lg:block sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto">
+      <div className="w-64">
         <h3 className="text-sm font-bold text-ink dark:text-text-primary mb-4 flex items-center gap-2">
           <span>📑</span>
           <span>目录</span>
