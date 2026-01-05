@@ -1151,4 +1151,4 @@ OpenCode + oh-my-opencode的组合为开发者提供了强大的AI编程助手�
 **文档版本**: 1.1
 **最后更新**: 2026-01-04
 **新增内容**: GLM-4.7和MiniMax M2.1配置指南
-**维护者**: @your-username
+**维护者**: lengmodkx@gmail.com

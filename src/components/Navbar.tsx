@@ -33,9 +33,9 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-paper-50/80 dark:bg-ink-DEFAULT/80 backdrop-blur-sm">
       <div className="max-w-2xl mx-auto px-4">
-        <div className="flex justify-center items-center h-16">
+        <div className="flex justify-between items-center h-16">
           {/* Avatar Logo */}
-          <Link href="/" className="flex items-center mr-8">
+          <Link href="/" className="flex items-center">
             <div className="relative w-10 h-10">
               <Image
                 src="/images/avatar.jpg"
@@ -47,7 +47,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Navigation Links */}
+          {/* Navigation Links and Theme Toggle */}
           <div className="flex items-center gap-8">
             {navigation.map((item) => (
               <Link

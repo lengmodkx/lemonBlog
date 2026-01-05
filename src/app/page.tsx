@@ -21,45 +21,45 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative max-w-2xl mx-auto px-4 py-24">
+      <section className="relative max-w-3xl mx-auto px-4 py-36">
         {/* Greeting */}
-        <p className="text-primary font-medium mb-4">👋 Howdy, fellow!</p>
+        <p className="text-primary font-medium mb-8 text-5xl lg:text-6xl">Howdy, fellow! 👋</p>
 
         {/* Main Content with Info and Fixed Card */}
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_16rem] items-stretch gap-0 sm:gap-12 lg:gap-16 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_20rem] items-stretch gap-0 lg:gap-28 mb-16">
           {/* Self Introduction */}
           <div className="flex flex-col">
-            <h1 className="text-3xl font-bold text-ink dark:text-text-primary mb-2">
+            <h1 className="text-lg font-bold text-ink dark:text-text-primary mb-6 leading-tight">
               I&apos;m <span className="text-primary">lemon</span>
             </h1>
-            <p className="text-text-secondary text-base mb-6">
+            <p className="text-text-secondary text-xl lg:text-2xl mb-12 leading-relaxed">
               Learner | Builder | Java Backend Developer
             </p>
 
             {/* Introduction */}
-            <div className="space-y-2 text-text-secondary text-sm">
-              <p className="flex items-start gap-2">
-                <span className="shrink-0">•</span>
+            <div className="space-y-5 text-text-secondary text-lg leading-relaxed">
+              <p className="flex items-start gap-3">
+                <span className="shrink-0 mt-1">•</span>
                 <span>I&apos;m a learner, builder, and knowledge seeker.</span>
               </p>
-              <p className="flex items-start gap-2">
-                <span className="shrink-0">•</span>
+              <p className="flex items-start gap-3">
+                <span className="shrink-0 mt-1">•</span>
                 <span>I live in China and work as a backend engineer.</span>
               </p>
-              <p className="flex items-start gap-2">
-                <span className="shrink-0">•</span>
+              <p className="flex items-start gap-3">
+                <span className="shrink-0 mt-1">•</span>
                 <span>My first programming language was Java.</span>
               </p>
-              <p className="flex items-start gap-2">
-                <span className="shrink-0">•</span>
+              <p className="flex items-start gap-3">
+                <span className="shrink-0 mt-1">•</span>
                 <span>I work mostly with Java technologies.</span>
               </p>
-              <p className="flex items-start gap-2">
-                <span className="shrink-0">•</span>
+              <p className="flex items-start gap-3">
+                <span className="shrink-0 mt-1">•</span>
                 <span>I love coding, reading, and sharing knowledge.</span>
               </p>
-              <p className="flex items-start gap-2">
-                <span className="shrink-0">•</span>
+              <p className="flex items-start gap-3">
+                <span className="shrink-0 mt-1">•</span>
                 <span>I started this blog to document and share my experience.</span>
               </p>
             </div>
@@ -70,16 +70,16 @@ export default function Home() {
         </div>
 
         {/* Tech Stack */}
-        <div className="mb-8">
-          <p className="text-sm text-text-muted mb-3 flex items-center gap-2">
+        <div className="mb-12">
+          <p className="text-base text-text-muted mb-5 flex items-center gap-2">
             <span>💻</span>
             <span>I work with:</span>
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {['Java', 'Spring Boot', 'MySQL', 'Redis', 'Docker', 'Python'].map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 rounded-full bg-lavender-100 dark:bg-lavender-900/30 text-primary dark:text-lavender-400 text-sm"
+                className="px-4 py-2 rounded-full bg-lavender-100 dark:bg-lavender-900/30 text-primary dark:text-lavender-400 text-base font-medium"
               >
                 {tech}
               </span>
@@ -88,16 +88,16 @@ export default function Home() {
         </div>
 
         {/* Quick Links */}
-        <div className="flex flex-wrap gap-4 text-sm">
-          <Link href="/blog" className="text-text-muted hover:text-primary transition-colors flex items-center gap-1">
+        <div className="flex flex-wrap gap-6 text-base">
+          <Link href="/blog" className="text-text-muted hover:text-primary transition-colors flex items-center gap-2">
             <span>📝</span>
             <span>My writings</span>
           </Link>
-          <Link href="/about" className="text-text-muted hover:text-primary transition-colors flex items-center gap-1">
+          <Link href="/about" className="text-text-muted hover:text-primary transition-colors flex items-center gap-2">
             <span>👤</span>
             <span>About me</span>
           </Link>
-          <a href="https://github.com/lengmodkx" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-primary transition-colors flex items-center gap-1">
+          <a href="https://github.com/lengmodkx" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-primary transition-colors flex items-center gap-2">
             <span>🔗</span>
             <span>GitHub</span>
           </a>
@@ -105,33 +105,33 @@ export default function Home() {
       </section>
 
       {/* Divider */}
-      <div className="max-w-2xl mx-auto px-4">
+      <div className="max-w-3xl mx-auto px-4">
         <div className="h-px bg-gradient-to-r from-transparent via-lavender-300 dark:via-lavender-700 to-transparent" />
       </div>
 
       {/* Latest Posts */}
-      <section className="max-w-2xl mx-auto px-4 py-12">
-        <h2 className="text-xl font-semibold text-ink dark:text-text-primary mb-6 flex items-center gap-2">
+      <section className="max-w-3xl mx-auto px-4 py-20">
+        <h2 className="text-2xl font-semibold text-ink dark:text-text-primary mb-10 flex items-center gap-2">
           <span>📚</span>
           <span>Latest posts</span>
         </h2>
 
         {latestPosts.length > 0 ? (
-          <div className="space-y-6">
+          <div className="space-y-10">
             {latestPosts.map((post) => (
               <ArticleCard key={post.slug} post={post} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-12">
-            <p className="text-text-muted">No posts yet</p>
+          <div className="text-center py-16">
+            <p className="text-text-muted text-lg">No posts yet</p>
           </div>
         )}
 
-        <div className="mt-8 text-center">
+        <div className="mt-12 text-center">
           <Link
             href="/blog"
-            className="text-sm text-primary hover:text-primary-hover transition-colors"
+            className="text-base text-primary hover:text-primary-hover transition-colors font-medium"
           >
             View all posts →
           </Link>
@@ -139,10 +139,10 @@ export default function Home() {
       </section>
 
       {/* Footer Info */}
-      <section className="max-w-2xl mx-auto px-4 pb-12">
-        <div className="h-px bg-gradient-to-r from-transparent via-lavender-300 dark:via-lavender-700 to-transparent mb-8" />
+      <section className="max-w-3xl mx-auto px-4 pb-20">
+        <div className="h-px bg-gradient-to-r from-transparent via-lavender-300 dark:via-lavender-700 to-transparent mb-12" />
 
-        <div className="text-center space-y-3">
+        <div className="text-center space-y-4">
           <p className="text-text-muted text-sm">
             <span className="font-medium">lemon</span> | Java Backend Developer
           </p>
