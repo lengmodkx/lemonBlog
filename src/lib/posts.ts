@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
+import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
 import rehypePrismPlus from 'rehype-prism-plus';
@@ -233,6 +234,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 
     // Process markdown content
     const processedContent = await remark()
+      .use(remarkGfm)
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypePrismPlus, {
         ignoreMissing: true,

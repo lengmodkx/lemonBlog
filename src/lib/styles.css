@@ -282,16 +282,19 @@ html.dark {
    Tables
    ======================================== */
 
-.markdown-content table {
+.markdown-content table,
+.prose table {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
   border-radius: 0.5rem;
   overflow: hidden;
   border: 1px solid var(--article-border);
+  font-size: 0.95rem;
 }
 
-.markdown-content th {
+.markdown-content th,
+.prose th {
   background-color: var(--article-table-header);
   font-weight: 600;
   text-align: left;
@@ -303,18 +306,48 @@ html.dark {
   color: var(--article-text);
 }
 
-.markdown-content td {
+.markdown-content td,
+.prose td {
   padding: 0.875rem 1rem;
   border-bottom: 1px solid var(--article-border);
   vertical-align: top;
+  line-height: 1.6;
 }
 
-.markdown-content tbody tr:last-child td {
+.markdown-content tbody tr:last-child td,
+.prose tbody tr:last-child td {
   border-bottom: none;
 }
 
-.markdown-content tbody tr:nth-child(even) {
+.markdown-content tbody tr:nth-child(even),
+.prose tbody tr:nth-child(even) {
   background-color: var(--article-table-stripe);
+}
+
+/* Table hover effect */
+.markdown-content tbody tr:hover,
+.prose tbody tr:hover {
+  background-color: rgba(139, 92, 246, 0.05);
+}
+
+html.dark .markdown-content tbody tr:hover,
+html.dark .prose tbody tr:hover {
+  background-color: rgba(139, 92, 246, 0.1);
+}
+
+/* Responsive tables */
+@media (max-width: 768px) {
+  .markdown-content table,
+  .prose table {
+    font-size: 0.875rem;
+  }
+
+  .markdown-content th,
+  .markdown-content td,
+  .prose th,
+  .prose td {
+    padding: 0.625rem 0.75rem;
+  }
 }
 
 /* ========================================
