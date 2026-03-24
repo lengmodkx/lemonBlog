@@ -11,8 +11,6 @@ tags:
   - format/article
 ---
 
-# RustFS 部署指南（含 Nginx SSL 反向代理）
-
 > 在 Ubuntu 服务器上部署 RustFS 对象存储服务，使用自定义端口 + Nginx SSL 反向代理，避免中国大陆域名备案问题。
 
 ## 架构概述
@@ -295,7 +293,7 @@ sudo ln -sf /etc/nginx/sites-available/rustfs-console /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-> **⚠️ 注意**：RustFS v1.0.0-alpha 版本的 Web 控制台有已知 Bug，可能出现 `SignatureDoesNotMatch` 登录错误。建议使用 [mc 命令行客户端](#使用-mc-命令行客户端) 代替。
+> **⚠️ 注意**：RustFS v1.0.0-alpha 版本的 Web 控制台有已知 Bug，可能出现 `SignatureDoesNotMatch` 登录错误。建议使用 [mc 命令行客户端](#使用mc命令行客户端) 代替。
 
 ---
 
@@ -344,7 +342,7 @@ sudo systemctl status rustfs
 - **Access Key**: 你设置的 `RUSTFS_ACCESS_KEY` 值
 - **Secret Key**: 你设置的 `RUSTFS_SECRET_KEY` 值
 
-> **提示**：如果 Web 控制台登录失败，请使用 [mc 命令行客户端](#使用-mc-命令行客户端) 管理存储桶。
+> **提示**：如果 Web 控制台登录失败，请使用 [mc 命令行客户端](#使用mc命令行客户端) 管理存储桶。
 
 ---
 
@@ -394,7 +392,7 @@ sudo ss -tlnp | grep -E "9000|9001|9443|9444"
 
 ---
 
-## 使用 mc 命令行客户端
+## 使用mc命令行客户端
 
 由于 RustFS v1.0.0-alpha 版本的 Web 控制台存在登录 Bug，推荐使用 MinIO 客户端 (`mc`) 进行管理：
 
