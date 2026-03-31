@@ -1,0 +1,113 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "lemon" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "lemon" [ref=e7]
+      - generic [ref=e9]:
+        - link "Home" [ref=e10] [cursor=pointer]:
+          - /url: /
+        - link "Blog" [ref=e11] [cursor=pointer]:
+          - /url: /blog
+        - link "About" [ref=e12] [cursor=pointer]:
+          - /url: /about
+        - button "Toggle dark mode" [ref=e13]:
+          - img [ref=e14]
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - generic [ref=e19]:
+        - heading "博客风格选择器" [level=1] [ref=e20]
+        - paragraph [ref=e21]: 点击不同风格查看实际效果
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - button "手写笔记" [ref=e24]
+          - button "极简编辑" [ref=e25]
+          - button "复古终端" [ref=e26]
+          - button "日式冷淡" [ref=e27]
+          - button "瑞士国际主义" [ref=e28]
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - generic [ref=e31]:
+              - heading "风格信息" [level=2] [ref=e32]
+              - generic [ref=e33]:
+                - generic [ref=e34]:
+                  - text: 名称
+                  - paragraph [ref=e35]: 手写笔记
+                  - paragraph [ref=e36]: Handwritten Notes
+                - generic [ref=e37]:
+                  - text: 描述
+                  - paragraph [ref=e38]: 像一本打开的纸质笔记本，温暖、亲切、有人情味
+                - generic [ref=e39]:
+                  - text: 配色方案
+                  - generic [ref=e40]:
+                    - generic [ref=e43]: bg
+                    - generic [ref=e46]: text
+                    - generic [ref=e49]: accent
+                    - generic [ref=e52]: secondary
+                    - generic [ref=e55]: border
+                - generic [ref=e56]:
+                  - text: 字体
+                  - paragraph [ref=e57]: "标题: Patrick Hand, cursive"
+                  - paragraph [ref=e58]: "正文: Inter, sans-serif"
+            - generic [ref=e59]:
+              - heading "色值" [level=2] [ref=e60]
+              - generic [ref=e61]:
+                - generic [ref=e64]:
+                  - text: bg
+                  - paragraph [ref=e65]: "#FDFBF7"
+                - generic [ref=e68]:
+                  - text: text
+                  - paragraph [ref=e69]: "#2C3E33"
+                - generic [ref=e72]:
+                  - text: accent
+                  - paragraph [ref=e73]: "#C75B39"
+                - generic [ref=e76]:
+                  - text: secondary
+                  - paragraph [ref=e77]: "#F5F1E8"
+                - generic [ref=e80]:
+                  - text: border
+                  - paragraph [ref=e81]: "#D4CFC4"
+          - generic [ref=e82]:
+            - heading "实时预览" [level=2] [ref=e83]
+            - generic [ref=e84]:
+              - generic [ref=e86]:
+                - generic [ref=e87]: Lemon Blog
+                - generic [ref=e88]:
+                  - generic [ref=e89]: 首页
+                  - generic [ref=e90]: 文章
+                  - generic [ref=e91]: 关于
+              - generic [ref=e92]:
+                - heading "探索编程的艺术之美" [level=1] [ref=e93]
+                - generic [ref=e94]:
+                  - generic [ref=e95]: 2024年3月15日
+                  - generic [ref=e96]: 阅读时间 5 分钟
+                - generic [ref=e97]:
+                  - paragraph [ref=e98]: 编程不仅仅是一门技术，更是一门艺术。当我们写下每一行代码时， 就像画家在画布上挥洒颜料， musician 在演奏乐器。
+                  - paragraph [ref=e99]: 好的代码应该像诗歌一样优美，简洁而有力。它不仅要能正确运行， 更要让人读得懂、看得明白。
+                - heading "代码示例" [level=2] [ref=e100]
+                - code [ref=e102]:
+                  - text: "function greet(name) {"
+                  - text: "return `Hello, ${name}!`;"
+                  - text: "}"
+                - button "阅读更多" [ref=e103]
+                - generic [ref=e104]:
+                  - heading "相关文章" [level=3] [ref=e105]
+                  - paragraph [ref=e106]: 探索更多关于编程、设计和创作的精彩内容。
+                - generic [ref=e107]:
+                  - generic [ref=e108]: 编程
+                  - generic [ref=e109]: 设计
+                  - generic [ref=e110]: 思考
+              - generic [ref=e111]: © 2024 Lemon Blog · 用心记录每一刻
+  - contentinfo [ref=e112]:
+    - generic [ref=e115]:
+      - paragraph [ref=e116]: © 2026 lemon. All rights reserved.
+      - generic [ref=e117]:
+        - link "GitHub" [ref=e118] [cursor=pointer]:
+          - /url: https://github.com/lengmodkx
+        - link "Twitter" [ref=e119] [cursor=pointer]:
+          - /url: https://twitter.com/DKX_LM
+        - link "Telegram" [ref=e120] [cursor=pointer]:
+          - /url: https://t.me/lemon2Judy
+  - button "Open Next.js Dev Tools" [ref=e126] [cursor=pointer]:
+    - img [ref=e127]
+  - alert [ref=e130]

@@ -1,7 +1,16 @@
 const fs = require('fs');
 const matter = require('gray-matter');
+const path = require('path');
 
-const filePath = 'D:\\lemonArticle\\my-article\\博客文章\\kk聊房价.md';
+// 从命令行参数获取文件路径，默认使用示例路径
+const filePath = process.argv[2] || path.join(process.cwd(), 'content', 'articles', 'example.md');
+
+if (!fs.existsSync(filePath)) {
+  console.error(`文件不存在: ${filePath}`);
+  console.error('用法: node fix-anchors.js <文章路径>');
+  process.exit(1);
+}
+
 const content = fs.readFileSync(filePath, 'utf8');
 
 // Split frontmatter and content
@@ -72,5 +81,5 @@ const newContent = matter.stringify(fixedContent, data);
 // Write back
 fs.writeFileSync(filePath, newContent, 'utf8');
 
-console.log('✅ Fixed anchor links in kk聊房价.md');
+console.log(`✅ Fixed anchor links in ${path.basename(filePath)}`);
 console.log(`   Processed ${seenIds.size} headings`);

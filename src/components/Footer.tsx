@@ -2,15 +2,12 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto">
-      <div className="max-w-2xl mx-auto px-4 py-8">
-        {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-lavender-300 dark:via-lavender-700 to-transparent mb-6" />
-
+    <footer className="mt-auto border-t border-border">
+      <div className="max-w-3xl mx-auto px-6 py-8">
         {/* Content */}
-        <div className="flex flex-col items-center gap-4">
-          <p className="text-sm text-text-muted">
-            © {currentYear} lemon. All rights reserved.
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-ink-light">
+            © {currentYear} lemon
           </p>
 
           {/* Social Links */}
@@ -19,7 +16,7 @@ export default function Footer() {
               href="https://github.com/lengmodkx"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-text-muted hover:text-primary transition-colors"
+              className="text-sm text-ink-light hover:text-accent transition-colors"
             >
               GitHub
             </a>
@@ -27,7 +24,7 @@ export default function Footer() {
               href="https://twitter.com/DKX_LM"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-text-muted hover:text-primary transition-colors"
+              className="text-sm text-ink-light hover:text-accent transition-colors"
             >
               Twitter
             </a>
@@ -35,7 +32,7 @@ export default function Footer() {
               href="https://t.me/lemon2Judy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-text-muted hover:text-primary transition-colors"
+              className="text-sm text-ink-light hover:text-accent transition-colors"
             >
               Telegram
             </a>

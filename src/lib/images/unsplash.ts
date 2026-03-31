@@ -26,9 +26,13 @@ class UnsplashService {
   private config: UnsplashConfig;
 
   constructor() {
-    // 使用演示密钥，生产环境需要申请自己的 Access Key
+    // 生产环境需要在 .env.local 中配置 UNSPLASH_ACCESS_KEY
+    const clientId = process.env.UNSPLASH_ACCESS_KEY;
+    if (!clientId) {
+      console.warn('[UnsplashService] UNSPLASH_ACCESS_KEY 未配置，使用占位图片');
+    }
     this.config = {
-      clientId: process.env.UNSPLASH_ACCESS_KEY || 'demo',
+      clientId,
       baseUrl: 'https://api.unsplash.com',
       perPage: 30
     };
@@ -45,8 +49,8 @@ class UnsplashService {
     page: number = 1,
     orientation: 'landscape' | 'portrait' | 'squarish' = 'landscape'
   ): Promise<UnsplashPhoto[]> {
-    if (this.config.clientId === 'demo') {
-      // 返回一些预设的示例图片URL
+    if (!this.config.clientId) {
+      // 未配置 API Key，返回占位图片
       return this.getPlaceholderImages(query, orientation);
     }
 
@@ -89,7 +93,7 @@ class UnsplashService {
     query: string = 'technology',
     orientation: 'landscape' | 'portrait' | 'squarish' = 'landscape'
   ): Promise<UnsplashPhoto | null> {
-    if (this.config.clientId === 'demo') {
+    if (!this.config.clientId) {
       const placeholders = this.getPlaceholderImages(query, orientation);
       return placeholders[Math.floor(Math.random() * placeholders.length)];
     }
@@ -127,7 +131,7 @@ class UnsplashService {
    */
   private getPlaceholderImages(
     query: string,
-    orientation: 'landscape' | 'portrait' | 'squarish'
+    _orientation: 'landscape' | 'portrait' | 'squarish'
   ): UnsplashPhoto[] {
     // 根据关键词返回相关的示例图片
     const baseImages = {

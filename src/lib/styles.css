@@ -1,42 +1,42 @@
-/* Custom styles for Markdown content */
-@import 'prism-themes/themes/prism-vsc-dark-plus.css';
+/* Custom styles for Markdown content - 手写笔记风格 */
+@import 'prism-themes/themes/prism-vs.css';
 
 /* ========================================
    Markdown Article Styles
    ======================================== */
 
-/* Light theme base */
+/* Light theme base - 手写笔记风格 */
 html:not(.dark) {
-  --article-bg: #ffffff;
-  --article-text: #374151;
-  --article-text-muted: #6b7280;
-  --article-border: #e5e7eb;
-  --article-accent: #f59e0b;
-  --article-code-bg: #f3f4f6;
-  --article-pre-bg: #1e293b;
-  --article-blockquote-bg: #fffbeb;
-  --article-blockquote-border: #f59e0b;
-  --article-link: #2563eb;
-  --article-link-hover: #1d4ed8;
-  --article-table-header: #f9fafb;
-  --article-table-stripe: #f9fafb;
+  --article-bg: #FDFBF7;
+  --article-text: #3D3D3D;
+  --article-text-muted: #4A6355;
+  --article-border: #D4CFC4;
+  --article-accent: #C75B39;
+  --article-code-bg: #F5F1E8;
+  --article-pre-bg: #F5F1E8;
+  --article-blockquote-bg: transparent;
+  --article-blockquote-border: #C75B39;
+  --article-link: #C75B39;
+  --article-link-hover: #A84A2D;
+  --article-table-header: #F5F1E8;
+  --article-table-stripe: #FDFBF7;
 }
 
-/* Dark theme base */
+/* Dark theme base - 深墨绿色调 */
 html.dark {
-  --article-bg: #111827;
-  --article-text: #e5e7eb;
-  --article-text-muted: #9ca3af;
-  --article-border: #374151;
-  --article-accent: #fbbf24;
-  --article-code-bg: #1f2937;
-  --article-pre-bg: #0f172a;
-  --article-blockquote-bg: #1f2937;
-  --article-blockquote-border: #fbbf24;
-  --article-link: #60a5fa;
-  --article-link-hover: #93c5fd;
-  --article-table-header: #1f2937;
-  --article-table-stripe: #111827;
+  --article-bg: #1A1F1C;
+  --article-text: #B0C0B2;
+  --article-text-muted: #A8B8AA;
+  --article-border: #3A453D;
+  --article-accent: #D97B5D;
+  --article-code-bg: #232925;
+  --article-pre-bg: #232925;
+  --article-blockquote-bg: transparent;
+  --article-blockquote-border: #D97B5D;
+  --article-link: #D97B5D;
+  --article-link-hover: #E89B7D;
+  --article-table-header: #232925;
+  --article-table-stripe: #1A1F1C;
 }
 
 /* ========================================
@@ -46,7 +46,7 @@ html.dark {
 .markdown-content {
   color: var(--article-text);
   line-height: 1.8;
-  font-size: 1.05rem;
+  font-size: 1.0625rem;
 }
 
 .markdown-content p {
@@ -55,35 +55,36 @@ html.dark {
 }
 
 /* ========================================
-   Headings
+   Headings - 手写体
    ======================================== */
 
 .markdown-content h1 {
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: 2.25rem;
+  font-weight: 600;
   color: var(--article-text);
-  margin: 2.5rem 0 1.25rem 0;
-  line-height: 1.3;
-  letter-spacing: -0.025em;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+  font-family: var(--font-patrick-hand), 'Caveat', cursive;
 }
 
 .markdown-content h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--article-text);
-  margin: 2.5rem 0 1rem 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--article-border);
-  line-height: 1.4;
-  letter-spacing: -0.02em;
-}
-
-.markdown-content h3 {
-  font-size: 1.25rem;
+  font-size: 1.75rem;
   font-weight: 600;
   color: var(--article-text);
   margin: 2rem 0 0.75rem 0;
-  line-height: 1.5;
+  padding-bottom: 0.25em;
+  border-bottom: 2px solid var(--article-border);
+  line-height: 1.3;
+  font-family: var(--font-patrick-hand), 'Caveat', cursive;
+}
+
+.markdown-content h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--article-text);
+  margin: 1.75rem 0 0.5rem 0;
+  line-height: 1.4;
+  font-family: var(--font-patrick-hand), 'Caveat', cursive;
 }
 
 .markdown-content h4 {
@@ -92,6 +93,7 @@ html.dark {
   color: var(--article-text);
   margin: 1.5rem 0 0.5rem 0;
   line-height: 1.5;
+  font-family: var(--font-patrick-hand), 'Caveat', cursive;
 }
 
 /* ========================================
@@ -102,33 +104,13 @@ html.dark {
   color: var(--article-link);
   text-decoration: none;
   font-weight: 500;
-  transition: all 0.2s ease;
   border-bottom: 1px solid transparent;
-  padding-bottom: 1px;
+  transition: border-color 0.15s ease;
 }
 
 .markdown-content a:hover {
   color: var(--article-link-hover);
   border-bottom-color: var(--article-link-hover);
-}
-
-/* External link indicator */
-.markdown-content a[href^="http"]::after {
-  content: '';
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  margin-left: 4px;
-  margin-right: 2px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'/%3E%3C/svg%3E");
-  background-size: contain;
-  vertical-align: middle;
-  opacity: 0.6;
-  transition: opacity 0.2s ease;
-}
-
-.markdown-content a[href^="http"]:hover::after {
-  opacity: 1;
 }
 
 /* ========================================
@@ -140,8 +122,8 @@ html.dark {
   font-size: 0.875em;
   background-color: var(--article-code-bg);
   color: var(--article-accent);
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.375rem;
+  padding: 0.15em 0.4em;
+  border-radius: 2px;
   font-weight: 500;
 }
 
@@ -151,22 +133,21 @@ html.dark {
 }
 
 /* ========================================
-   Code Blocks - Pre
+   Code Blocks - Pre - 纸质背景
    ======================================== */
 
 .markdown-content pre {
   background-color: var(--article-pre-bg);
-  border-radius: 0.75rem;
+  border-radius: 2px 4px 3px 5px;
   padding: 1.25rem;
   margin: 1.5rem 0;
   overflow-x: auto;
   border: 1px solid var(--article-border);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .markdown-content pre code {
   background-color: transparent;
-  color: #e5e7eb;
+  color: var(--article-text);
   padding: 0;
   font-size: 0.875rem;
   line-height: 1.7;
@@ -179,41 +160,26 @@ html.dark {
   display: block;
   font-size: 0.75rem;
   text-transform: uppercase;
-  color: #9ca3af;
+  color: var(--article-text-muted);
   margin-bottom: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.05em;
 }
 
 /* ========================================
-   Blockquotes
+   Blockquotes - 手写引用
    ======================================== */
 
 .markdown-content blockquote {
-  background-color: var(--article-blockquote-bg);
-  border-left: 4px solid var(--article-blockquote-border);
-  padding: 1rem 1.5rem;
+  border-left: 3px solid var(--article-blockquote-border);
+  padding-left: 1.25rem;
   margin: 1.5rem 0;
-  border-radius: 0 0.5rem 0.5rem 0;
-  position: relative;
-}
-
-.markdown-content blockquote::before {
-  content: '"';
-  position: absolute;
-  top: -0.5rem;
-  left: 1rem;
-  font-size: 3rem;
-  color: var(--article-blockquote-border);
-  opacity: 0.3;
-  font-family: Georgia, serif;
-  line-height: 1;
+  font-style: italic;
+  color: var(--article-text-muted);
 }
 
 .markdown-content blockquote p {
   margin: 0;
-  font-style: italic;
-  color: var(--article-text-muted);
 }
 
 .markdown-content blockquote cite {
@@ -234,7 +200,7 @@ html.dark {
 
 .markdown-content ul,
 .markdown-content ol {
-  margin: 1.5rem 0;
+  margin: 1.25rem 0;
   padding-left: 1.5rem;
 }
 
@@ -247,39 +213,16 @@ html.dark {
 }
 
 .markdown-content li {
-  margin-bottom: 0.75rem;
-  line-height: 1.7;
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
 }
 
 .markdown-content li::marker {
   color: var(--article-accent);
 }
 
-/* Task list */
-.markdown-content ul[type="task"] {
-  list-style: none;
-  padding-left: 0;
-}
-
-.markdown-content ul[type="task"] li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-.markdown-content ul[type="task"] li::before {
-  content: '';
-  display: inline-block;
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 2px solid var(--article-border);
-  border-radius: 0.25rem;
-  flex-shrink: 0;
-  margin-top: 0.125rem;
-}
-
 /* ========================================
-   Tables
+   Tables - 手写表格
    ======================================== */
 
 .markdown-content table,
@@ -287,31 +230,24 @@ html.dark {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  border: 1px solid var(--article-border);
-  font-size: 0.95rem;
+  font-size: 0.9375rem;
+}
+
+.markdown-content th,
+.markdown-content td,
+.prose th,
+.prose td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--article-border);
 }
 
 .markdown-content th,
 .prose th {
-  background-color: var(--article-table-header);
   font-weight: 600;
-  text-align: left;
-  padding: 0.875rem 1rem;
-  border-bottom: 2px solid var(--article-border);
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: var(--article-text);
-}
-
-.markdown-content td,
-.prose td {
-  padding: 0.875rem 1rem;
-  border-bottom: 1px solid var(--article-border);
-  vertical-align: top;
-  line-height: 1.6;
+  border-bottom-width: 2px;
+  background-color: var(--article-table-header);
 }
 
 .markdown-content tbody tr:last-child td,
@@ -319,53 +255,16 @@ html.dark {
   border-bottom: none;
 }
 
-.markdown-content tbody tr:nth-child(even),
-.prose tbody tr:nth-child(even) {
-  background-color: var(--article-table-stripe);
-}
-
-/* Table hover effect */
-.markdown-content tbody tr:hover,
-.prose tbody tr:hover {
-  background-color: rgba(139, 92, 246, 0.05);
-}
-
-html.dark .markdown-content tbody tr:hover,
-html.dark .prose tbody tr:hover {
-  background-color: rgba(139, 92, 246, 0.1);
-}
-
-/* Responsive tables */
-@media (max-width: 768px) {
-  .markdown-content table,
-  .prose table {
-    font-size: 0.875rem;
-  }
-
-  .markdown-content th,
-  .markdown-content td,
-  .prose th,
-  .prose td {
-    padding: 0.625rem 0.75rem;
-  }
-}
-
 /* ========================================
-   Images
+   Images - 手写图片
    ======================================== */
 
 .markdown-content img {
   max-width: 100%;
   height: auto;
-  border-radius: 0.75rem;
-  margin: 1.5rem 0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.markdown-content img:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+  margin: 2rem auto;
+  display: block;
 }
 
 /* Image caption */
@@ -373,31 +272,22 @@ html.dark .prose tbody tr:hover {
 .markdown-content figure + em {
   display: block;
   text-align: center;
-  margin-top: -1rem;
-  margin-bottom: 1.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
   font-size: 0.875rem;
   color: var(--article-text-muted);
   font-style: normal;
 }
 
 /* ========================================
-   Horizontal Rule
+   Horizontal Rule - 手绘分隔线
    ======================================== */
 
 .markdown-content hr {
   border: none;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--article-border), transparent);
+  background: var(--article-border);
   margin: 2.5rem 0;
-}
-
-.markdown-content hr::after {
-  content: '§';
-  display: block;
-  text-align: center;
-  margin-top: -0.6rem;
-  color: var(--article-text-muted);
-  font-size: 1rem;
 }
 
 /* ========================================
@@ -405,7 +295,7 @@ html.dark .prose tbody tr:hover {
    ======================================== */
 
 .markdown-content strong {
-  font-weight: 700;
+  font-weight: 600;
   color: var(--article-text);
 }
 
@@ -418,16 +308,6 @@ html.dark .prose tbody tr:hover {
 }
 
 /* ========================================
-   Delete / Strikethrough
-   ======================================== */
-
-.markdown-content del,
-.markdown-content s {
-  text-decoration: line-through;
-  color: var(--article-text-muted);
-}
-
-/* ========================================
    Keyboard Shortcuts
    ======================================== */
 
@@ -436,25 +316,8 @@ html.dark .prose tbody tr:hover {
   font-size: 0.8em;
   background-color: var(--article-code-bg);
   border: 1px solid var(--article-border);
-  border-radius: 0.25rem;
+  border-radius: 2px;
   padding: 0.15rem 0.4rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-/* ========================================
-   Mark / Highlight
-   ======================================== */
-
-.markdown-content mark {
-  background-color: #fef08a;
-  color: inherit;
-  padding: 0.1rem 0.25rem;
-  border-radius: 0.2rem;
-}
-
-html.dark .markdown-content mark {
-  background-color: #854d0e;
-  color: #fef9c3;
 }
 
 /* ========================================
@@ -463,7 +326,7 @@ html.dark .markdown-content mark {
 
 .markdown-content details {
   background-color: var(--article-code-bg);
-  border-radius: 0.5rem;
+  border-radius: 2px 4px 3px 5px;
   padding: 1rem;
   margin: 1.5rem 0;
   border: 1px solid var(--article-border);
@@ -502,15 +365,15 @@ html.dark .markdown-content mark {
   }
 
   .markdown-content h1 {
-    font-size: 1.75rem;
+    font-size: 1.875rem;
   }
 
   .markdown-content h2 {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
   }
 
   .markdown-content h3 {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
   }
 
   .markdown-content pre {
@@ -520,8 +383,7 @@ html.dark .markdown-content mark {
   }
 
   .markdown-content blockquote {
-    margin: 1rem -1rem;
-    border-radius: 0;
+    margin: 1rem 0;
   }
 }
 
@@ -541,7 +403,7 @@ html.dark .markdown-content mark {
 
   .markdown-content pre,
   .markdown-content blockquote {
-    background-color: #f9fafb;
-    border: 1px solid #e5e7eb;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
   }
 }

@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
 import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
+// import rehypeHighlight from 'rehype-highlight'; // 未使用，使用 rehype-prism-plus 代替
 import rehypeStringify from 'rehype-stringify';
 import rehypePrismPlus from 'rehype-prism-plus';
 import { Post, VALID_CATEGORIES } from '@/types/post';
@@ -55,7 +55,7 @@ function fixImagePaths(content: string, slug: string): string {
   const perArticleImgDir = path.join(postsDirectory, slug, 'img');
 
   // Fix markdown image syntax: ![alt](img/xxx.jpg) -> ![alt](/articles/.../xxx.jpg)
-  let fixed = content.replace(/!\[([^\]]*)\]\((img\/[^)]+)\)/g, (match, alt, imgPath) => {
+  let fixed = content.replace(/!\[([^\]]*)\]\((img\/[^)]+)\)/g, (_match, alt, imgPath) => {
     const filename = path.basename(imgPath);
 
     // Check if image exists in per-article folder
@@ -66,7 +66,7 @@ function fixImagePaths(content: string, slug: string): string {
   });
 
   // Fix HTML img tag with relative paths (double quotes)
-  fixed = fixed.replace(/<img\s+([^>]*)src="(img\/[^"]+)"([^>]*)>/gi, (match, before, imgPath, after) => {
+  fixed = fixed.replace(/<img\s+([^>]*)src="(img\/[^"]+)"([^>]*)>/gi, (_match, before, imgPath, after) => {
     const filename = path.basename(imgPath);
     const usePerArticle = fs.existsSync(path.join(perArticleImgDir, filename));
     const prefix = usePerArticle ? `${slug}/img` : 'img';
@@ -75,7 +75,7 @@ function fixImagePaths(content: string, slug: string): string {
   });
 
   // Fix HTML img tag with relative paths (single quotes)
-  fixed = fixed.replace(/<img\s+([^>]*)src='(img\/[^']+)'([^>]*)>/gi, (match, before, imgPath, after) => {
+  fixed = fixed.replace(/<img\s+([^>]*)src='(img\/[^']+)'([^>]*)>/gi, (_match, before, imgPath, after) => {
     const filename = path.basename(imgPath);
     const usePerArticle = fs.existsSync(path.join(perArticleImgDir, filename));
     const prefix = usePerArticle ? `${slug}/img` : 'img';

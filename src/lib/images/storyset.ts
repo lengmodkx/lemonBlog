@@ -13,23 +13,9 @@ interface StorysetIllustration {
   data: string; // SVG数据
 }
 
-interface StorysetConfig {
-  baseUrl: string;
-  categories: string[];
-}
-
 class StorysetService {
-  private config: StorysetConfig;
-  private cachedIllustrations: Map<string, StorysetIllustration[]> = new Map();
-
   constructor() {
-    this.config = {
-      baseUrl: 'https://storyset.com',
-      categories: [
-        'web', 'mobile', 'data', 'security', 'business',
-        'education', 'health', 'lifestyle', 'technology'
-      ]
-    };
+    // Storyset 服务初始化
   }
 
   /**
@@ -44,7 +30,7 @@ class StorysetService {
       animated?: boolean;
     } = {}
   ): string {
-    const { color = '#0D47A1', mode = 'colored', animated = false } = options;
+    const { color = '#0D47A1', mode = 'colored' } = options;
 
     // 构建Storyset URL
     const baseUrl = `https://storyset.com/illustration/${illustrationId}`;
@@ -87,7 +73,6 @@ class StorysetService {
     } = {}
   ): StorysetIllustration | null {
     const illustrationIds = this.getIllustrationIds();
-    const { color = '#0D47A1', mode = 'colored', animated = false } = options;
 
     // 匹配标签到插画类别
     for (const tag of tags) {

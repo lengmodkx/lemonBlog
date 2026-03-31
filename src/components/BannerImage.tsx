@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { imageService, ImageAsset, ImageSource } from '@/lib/images';
 
 interface BannerImageProps {
@@ -31,11 +31,7 @@ export default function BannerImage({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadImage();
-  }, [tags, title, preferredSource, customImage]);
-
-  const loadImage = async () => {
+  const loadImage = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -85,9 +81,13 @@ export default function BannerImage({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [tags, title, preferredSource, customImage, width, height]);
 
-  const handleImageError = () => {
+  useEffect(() => {
+    loadImage();
+  }, [loadImage]);
+
+  const handleImageError = useCallback(() => {
     // 图片加载失败时，使用占位符
     setImageAsset({
       type: 'photo',
@@ -97,7 +97,7 @@ export default function BannerImage({
       title: title
     });
     setError('Image failed to load');
-  };
+  }, [width, height, title]);
 
   // 处理图片源的回退逻辑
   const [retryCount, setRetryCount] = useState(0);
@@ -109,11 +109,12 @@ export default function BannerImage({
       }, 1000 * retryCount); // 指数退避
       return () => clearTimeout(timer);
     }
-  }, [retryCount]);
+    return undefined;
+  }, [retryCount, loadImage]);
 
-  const handleRetry = () => {
+  const handleRetry = useCallback(() => {
     setRetryCount(prev => prev + 1);
-  };
+  }, []);
 
   if (isLoading) {
     return (
@@ -161,28 +162,17 @@ export default function BannerImage({
   return (
     <div className={`relative rounded-lg overflow-hidden ${className}`}>
       <div style={{ width, height }} className="relative">
-        {imageAsset.source === 'placeholder' ? (
-          // 占位符图片，使用原生 img 标签
-          <img
-            src={imageAsset.url}
-            alt={imageAsset.alt}
-            title={imageAsset.title}
-            className={`w-full h-full object-${objectFit}`}
-            onError={handleImageError}
-          />
-        ) : (
-          // 优化的图片，使用 Next.js Image 组件
-          <Image
-            src={imageAsset.url}
-            alt={imageAsset.alt}
-            title={imageAsset.title}
-            fill
-            className={`object-${objectFit}`}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1080px"
-            priority={true}
-            onError={handleImageError}
-          />
-        )}
+        <Image
+          src={imageAsset.url}
+          alt={imageAsset.alt}
+          title={imageAsset.title}
+          fill
+          className={`object-${objectFit}`}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1080px"
+          priority={true}
+          onError={handleImageError}
+          unoptimized={imageAsset.source === 'placeholder'}
+        />
 
         {/* 加载错误提示 */}
         {error && (

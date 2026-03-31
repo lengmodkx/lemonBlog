@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { getLatestPosts } from '@/lib/posts';
 import ArticleCard from '@/components/ArticleCard';
-import FixedInfoCard from '@/components/FixedInfoCard';
 
 export const metadata = {
   title: 'Lemon Blog',
@@ -9,164 +8,85 @@ export const metadata = {
 };
 
 export default function Home() {
-  const latestPosts = getLatestPosts(6);
+  const latestPosts = getLatestPosts(5);
 
   return (
-    <div className="min-h-screen bg-paper-50 dark:bg-ink-DEFAULT">
-      {/* Decorative Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[40%] h-[40%] rounded-full bg-lavender-200/30 dark:bg-lavender-900/20 blur-[120px]" />
-        <div className="absolute top-[30%] right-[-15%] w-[35%] h-[35%] rounded-full bg-purple-200/20 dark:bg-purple-900/20 blur-[100px]" />
-        <div className="absolute bottom-[-20%] left-[20%] w-[30%] h-[30%] rounded-full bg-pink-200/20 dark:bg-pink-900/20 blur-[80px]" />
-      </div>
-
+    <div className="min-h-screen bg-paper">
       {/* Hero Section */}
-      <section className="relative max-w-3xl mx-auto px-4 py-36">
-        {/* Greeting */}
-        <p className="text-primary font-medium mb-8 text-5xl lg:text-6xl">Howdy, fellow! 👋</p>
+      <section className="max-w-3xl mx-auto px-6 py-16 md:py-24">
+        {/* Simple Greeting */}
+        <p className="text-ink-light text-sm mb-4">你好，我是</p>
 
-        {/* Main Content with Info and Fixed Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_20rem] items-stretch gap-0 lg:gap-28 mb-16">
-          {/* Self Introduction */}
-          <div className="flex flex-col">
-            <h1 className="text-lg font-bold text-ink dark:text-text-primary mb-6 leading-tight">
-              I&apos;m <span className="text-primary">lemon</span>
-            </h1>
-            <p className="text-text-secondary text-xl lg:text-2xl mb-12 leading-relaxed">
-              Learner | Builder | Java Backend Developer
-            </p>
+        <h1 className="font-hand text-5xl md:text-6xl text-ink mb-6">
+          lemon
+        </h1>
 
-            {/* Introduction */}
-            <div className="space-y-5 text-text-secondary text-lg leading-relaxed">
-              <p className="flex items-start gap-3">
-                <span className="shrink-0 mt-1">•</span>
-                <span>I&apos;m a learner, builder, and knowledge seeker.</span>
-              </p>
-              <p className="flex items-start gap-3">
-                <span className="shrink-0 mt-1">•</span>
-                <span>I live in China and work as a backend engineer.</span>
-              </p>
-              <p className="flex items-start gap-3">
-                <span className="shrink-0 mt-1">•</span>
-                <span>My first programming language was Java.</span>
-              </p>
-              <p className="flex items-start gap-3">
-                <span className="shrink-0 mt-1">•</span>
-                <span>I work mostly with Java technologies.</span>
-              </p>
-              <p className="flex items-start gap-3">
-                <span className="shrink-0 mt-1">•</span>
-                <span>I love coding, reading, and sharing knowledge.</span>
-              </p>
-              <p className="flex items-start gap-3">
-                <span className="shrink-0 mt-1">•</span>
-                <span>I started this blog to document and share my experience.</span>
-              </p>
-            </div>
-          </div>
-
-          {/* Fixed Info Card */}
-          <FixedInfoCard />
-        </div>
+        <p className="text-ink-light text-lg mb-10 leading-relaxed max-w-lg">
+          一名 Java 后端开发者，喜欢编程、阅读和分享知识。
+          这个博客用于记录我的学习和思考。
+        </p>
 
         {/* Tech Stack */}
-        <div className="mb-12">
-          <p className="text-base text-text-muted mb-5 flex items-center gap-2">
-            <span>💻</span>
-            <span>I work with:</span>
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {['Java', 'Spring Boot', 'MySQL', 'Redis', 'Docker', 'Python'].map((tech) => (
-              <span
-                key={tech}
-                className="px-4 py-2 rounded-full bg-lavender-100 dark:bg-lavender-900/30 text-primary dark:text-lavender-400 text-base font-medium"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2 mb-10">
+          {['Java', 'Spring Boot', 'MySQL', 'Redis', 'Docker'].map((tech) => (
+            <span
+              key={tech}
+              className="px-3 py-1 text-sm text-ink-light border border-border rounded-sm bg-paper-dark"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
 
         {/* Quick Links */}
-        <div className="flex flex-wrap gap-6 text-base">
-          <Link href="/blog" className="text-text-muted hover:text-primary transition-colors flex items-center gap-2">
-            <span>📝</span>
-            <span>My writings</span>
+        <div className="flex flex-wrap gap-6 text-sm">
+          <Link href="/blog" className="text-accent hover:text-accent-muted transition-colors font-medium">
+            文章 →
           </Link>
-          <Link href="/about" className="text-text-muted hover:text-primary transition-colors flex items-center gap-2">
-            <span>👤</span>
-            <span>About me</span>
+          <Link href="/about" className="text-accent hover:text-accent-muted transition-colors font-medium">
+            关于 →
           </Link>
-          <a href="https://github.com/lengmodkx" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-primary transition-colors flex items-center gap-2">
-            <span>🔗</span>
-            <span>GitHub</span>
+          <a
+            href="https://github.com/lengmodkx"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:text-accent-muted transition-colors font-medium"
+          >
+            GitHub →
           </a>
         </div>
       </section>
 
       {/* Divider */}
-      <div className="max-w-3xl mx-auto px-4">
-        <div className="h-px bg-gradient-to-r from-transparent via-lavender-300 dark:via-lavender-700 to-transparent" />
+      <div className="max-w-3xl mx-auto px-6">
+        <div className="h-px bg-border" />
       </div>
 
       {/* Latest Posts */}
-      <section className="max-w-3xl mx-auto px-4 py-20">
-        <h2 className="text-2xl font-semibold text-ink dark:text-text-primary mb-10 flex items-center gap-2">
-          <span>📚</span>
-          <span>Latest posts</span>
+      <section className="max-w-3xl mx-auto px-6 py-12">
+        <h2 className="font-hand text-2xl text-ink mb-8">
+          最新文章
         </h2>
 
         {latestPosts.length > 0 ? (
-          <div className="space-y-10">
+          <div>
             {latestPosts.map((post) => (
               <ArticleCard key={post.slug} post={post} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <p className="text-text-muted text-lg">No posts yet</p>
+          <div className="text-center py-12">
+            <p className="text-ink-light">暂无文章</p>
           </div>
         )}
 
-        <div className="mt-12 text-center">
+        <div className="mt-8 text-center">
           <Link
             href="/blog"
-            className="text-base text-primary hover:text-primary-hover transition-colors font-medium"
+            className="text-sm text-accent hover:text-accent-muted transition-colors"
           >
-            View all posts →
+            查看全部文章 →
           </Link>
-        </div>
-      </section>
-
-      {/* Footer Info */}
-      <section className="max-w-3xl mx-auto px-4 pb-20">
-        <div className="h-px bg-gradient-to-r from-transparent via-lavender-300 dark:via-lavender-700 to-transparent mb-12" />
-
-        <div className="text-center space-y-4">
-          <p className="text-text-muted text-sm">
-            <span className="font-medium">lemon</span> | Java Backend Developer
-          </p>
-          <p className="text-xs text-text-muted flex items-center justify-center gap-1">
-            <span>📍</span>
-            <span>China · {new Date().getFullYear()}</span>
-          </p>
-          <div className="flex justify-center gap-4 text-xs text-text-muted">
-            <a href="https://github.com/lengmodkx" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-1">
-              <span>GitHub</span>
-            </a>
-            <span>•</span>
-            <a href="https://twitter.com/DKX_LM" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-1">
-              <span>Twitter</span>
-            </a>
-            <span>•</span>
-            <a href="https://t.me/lemon2Judy" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-1">
-              <span>Telegram</span>
-            </a>
-            <span>•</span>
-            <a href="mailto:lengmodkx@gmail.com" className="hover:text-primary transition-colors flex items-center gap-1">
-              <span>Email</span>
-            </a>
-          </div>
         </div>
       </section>
     </div>

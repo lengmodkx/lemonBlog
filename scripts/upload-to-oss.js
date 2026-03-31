@@ -90,8 +90,7 @@ async function main() {
 
   // 尝试多个可能的图片目录位置
   const possibleImgDirs = [
-    path.join('public/articles', slug, 'img'),
-    path.join('D:\\lemonArticle\\lemonBlog\\public\\articles', slug, 'img'),
+    path.join(process.cwd(), 'public/articles', slug, 'img'),
     path.join(articleDir, 'img'),
   ];
 

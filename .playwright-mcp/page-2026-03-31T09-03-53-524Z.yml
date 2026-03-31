@@ -1,0 +1,73 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "lemon" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "lemon" [ref=e7]
+      - generic [ref=e8]:
+        - link "首页" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "文章" [ref=e10] [cursor=pointer]:
+          - /url: /blog
+        - link "关于" [ref=e11] [cursor=pointer]:
+          - /url: /about
+        - button "Toggle dark mode" [ref=e13]:
+          - img [ref=e14]
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - paragraph [ref=e19]: 你好，我是
+        - heading "lemon" [level=1] [ref=e20]
+        - paragraph [ref=e21]: 一名 Java 后端开发者，喜欢编程、阅读和分享知识。 这个博客用于记录我的学习和思考。
+        - generic [ref=e22]:
+          - generic [ref=e23]: Java
+          - generic [ref=e24]: Spring Boot
+          - generic [ref=e25]: MySQL
+          - generic [ref=e26]: Redis
+          - generic [ref=e27]: Docker
+        - generic [ref=e28]:
+          - link "文章 →" [ref=e29] [cursor=pointer]:
+            - /url: /blog
+          - link "关于 →" [ref=e30] [cursor=pointer]:
+            - /url: /about
+          - link "GitHub →" [ref=e31] [cursor=pointer]:
+            - /url: https://github.com/lengmodkx
+      - generic [ref=e34]:
+        - heading "最新文章" [level=2] [ref=e35]
+        - generic [ref=e36]:
+          - article [ref=e37]:
+            - link "2026.03.31 MySQL 中文拼音排序问题" [ref=e38] [cursor=pointer]:
+              - /url: /blog/2025-12-25
+              - generic [ref=e39]:
+                - time [ref=e40]: 2026.03.31
+                - heading "MySQL 中文拼音排序问题" [level=3] [ref=e41]
+              - paragraph
+          - article [ref=e42]:
+            - link "2026.03.15 RustFS 部署指南（含 Nginx SSL 反向代理）" [ref=e43] [cursor=pointer]:
+              - /url: /blog/2026-03-15-rustfs-bu-shu-zhi-nan
+              - generic [ref=e44]:
+                - time [ref=e45]: 2026.03.15
+                - heading "RustFS 部署指南（含 Nginx SSL 反向代理）" [level=3] [ref=e46]
+              - paragraph
+          - article [ref=e47]:
+            - link "2024.07.21 索尼a6700初学者上手指南（FX30/ZVE1/A7C2/A7M4适用）" [ref=e48] [cursor=pointer]:
+              - /url: /blog/2025-07-21-sony-a6700-guide
+              - generic [ref=e49]:
+                - time [ref=e50]: 2024.07.21
+                - heading "索尼a6700初学者上手指南（FX30/ZVE1/A7C2/A7M4适用）" [level=3] [ref=e51]
+              - paragraph
+        - link "查看全部文章 →" [ref=e53] [cursor=pointer]:
+          - /url: /blog
+  - contentinfo [ref=e54]:
+    - generic [ref=e56]:
+      - paragraph [ref=e57]: © 2026 lemon
+      - generic [ref=e58]:
+        - link "GitHub" [ref=e59] [cursor=pointer]:
+          - /url: https://github.com/lengmodkx
+        - link "Twitter" [ref=e60] [cursor=pointer]:
+          - /url: https://twitter.com/DKX_LM
+        - link "Telegram" [ref=e61] [cursor=pointer]:
+          - /url: https://t.me/lemon2Judy
+  - button "Open Next.js Dev Tools" [ref=e67] [cursor=pointer]:
+    - img [ref=e68]
+  - alert [ref=e71]

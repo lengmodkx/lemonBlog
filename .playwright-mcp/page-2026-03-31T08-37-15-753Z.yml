@@ -1,0 +1,223 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "lemon" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "lemon" [ref=e7]
+      - generic [ref=e8]:
+        - link "首页" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "文章" [ref=e10] [cursor=pointer]:
+          - /url: /blog
+        - link "关于" [ref=e11] [cursor=pointer]:
+          - /url: /about
+        - button "Toggle dark mode" [ref=e13]:
+          - img [ref=e14]
+  - main [ref=e16]:
+    - generic [ref=e20]:
+      - article [ref=e21]:
+        - link "← 返回" [ref=e22] [cursor=pointer]:
+          - /url: /blog
+        - generic [ref=e23]:
+          - heading "MySQL 中文拼音排序问题" [level=1] [ref=e24]
+          - generic [ref=e25]:
+            - time [ref=e26]: 2026年3月31日
+            - generic [ref=e27]: "|"
+            - generic [ref=e28]: 19 分钟阅读
+            - generic [ref=e29]: "|"
+            - generic [ref=e30]:
+              - generic [ref=e31]: "#tech/mysql"
+              - generic [ref=e32]: "#format/reference"
+              - generic [ref=e33]: "#tech/backend"
+        - generic [ref=e35]:
+          - paragraph
+          - heading "问题" [level=2] [ref=e36]
+          - separator [ref=e37]
+          - paragraph [ref=e38]:
+            - text: 在做通讯录、人员列表等功能时，经常会碰到
+            - strong [ref=e39]: 按照中文拼音排序
+            - text: 的问题。
+          - paragraph [ref=e40]: 我们在这里可以用一个简单的例子进行说明
+          - paragraph [ref=e41]: 先创建测试数据
+          - code [ref=e43]:
+            - generic [ref=e44]: CREATE TABLE user (
+            - generic [ref=e45]: id INT PRIMARY KEY AUTO_INCREMENT,
+            - generic [ref=e46]: name VARCHAR(50) NOT NULL
+            - generic [ref=e47]: ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            - generic [ref=e48]: INSERT INTO user (name) VALUES
+            - generic [ref=e49]: ('张三'),('李四'),('王五'),('赵六'),('钱七'),('孙八'),('周九'),('吴十');
+          - paragraph [ref=e50]:
+            - text: 下面，我们希望查出数据，并且按照
+            - strong [ref=e51]: 中文拼音顺序排序
+          - paragraph [ref=e52]: 很简单，这样就行了
+          - code [ref=e54]:
+            - generic [ref=e55]: SELECT * FROM user ORDER BY name;
+          - paragraph [ref=e56]: 可是，执行后却发现，结果似乎并不符合预期
+          - paragraph [ref=e57]:
+            - img "image.png" [ref=e58]
+          - paragraph [ref=e59]: 这其实是因为，MySQL 默认字符集排序：
+          - list [ref=e60]:
+            - listitem [ref=e61]:
+              - code [ref=e62]: utf8mb4_general_ci
+            - listitem [ref=e63]:
+              - code [ref=e64]: utf8mb4_unicode_ci
+          - paragraph [ref=e65]:
+            - text: 这些排序是
+            - strong [ref=e66]: 按 Unicode 编码点排序
+            - text: ，而不是拼音顺序。
+          - paragraph [ref=e67]:
+            - text: 那么，我怎么实现
+            - strong [ref=e68]: 中文拼音排序
+            - text: 呢？
+          - heading "解决办法" [level=2] [ref=e69]
+          - separator [ref=e70]
+          - heading "方法一" [level=3] [ref=e71]
+          - paragraph [ref=e72]: 默认字符集排序不支持，那我不用默认字符集不就行了,看我的
+          - code [ref=e74]:
+            - generic [ref=e75]: SELECT * FROM user ORDER BY CONVERT(NAME USING gbk);
+          - paragraph [ref=e76]:
+            - img "image.png" [ref=e77]
+          - blockquote [ref=e78]:
+            - paragraph [ref=e79]:
+              - text: 如果在 xml 里面使用，注意使用
+              - code [ref=e80]: CDATA
+              - text: 包裹
+          - code [ref=e82]:
+            - generic [ref=e84]:
+              - generic [ref=e85]: <select
+              - text: id
+              - generic [ref=e86]: ="listUsers"
+              - text: resultType
+              - generic [ref=e87]: ="User"
+              - text: ">"
+            - text: SELECT id, name FROM user
+            - generic [ref=e88]: ORDER BY <![CDATA[CONVERT(name USING gbk)]]>
+            - generic [ref=e90]:
+              - generic [ref=e91]: </select
+              - text: ">"
+          - paragraph [ref=e92]: 可行是可行，但是每次查询都要做编码转化，有没有更简单粗暴的方法？
+          - heading "方法二" [level=3] [ref=e93]
+          - paragraph [ref=e94]:
+            - text: 可以跳过编码转化这一个步骤，添加一个冗余字段，在数据变更时写入拼音不就行了（
+            - strong [ref=e95]: 空间换时间
+            - text: 打法还是太强了）
+          - paragraph [ref=e96]: 我们先添加字段
+          - code [ref=e98]:
+            - generic [ref=e99]: ALTER TABLE user
+            - generic [ref=e100]: ADD COLUMN pinyin VARCHAR(100) AFTER name;
+          - paragraph [ref=e101]: 再导入这样一个依赖
+          - code [ref=e103]:
+            - generic [ref=e105]:
+              - generic [ref=e106]: <dependency
+              - text: ">"
+            - generic [ref=e107]:
+              - generic [ref=e108]:
+                - generic [ref=e109]: <groupId
+                - text: ">"
+              - text: com.belerweb
+              - generic [ref=e110]:
+                - generic [ref=e111]: </groupId
+                - text: ">"
+            - generic [ref=e112]:
+              - generic [ref=e113]:
+                - generic [ref=e114]: <artifactId
+                - text: ">"
+              - text: pinyin4j
+              - generic [ref=e115]:
+                - generic [ref=e116]: </artifactId
+                - text: ">"
+            - generic [ref=e117]:
+              - generic [ref=e118]:
+                - generic [ref=e119]: <version
+                - text: ">"
+              - text: 2.5.1
+              - generic [ref=e120]:
+                - generic [ref=e121]: </version
+                - text: ">"
+            - generic [ref=e123]:
+              - generic [ref=e124]: </dependency
+              - text: ">"
+          - paragraph [ref=e125]: 再建立对应工具类
+          - code [ref=e127]:
+            - generic [ref=e128]: "public class PinyinUtil {"
+            - generic [ref=e129]: /**
+            - generic [ref=e131]: "* @param chinaStr 中文字符串"
+            - generic [ref=e133]: "* @return 中文字符串转拼音 其它字符不变"
+            - generic [ref=e134]: "*/"
+            - generic [ref=e135]: "public static String getPinyin(String chinaStr){"
+            - generic [ref=e136]: HanyuPinyinOutputFormat formart = new HanyuPinyinOutputFormat();
+            - generic [ref=e137]: formart.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+            - generic [ref=e138]: formart.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+            - generic [ref=e139]: formart.setVCharType(HanyuPinyinVCharType.WITH_V);
+            - generic [ref=e140]: char[] arrays = chinaStr.trim().toCharArray();
+            - generic [ref=e141]: String result = "";
+            - generic [ref=e142]: "try {"
+            - generic [ref=e143]: "for (int i=0;i<arrays.length;i++) {"
+            - generic [ref=e144]: char ti = arrays[i];
+            - generic [ref=e145]: "if(Character.toString(ti).matches(\"[\\u4e00-\\u9fa5]\")){ //匹配是否是中文"
+            - generic [ref=e146]: String[] temp = PinyinHelper.toHanyuPinyinStringArray(ti,formart);
+            - generic [ref=e147]: result += temp[0];
+            - generic [ref=e148]: "}else{"
+            - generic [ref=e149]: result += ti;
+            - generic [ref=e150]: "}"
+            - generic [ref=e151]: "}"
+            - generic [ref=e152]: "} catch (BadHanyuPinyinOutputFormatCombination e) {"
+            - generic [ref=e153]: e.printStackTrace();
+            - generic [ref=e154]: "}"
+            - generic [ref=e155]: return result;
+            - generic [ref=e156]: "}"
+            - generic [ref=e157]: "}"
+          - paragraph [ref=e158]:
+            - code [ref=e159]: PinyinUtil.getPinyin()
+            - text: 会根据
+            - strong [ref=e160]: 中文字符串
+            - text: 返回对应的
+            - strong [ref=e161]: 拼音字符串
+          - paragraph [ref=e162]: 在涉及到数据变更（新增、修改、导入等场景）时，写入冗余字段就行
+          - code [ref=e164]:
+            - generic [ref=e165]: String pinyin = PinyinUtil.getPinyin(name);
+            - generic [ref=e166]: user.setPinyin(pinyin);
+          - paragraph [ref=e167]: 我们的测试数据表在经过处理后，就变成了这样
+          - paragraph [ref=e168]:
+            - img "image.png" [ref=e169]
+          - paragraph [ref=e170]: 查询时，对冗余字段排序即可
+          - code [ref=e172]:
+            - generic [ref=e173]: SELECT * FROM user ORDER BY pinyin;
+          - paragraph [ref=e174]:
+            - img "image.png" [ref=e175]
+          - blockquote [ref=e176]:
+            - paragraph [ref=e177]:
+              - text: 当数据量超过
+              - strong [ref=e178]: 几百万条以上
+              - text: ，方法二的优势会明显
+              - text: 当然，方法一不用做多余操作，直接sql搞定，也是一个优点
+        - paragraph [ref=e180]: 感谢阅读
+        - generic [ref=e181]:
+          - heading "💬 文章评论" [level=3] [ref=e183]:
+            - generic [ref=e184]: 💬
+            - generic [ref=e185]: 文章评论
+          - paragraph [ref=e187]: 评论功能暂不可用，请配置环境变量
+      - generic [ref=e189]:
+        - heading "目录" [level=3] [ref=e190]
+        - navigation [ref=e191]:
+          - button "问题" [ref=e192]:
+            - generic [ref=e193]: 问题
+          - button "解决办法" [ref=e194]:
+            - generic [ref=e195]: 解决办法
+          - button "方法一" [ref=e196]:
+            - generic [ref=e197]: 方法一
+          - button "方法二" [ref=e198]:
+            - generic [ref=e199]: 方法二
+  - contentinfo [ref=e200]:
+    - generic [ref=e202]:
+      - paragraph [ref=e203]: © 2026 lemon
+      - generic [ref=e204]:
+        - link "GitHub" [ref=e205] [cursor=pointer]:
+          - /url: https://github.com/lengmodkx
+        - link "Twitter" [ref=e206] [cursor=pointer]:
+          - /url: https://twitter.com/DKX_LM
+        - link "Telegram" [ref=e207] [cursor=pointer]:
+          - /url: https://t.me/lemon2Judy
+  - button "Open Next.js Dev Tools" [ref=e213] [cursor=pointer]:
+    - img [ref=e214]
+  - alert [ref=e217]

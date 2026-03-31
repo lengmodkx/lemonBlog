@@ -1,0 +1,156 @@
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "lemon" [active] [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "lemon" [ref=e7]
+      - generic [ref=e9]:
+        - link "Home" [ref=e10] [cursor=pointer]:
+          - /url: /
+        - link "Blog" [ref=e11] [cursor=pointer]:
+          - /url: /blog
+        - link "About" [ref=e12] [cursor=pointer]:
+          - /url: /about
+        - button "Toggle dark mode" [ref=e13]:
+          - img [ref=e14]
+  - main [ref=e16]:
+    - generic [ref=e131]:
+      - generic [ref=e132]:
+        - paragraph [ref=e133]: Howdy, fellow! 👋
+        - generic [ref=e134]:
+          - generic [ref=e135]:
+            - heading "I'm lemon" [level=1] [ref=e136]
+            - paragraph [ref=e137]: Learner | Builder | Java Backend Developer
+            - generic [ref=e138]:
+              - paragraph [ref=e139]:
+                - generic [ref=e140]: •
+                - generic [ref=e141]: I'm a learner, builder, and knowledge seeker.
+              - paragraph [ref=e142]:
+                - generic [ref=e143]: •
+                - generic [ref=e144]: I live in China and work as a backend engineer.
+              - paragraph [ref=e145]:
+                - generic [ref=e146]: •
+                - generic [ref=e147]: My first programming language was Java.
+              - paragraph [ref=e148]:
+                - generic [ref=e149]: •
+                - generic [ref=e150]: I work mostly with Java technologies.
+              - paragraph [ref=e151]:
+                - generic [ref=e152]: •
+                - generic [ref=e153]: I love coding, reading, and sharing knowledge.
+              - paragraph [ref=e154]:
+                - generic [ref=e155]: •
+                - generic [ref=e156]: I started this blog to document and share my experience.
+          - generic [ref=e157]:
+            - img "lemon" [ref=e160]
+            - generic [ref=e161]:
+              - heading "lemon" [level=2] [ref=e162]
+              - paragraph [ref=e163]: Learner | Builder | Java Backend Developer
+            - generic [ref=e164]:
+              - paragraph [ref=e165]:
+                - generic [ref=e166]: 📍
+                - generic [ref=e167]: China
+              - paragraph [ref=e168]:
+                - generic [ref=e169]: 💼
+                - generic [ref=e170]: Backend Development Engineer
+              - link "📧 lengmodkx@gmail.com" [ref=e171] [cursor=pointer]:
+                - /url: mailto:lengmodkx@gmail.com
+                - generic [ref=e172]: 📧
+                - generic [ref=e173]: lengmodkx@gmail.com
+            - generic [ref=e174]:
+              - link "GitHub" [ref=e175] [cursor=pointer]:
+                - /url: https://github.com/lengmodkx
+              - generic [ref=e176]: •
+              - link "Twitter" [ref=e177] [cursor=pointer]:
+                - /url: https://twitter.com/DKX_LM
+              - generic [ref=e178]: •
+              - link "Telegram" [ref=e179] [cursor=pointer]:
+                - /url: https://t.me/lemon2Judy
+        - generic [ref=e180]:
+          - paragraph [ref=e181]:
+            - generic [ref=e182]: 💻
+            - generic [ref=e183]: "I work with:"
+          - generic [ref=e184]:
+            - generic [ref=e185]: Java
+            - generic [ref=e186]: Spring Boot
+            - generic [ref=e187]: MySQL
+            - generic [ref=e188]: Redis
+            - generic [ref=e189]: Docker
+            - generic [ref=e190]: Python
+        - generic [ref=e191]:
+          - link "📝 My writings" [ref=e192] [cursor=pointer]:
+            - /url: /blog
+            - generic [ref=e193]: 📝
+            - generic [ref=e194]: My writings
+          - link "👤 About me" [ref=e195] [cursor=pointer]:
+            - /url: /about
+            - generic [ref=e196]: 👤
+            - generic [ref=e197]: About me
+          - link "🔗 GitHub" [ref=e198] [cursor=pointer]:
+            - /url: https://github.com/lengmodkx
+            - generic [ref=e199]: 🔗
+            - generic [ref=e200]: GitHub
+      - generic [ref=e203]:
+        - heading "📚 Latest posts" [level=2] [ref=e204]:
+          - generic [ref=e205]: 📚
+          - generic [ref=e206]: Latest posts
+        - generic [ref=e207]:
+          - link "MySQL 中文拼音排序问题 2026年3月31日 · 5 分钟阅读" [ref=e208] [cursor=pointer]:
+            - /url: /blog/2025-12-25
+            - heading "MySQL 中文拼音排序问题" [level=3] [ref=e209]
+            - paragraph
+            - generic [ref=e210]:
+              - time [ref=e211]: 2026年3月31日
+              - generic [ref=e212]: ·
+              - generic [ref=e213]: 5 分钟阅读
+          - link "RustFS 部署指南（含 Nginx SSL 反向代理） 2026年3月15日 · 5 分钟阅读" [ref=e214] [cursor=pointer]:
+            - /url: /blog/2026-03-15-rustfs-bu-shu-zhi-nan
+            - heading "RustFS 部署指南（含 Nginx SSL 反向代理）" [level=3] [ref=e215]
+            - paragraph
+            - generic [ref=e216]:
+              - time [ref=e217]: 2026年3月15日
+              - generic [ref=e218]: ·
+              - generic [ref=e219]: 5 分钟阅读
+          - link "索尼a6700初学者上手指南（FX30/ZVE1/A7C2/A7M4适用） 2024年7月21日 · 5 分钟阅读" [ref=e220] [cursor=pointer]:
+            - /url: /blog/2025-07-21-sony-a6700-guide
+            - heading "索尼a6700初学者上手指南（FX30/ZVE1/A7C2/A7M4适用）" [level=3] [ref=e221]
+            - paragraph
+            - generic [ref=e222]:
+              - time [ref=e223]: 2024年7月21日
+              - generic [ref=e224]: ·
+              - generic [ref=e225]: 5 分钟阅读
+        - link "View all posts →" [ref=e227] [cursor=pointer]:
+          - /url: /blog
+      - generic [ref=e230]:
+        - paragraph [ref=e231]: lemon | Java Backend Developer
+        - paragraph [ref=e232]:
+          - generic [ref=e233]: 📍
+          - generic [ref=e234]: China · 2026
+        - generic [ref=e235]:
+          - link "GitHub" [ref=e236] [cursor=pointer]:
+            - /url: https://github.com/lengmodkx
+            - generic [ref=e237]: GitHub
+          - generic [ref=e238]: •
+          - link "Twitter" [ref=e239] [cursor=pointer]:
+            - /url: https://twitter.com/DKX_LM
+            - generic [ref=e240]: Twitter
+          - generic [ref=e241]: •
+          - link "Telegram" [ref=e242] [cursor=pointer]:
+            - /url: https://t.me/lemon2Judy
+            - generic [ref=e243]: Telegram
+          - generic [ref=e244]: •
+          - link "Email" [ref=e245] [cursor=pointer]:
+            - /url: mailto:lengmodkx@gmail.com
+            - generic [ref=e246]: Email
+  - contentinfo [ref=e112]:
+    - generic [ref=e115]:
+      - paragraph [ref=e116]: © 2026 lemon. All rights reserved.
+      - generic [ref=e117]:
+        - link "GitHub" [ref=e118] [cursor=pointer]:
+          - /url: https://github.com/lengmodkx
+        - link "Twitter" [ref=e119] [cursor=pointer]:
+          - /url: https://twitter.com/DKX_LM
+        - link "Telegram" [ref=e120] [cursor=pointer]:
+          - /url: https://t.me/lemon2Judy
+  - button "Open Next.js Dev Tools" [ref=e127] [cursor=pointer]:
+    - img [ref=e128]
+  - alert [ref=e121]

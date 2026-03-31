@@ -32,15 +32,17 @@ export default function ImageOptimizer({
   onLoad,
   onError
 }: ImageOptimizerProps) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!priority);
   const [hasError, setHasError] = useState(false);
   const [imageSrc, setImageSrc] = useState(src);
 
   useEffect(() => {
-    setImageSrc(src);
-    setHasError(false);
-    setIsLoading(true);
-  }, [src]);
+    if (src !== imageSrc) {
+      setImageSrc(src);
+      setHasError(false);
+      setIsLoading(!priority);
+    }
+  }, [src, priority, imageSrc]);
 
   const handleLoad = () => {
     setIsLoading(false);
@@ -113,41 +115,25 @@ export default function ImageOptimizer({
           </div>
         </div>
       ) : (
-        <>
-          {isExternalImage ? (
-            // 外部图片使用普通 img 标签
-            <img
-              src={imageSrc}
-              alt={alt}
-              width={width}
-              height={height}
-              className={`w-full h-full object-cover rounded-lg ${className}`}
-              onLoad={handleLoad}
-              onError={handleError}
-              loading={priority ? 'eager' : 'lazy'}
-            />
-          ) : (
-            // 内部图片使用 Next.js Image 组件
-            <Image
-              src={imageSrc}
-              alt={alt}
-              width={width || 400}
-              height={height || 300}
-              className={`w-full h-full object-cover rounded-lg ${className}`}
-              sizes={sizes}
-              quality={quality}
-              priority={priority}
-              placeholder={placeholder}
-              blurDataURL={placeholder === 'blur' ? generateBlurDataURL() : undefined}
-              onLoad={handleLoad}
-              onError={handleError}
-              style={{
-                opacity: isLoading ? 0 : 1,
-                transition: 'opacity 0.3s ease'
-              }}
-            />
-          )}
-        </>
+        <Image
+          src={imageSrc}
+          alt={alt}
+          width={width || 400}
+          height={height || 300}
+          className={`w-full h-full object-cover rounded-lg ${className}`}
+          sizes={sizes}
+          quality={quality}
+          priority={priority}
+          placeholder={placeholder}
+          blurDataURL={placeholder === 'blur' ? generateBlurDataURL() : undefined}
+          onLoad={handleLoad}
+          onError={handleError}
+          unoptimized={isExternalImage}
+          style={{
+            opacity: isLoading ? 0 : 1,
+            transition: 'opacity 0.3s ease'
+          }}
+        />
       )}
 
       {/* 图片状态指示器 */}

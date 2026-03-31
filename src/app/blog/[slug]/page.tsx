@@ -37,28 +37,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) notFound();
 
   return (
-    <div className="min-h-screen bg-paper-50 dark:bg-ink-DEFAULT">
+    <div className="min-h-screen bg-paper">
       {/* Reading Progress Bar */}
       <ReadingProgress />
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="flex gap-24">
+      <div className="max-w-5xl mx-auto px-6 py-12">
+        <div className="flex gap-16">
           {/* Main Article Content */}
           <article className="flex-1 max-w-2xl">
             {/* Back Link */}
             <Link
               href="/blog"
-              className="inline-flex items-center text-sm text-text-muted hover:text-primary mb-8 transition-colors"
+              className="inline-flex items-center text-sm text-ink-light hover:text-ink mb-8 transition-colors"
             >
               ← 返回
             </Link>
 
             {/* Article Header */}
             <header className="mb-10">
-              <h1 className="text-3xl font-bold text-ink dark:text-text-primary mb-4 leading-tight">
+              <h1 className="font-hand text-3xl md:text-4xl text-ink mb-6 leading-tight">
                 {post.title}
               </h1>
 
-              <div className="flex flex-wrap items-center gap-3 text-sm text-text-muted">
+              <div className="flex flex-wrap items-center gap-3 text-sm text-ink-light">
                 <time dateTime={post.date}>
                   {new Date(post.date).toLocaleDateString('zh-CN', {
                     year: 'numeric',
@@ -66,14 +66,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     day: 'numeric',
                   })}
                 </time>
-                <span>·</span>
-                <span>{post.readingTime || 5} 分钟</span>
+                <span className="text-border">|</span>
+                <span>{post.readingTime || 5} 分钟阅读</span>
                 {post.tags && post.tags.length > 0 && (
                   <>
-                    <span>·</span>
+                    <span className="text-border">|</span>
                     <div className="flex gap-2">
                       {post.tags.map((tag) => (
-                        <span key={tag} className="text-primary">
+                        <span key={tag} className="text-accent">
                           #{tag}
                         </span>
                       ))}
@@ -84,17 +84,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </header>
 
             {/* Divider */}
-            <div className="w-12 h-1 bg-gradient-to-r from-lavender-400 to-lavender-600 rounded-full mb-10" />
+            <div className="w-16 h-px bg-accent mb-10" />
 
             {/* Article Content */}
             <div
-              className="prose prose-lg dark:prose-invert max-w-none markdown-content"
+              className="prose max-w-none"
               dangerouslySetInnerHTML={{ __html: post.content || '' }}
             />
 
             {/* Article Footer */}
-            <footer className="mt-12 pt-8 border-t border-lavender-200 dark:border-lavender-800">
-              <p className="text-text-muted text-sm text-center">
+            <footer className="mt-16 pt-8 border-t border-border">
+              <p className="text-ink-light text-sm text-center">
                 感谢阅读
               </p>
             </footer>

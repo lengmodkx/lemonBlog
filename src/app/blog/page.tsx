@@ -1,4 +1,4 @@
-import { getAllPosts, getAllCategories, getPostsByCategory } from '@/lib/posts';
+import { getAllCategories, getPostsByCategory } from '@/lib/posts';
 import ArticleCard from '@/components/ArticleCard';
 import CategoryFilter from '@/components/CategoryFilter';
 
@@ -19,9 +19,9 @@ export default async function BlogPage({
   const categories = getAllCategories();
 
   return (
-    <div className="min-h-screen bg-paper-50 dark:bg-ink-DEFAULT">
-      <div className="max-w-2xl mx-auto px-4 py-12">
-        <h1 className="text-2xl font-bold text-ink dark:text-text-primary mb-8">
+    <div className="min-h-screen bg-paper">
+      <div className="max-w-3xl mx-auto px-6 py-12">
+        <h1 className="font-hand text-3xl text-ink mb-8">
           所有文章
         </h1>
 
@@ -31,14 +31,14 @@ export default async function BlogPage({
         />
 
         {posts.length > 0 ? (
-          <div className="space-y-4">
+          <div>
             {posts.map((post) => (
               <ArticleCard key={post.slug} post={post} />
             ))}
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-text-muted">暂无文章</p>
+            <p className="text-ink-light">暂无文章</p>
           </div>
         )}
       </div>

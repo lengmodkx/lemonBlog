@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Heading {
   id: string;
@@ -16,7 +16,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>('');
   const [headings, setHeadings] = useState<Heading[]>([]);
 
-  // Extract headings from content
+  // Extract headings from content - 使用 ref 避免在渲染时直接操作 DOM
   useEffect(() => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
@@ -32,13 +32,18 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
     });
 
     setHeadings(extractedHeadings);
+  }, [content]);
+
+  // 单独处理 DOM 操作，确保在客户端执行
+  useEffect(() => {
+    if (headings.length === 0) return;
 
     // Add IDs to headings in the document
     const articleHeadings = document.querySelectorAll('article h2, article h3');
     articleHeadings.forEach((heading, index) => {
       heading.id = `heading-${index}`;
     });
-  }, [content]);
+  }, [headings]);
 
   // Intersection Observer for active heading
   useEffect(() => {
@@ -86,28 +91,27 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
 
   return (
     <div className="hidden lg:block sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto">
-      <div className="w-64">
-        <h3 className="text-sm font-bold text-ink dark:text-text-primary mb-4 flex items-center gap-2">
-          <span>📑</span>
-          <span>目录</span>
+      <div className="w-48">
+        <h3 className="font-hand text-lg text-ink mb-4">
+          目录
         </h3>
-        <nav className="space-y-2">
+        <nav className="space-y-1 border-l border-border">
           {headings.map((heading) => (
             <button
               key={heading.id}
               onClick={() => handleClick(heading.id)}
-              className={`block w-full text-left transition-colors duration-200 ${
-                heading.level === 3 ? 'pl-4' : 'pl-0'
+              className={`block w-full text-left text-sm transition-colors ${
+                heading.level === 3 ? 'pl-4' : 'pl-3'
               } ${
                 activeId === heading.id
-                  ? 'text-primary font-semibold border-l-2 border-primary'
-                  : 'text-text-muted hover:text-primary border-l-2 border-transparent'
+                  ? 'text-accent border-l border-accent -ml-px'
+                  : 'text-ink-light hover:text-ink'
               }`}
               style={{
-                fontSize: heading.level === 3 ? '0.875rem' : '0.9rem',
+                fontSize: heading.level === 3 ? '0.8125rem' : '0.875rem',
               }}
             >
-              <span className="truncate block">{heading.text}</span>
+              <span className="truncate block py-1">{heading.text}</span>
             </button>
           ))}
         </nav>

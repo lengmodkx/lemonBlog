@@ -39,9 +39,13 @@ class GiphyService {
   private config: GiphyConfig;
 
   constructor() {
-    // 使用演示密钥，生产环境需要申请自己的 API Key
+    // 生产环境需要在 .env.local 中配置 GIPHY_API_KEY
+    const apiKey = process.env.GIPHY_API_KEY;
+    if (!apiKey) {
+      console.warn('[GiphyService] GIPHY_API_KEY 未配置，使用占位图片');
+    }
     this.config = {
-      apiKey: process.env.GIPHY_API_KEY || 'GlVGYHkr3WSBnllca54iNt0yFbjz7L65',
+      apiKey,
       baseUrl: 'https://api.giphy.com/v1/gifs',
       limit: 25,
       rating: 'g' // 只显示适合工作环境的内容
@@ -59,9 +63,13 @@ class GiphyService {
     limit: number = 10,
     offset: number = 0
   ): Promise<GiphyGif[]> {
+    if (!this.config.apiKey) {
+      return this.getPlaceholderGifs(query);
+    }
+
     try {
       const params = new URLSearchParams({
-        api_key: this.config.apiKey!,
+        api_key: this.config.apiKey,
         q: query,
         limit: Math.min(limit, this.config.limit).toString(),
         offset: offset.toString(),
@@ -90,9 +98,14 @@ class GiphyService {
    * @param tag 标签
    */
   async getRandomGif(tag: string = 'programming'): Promise<GiphyGif | null> {
+    if (!this.config.apiKey) {
+      const placeholders = this.getPlaceholderGifs(tag);
+      return placeholders.length > 0 ? placeholders[0] : null;
+    }
+
     try {
       const params = new URLSearchParams({
-        api_key: this.config.apiKey!,
+        api_key: this.config.apiKey,
         tag,
         rating: this.config.rating
       });
@@ -118,9 +131,13 @@ class GiphyService {
    * 获取趋势GIF
    */
   async getTrendingGifs(limit: number = 10): Promise<GiphyGif[]> {
+    if (!this.config.apiKey) {
+      return this.getPlaceholderGifs('trending');
+    }
+
     try {
       const params = new URLSearchParams({
-        api_key: this.config.apiKey!,
+        api_key: this.config.apiKey,
         limit: Math.min(limit, this.config.limit).toString(),
         rating: this.config.rating
       });
@@ -260,7 +277,6 @@ class GiphyService {
    * 获取GIF的嵌入代码
    */
   getEmbedCode(gif: GiphyGif, width: number = 400, height?: number): string {
-    const src = this.getOptimizedUrl(gif, width, height);
     return `<iframe src="${gif.embed_url}" width="${width}" ${height ? `height="${height}"` : ''} frameBorder="0" class="giphy-embed" allowFullScreen></iframe>`;
   }
 }
