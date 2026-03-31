@@ -30,6 +30,24 @@ export interface ImageOptions {
 
 class ImageService {
   private cache = new Map<string, ImageAsset>();
+  private inFlight = new Map<string, Promise<ImageAsset | null>>();
+  private readonly MAX_CACHE_SIZE = 50;
+
+  private setCache(key: string, value: ImageAsset): void {
+    if (this.cache.size >= this.MAX_CACHE_SIZE) {
+      const firstKey = this.cache.keys().next().value;
+      if (firstKey) {
+        this.cache.delete(firstKey);
+      }
+    }
+    this.cache.set(key, value);
+  }
+
+  private getCacheKey(tags: string[], title: string, source: ImageSource): string {
+    // Sort tags for consistent cache keys regardless of order
+    const sortedTags = [...tags].sort().join(',');
+    return `${sortedTags}-${title}-${source}`;
+  }
 
   /**
    * 根据文章内容和标签获取最合适的图片
@@ -40,36 +58,53 @@ class ImageService {
     preferredSource: ImageSource = 'unsplash',
     options: ImageOptions = {}
   ): Promise<ImageAsset | null> {
-    const cacheKey = `${tags.join(',')}-${title}-${preferredSource}`;
+    const cacheKey = this.getCacheKey(tags, title, preferredSource);
 
+    // Check cache first
     if (this.cache.has(cacheKey)) {
       return this.cache.get(cacheKey)!;
     }
 
-    let imageAsset: ImageAsset | null = null;
-
-    try {
-      switch (preferredSource) {
-        case 'unsplash':
-          imageAsset = await this.getUnsplashImage(tags, title, options);
-          break;
-        case 'giphy':
-          imageAsset = await this.getGiphyImage(tags, title);
-          break;
-        case 'storyset':
-          imageAsset = await this.getStorysetImage(tags, title, options);
-          break;
-      }
-
-      if (imageAsset) {
-        this.cache.set(cacheKey, imageAsset);
-      }
-
-      return imageAsset;
-    } catch (error) {
-      console.error('Error getting article image:', error);
-      return null;
+    // Check for in-flight request to avoid duplicate API calls
+    if (this.inFlight.has(cacheKey)) {
+      return this.inFlight.get(cacheKey)!;
     }
+
+    // Create the fetch promise
+    const fetchPromise = (async () => {
+      try {
+        let imageAsset: ImageAsset | null = null;
+
+        switch (preferredSource) {
+          case 'unsplash':
+            imageAsset = await this.getUnsplashImage(tags, title, options);
+            break;
+          case 'giphy':
+            imageAsset = await this.getGiphyImage(tags, title);
+            break;
+          case 'storyset':
+            imageAsset = await this.getStorysetImage(tags, title, options);
+            break;
+        }
+
+        if (imageAsset) {
+          this.setCache(cacheKey, imageAsset);
+        }
+
+        return imageAsset;
+      } catch (error) {
+        console.error('Error getting article image:', error);
+        return null;
+      } finally {
+        // Clean up in-flight promise after completion
+        this.inFlight.delete(cacheKey);
+      }
+    })();
+
+    // Track in-flight request
+    this.inFlight.set(cacheKey, fetchPromise);
+
+    return fetchPromise;
   }
 
   /**

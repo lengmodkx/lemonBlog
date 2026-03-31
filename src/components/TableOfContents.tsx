@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 interface Heading {
   id: string;
@@ -12,43 +12,51 @@ interface TableOfContentsProps {
   content: string;
 }
 
+// Generate stable ID from heading text
+function generateHeadingId(text: string, index: number): string {
+  const slug = text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .slice(0, 50);
+  return slug ? `heading-${slug}-${index}` : `heading-${index}`;
+}
+
 export default function TableOfContents({ content }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>('');
-  const [headings, setHeadings] = useState<Heading[]>([]);
 
-  // Extract headings from content - 使用 ref 避免在渲染时直接操作 DOM
-  useEffect(() => {
+  // Extract headings and generate stable IDs
+  const headings = useMemo<Heading[]>(() => {
+    // DOMParser is only available in browser
+    if (typeof window === 'undefined') return [];
+
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
     const headingElements = doc.querySelectorAll('h2, h3');
 
-    const extractedHeadings: Heading[] = Array.from(headingElements).map((heading, index) => {
-      const id = `heading-${index}`;
+    return Array.from(headingElements).map((heading, index) => {
+      const text = heading.textContent || '';
       return {
-        id,
-        text: heading.textContent || '',
+        id: generateHeadingId(text, index),
+        text,
         level: parseInt(heading.tagName.substring(1)),
       };
     });
-
-    setHeadings(extractedHeadings);
   }, [content]);
 
-  // 单独处理 DOM 操作，确保在客户端执行
+  // Assign IDs to DOM elements and setup observer
   useEffect(() => {
     if (headings.length === 0) return;
 
-    // Add IDs to headings in the document
     const articleHeadings = document.querySelectorAll('article h2, article h3');
+
+    // Assign IDs using same logic as heading generation
     articleHeadings.forEach((heading, index) => {
-      heading.id = `heading-${index}`;
+      const text = heading.textContent || '';
+      heading.id = generateHeadingId(text, index);
     });
-  }, [headings]);
 
-  // Intersection Observer for active heading
-  useEffect(() => {
-    if (headings.length === 0) return;
-
+    // Setup IntersectionObserver
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -63,9 +71,8 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       }
     );
 
-    headings.forEach((heading) => {
-      const element = document.getElementById(heading.id);
-      if (element) observer.observe(element);
+    articleHeadings.forEach((heading) => {
+      observer.observe(heading);
     });
 
     return () => observer.disconnect();
@@ -74,7 +81,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   const handleClick = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const offset = 100; // Header offset
+      const offset = 100;
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;

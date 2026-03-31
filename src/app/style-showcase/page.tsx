@@ -8,6 +8,8 @@ const styles = [
     name: '手写笔记',
     nameEn: 'Handwritten Notes',
     description: '像一本打开的纸质笔记本，温暖、亲切、有人情味',
+    isDark: false,
+    borderRadius: '2px 4px 3px 5px',
     colors: {
       bg: '#FDFBF7',
       text: '#2C3E33',
@@ -25,6 +27,8 @@ const styles = [
     name: '极简编辑',
     nameEn: 'Editorial Minimal',
     description: '高端杂志风格，精致排版，大量留白',
+    isDark: false,
+    borderRadius: '2px',
     colors: {
       bg: '#FFFFFF',
       text: '#1A1A1A',
@@ -42,6 +46,8 @@ const styles = [
     name: '复古终端',
     nameEn: 'Retro Terminal',
     description: '90年代计算机风格，程序员的情怀',
+    isDark: true,
+    borderRadius: '2px',
     colors: {
       bg: '#0C1A0F',
       text: '#33FF33',
@@ -59,6 +65,8 @@ const styles = [
     name: '日式冷淡',
     nameEn: 'Wabi-Sabi',
     description: '侘寂美学，接受不完美，自然质朴',
+    isDark: false,
+    borderRadius: '2px',
     colors: {
       bg: '#F7F5F0',
       text: '#3A3A3A',
@@ -76,6 +84,8 @@ const styles = [
     name: '瑞士国际主义',
     nameEn: 'Swiss Design',
     description: '网格系统、功能性优先、经典现代主义',
+    isDark: false,
+    borderRadius: '0px',
     colors: {
       bg: '#FFFFFF',
       text: '#000000',
@@ -191,27 +201,27 @@ export default function StyleShowcase() {
 }
 
 function StylePreview({ style }: { style: typeof styles[0] }) {
-  const isDark = style.id === 'retro';
+  const { colors, fonts, isDark, borderRadius } = style;
 
   return (
     <div
       className="rounded-xl overflow-hidden border transition-all duration-300"
       style={{
-        backgroundColor: style.colors.bg,
-        borderColor: style.colors.border,
-        color: style.colors.text,
-        fontFamily: style.fonts.body
+        backgroundColor: colors.bg,
+        borderColor: colors.border,
+        color: colors.text,
+        fontFamily: fonts.body
       }}
     >
       {/* Mock Blog Header */}
       <div
         className="px-6 py-4 border-b"
-        style={{ borderColor: style.colors.border }}
+        style={{ borderColor: colors.border }}
       >
         <div className="flex items-center justify-between">
           <span
             className="text-xl font-bold"
-            style={{ fontFamily: style.fonts.heading }}
+            style={{ fontFamily: fonts.heading }}
           >
             Lemon Blog
           </span>
@@ -229,8 +239,8 @@ function StylePreview({ style }: { style: typeof styles[0] }) {
         <h1
           className="text-3xl mb-3 leading-tight"
           style={{
-            fontFamily: style.fonts.heading,
-            color: style.colors.text
+            fontFamily: fonts.heading,
+            color: colors.text
           }}
         >
           探索编程的艺术之美
@@ -239,7 +249,7 @@ function StylePreview({ style }: { style: typeof styles[0] }) {
         {/* Meta */}
         <div
           className="text-sm mb-6 flex gap-4"
-          style={{ color: style.id === 'retro' ? style.colors.text : style.colors.accent }}
+          style={{ color: colors.accent }}
         >
           <span>2024年3月15日</span>
           <span>阅读时间 5 分钟</span>
@@ -261,8 +271,8 @@ function StylePreview({ style }: { style: typeof styles[0] }) {
         <h2
           className="text-xl mt-8 mb-3"
           style={{
-            fontFamily: style.fonts.heading,
-            color: style.colors.text
+            fontFamily: fonts.heading,
+            color: colors.text
           }}
         >
           代码示例
@@ -270,17 +280,18 @@ function StylePreview({ style }: { style: typeof styles[0] }) {
 
         {/* Code Block */}
         <div
-          className="p-4 rounded mb-6 font-mono text-sm overflow-x-auto"
+          className="p-4 mb-6 font-mono text-sm overflow-x-auto"
           style={{
-            backgroundColor: style.colors.secondary,
-            border: `1px solid ${style.colors.border}`
+            backgroundColor: colors.secondary,
+            border: `1px solid ${colors.border}`,
+            borderRadius
           }}
         >
-          <code style={{ color: style.colors.text }}>
-            <span style={{ color: style.colors.accent }}>function</span>
+          <code style={{ color: colors.text }}>
+            <span style={{ color: colors.accent }}>function</span>
             {' '}greet(name) {'{'}
             <br />
-            &nbsp;&nbsp;<span style={{ color: style.colors.accent }}>return</span>
+            &nbsp;&nbsp;<span style={{ color: colors.accent }}>return</span>
             {' `Hello, ${name}!`;'}
             <br />
             {'}'}
@@ -289,11 +300,11 @@ function StylePreview({ style }: { style: typeof styles[0] }) {
 
         {/* Button */}
         <button
-          className="px-6 py-2 rounded transition-all"
+          className="px-6 py-2 transition-all"
           style={{
-            backgroundColor: style.colors.accent,
-            color: isDark ? style.colors.bg : '#FFFFFF',
-            borderRadius: style.id === 'handwritten' ? '2px 4px 3px 5px' : '4px'
+            backgroundColor: colors.accent,
+            color: isDark ? colors.bg : '#FFFFFF',
+            borderRadius
           }}
         >
           阅读更多
@@ -301,16 +312,16 @@ function StylePreview({ style }: { style: typeof styles[0] }) {
 
         {/* Card Example */}
         <div
-          className="mt-6 p-4 rounded"
+          className="mt-6 p-4"
           style={{
-            backgroundColor: style.colors.secondary,
-            border: `1px solid ${style.colors.border}`,
-            borderRadius: style.id === 'handwritten' ? '2px 4px 3px 5px' : '4px'
+            backgroundColor: colors.secondary,
+            border: `1px solid ${colors.border}`,
+            borderRadius
           }}
         >
           <h3
             className="text-lg mb-2"
-            style={{ fontFamily: style.fonts.heading }}
+            style={{ fontFamily: fonts.heading }}
           >
             相关文章
           </h3>
@@ -324,11 +335,12 @@ function StylePreview({ style }: { style: typeof styles[0] }) {
           {['编程', '设计', '思考'].map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1 text-sm rounded"
+              className="px-3 py-1 text-sm"
               style={{
-                backgroundColor: style.colors.secondary,
-                color: style.colors.text,
-                border: `1px solid ${style.colors.border}`
+                backgroundColor: colors.secondary,
+                color: colors.text,
+                border: `1px solid ${colors.border}`,
+                borderRadius
               }}
             >
               {tag}
@@ -340,7 +352,7 @@ function StylePreview({ style }: { style: typeof styles[0] }) {
       {/* Mock Footer */}
       <div
         className="px-6 py-4 border-t text-sm text-center"
-        style={{ borderColor: style.colors.border, opacity: 0.7 }}
+        style={{ borderColor: colors.border, opacity: 0.7 }}
       >
         © 2024 Lemon Blog · 用心记录每一刻
       </div>
