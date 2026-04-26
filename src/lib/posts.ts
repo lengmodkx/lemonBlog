@@ -250,8 +250,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     // Convert relative path to absolute path for cover image
     const coverImage = coverImageRaw ? fixImagePathForCover(coverImageRaw, slug) : undefined;
 
-    // Remove first image from content to avoid duplication
-    const contentWithoutFirstImage = removeFirstImage(contentHtml);
+    // Keep first image in content (cover image is not rendered separately)
+    const contentWithoutFirstImage = contentHtml;
 
     // Create excerpt from content if not provided in frontmatter
     const excerpt = data.excerpt ||
