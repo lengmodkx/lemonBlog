@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 260" width="800" height="260">
+  <rect width="800" height="260" fill="#F7FAFC" rx="10"/>
+
+  <text x="400" y="28" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="bold" fill="#2D3748" text-anchor="middle">原上传流程 — 瓶颈分析</text>
+
+  <!-- 浏览器 -->
+  <rect x="25" y="55" width="115" height="55" rx="8" fill="#EBF8FF" stroke="#3182CE" stroke-width="2"/>
+  <text x="82" y="78" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="bold" fill="#2B6CB0" text-anchor="middle">浏览器</text>
+  <text x="82" y="98" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#718096" text-anchor="middle">用户上传图片</text>
+
+  <!-- 箭头1 HTTPS -->
+  <line x1="140" y1="82" x2="185" y2="82" stroke="#A0AEC0" stroke-width="2"/>
+  <polygon points="185,78 193,82 185,86" fill="#A0AEC0"/>
+  <text x="166" y="72" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#718096" text-anchor="middle">HTTPS</text>
+
+  <!-- Nginx -->
+  <rect x="195" y="55" width="115" height="55" rx="8" fill="#FAF5FF" stroke="#805AD5" stroke-width="2"/>
+  <text x="252" y="78" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="bold" fill="#553C9A" text-anchor="middle">Nginx</text>
+  <text x="252" y="98" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#718096" text-anchor="middle">Port 8443</text>
+
+  <!-- 箭头2 Proxy -->
+  <line x1="310" y1="82" x2="355" y2="82" stroke="#A0AEC0" stroke-width="2"/>
+  <polygon points="355,78 363,82 355,86" fill="#A0AEC0"/>
+  <text x="336" y="72" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#718096" text-anchor="middle">Proxy</text>
+
+  <!-- 后端 Java -->
+  <rect x="365" y="55" width="120" height="55" rx="8" fill="#F0FFF4" stroke="#38A169" stroke-width="2"/>
+  <text x="425" y="78" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="bold" fill="#276749" text-anchor="middle">后端 Java</text>
+  <text x="425" y="98" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#718096" text-anchor="middle">JeecgBoot 7001</text>
+
+  <!-- 箭头3 瓶颈（红色） -->
+  <line x1="485" y1="82" x2="535" y2="82" stroke="#E53E3E" stroke-width="3"/>
+  <polygon points="535,78 543,82 535,86" fill="#E53E3E"/>
+  <rect x="489" y="60" width="48" height="16" rx="8" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/>
+  <text x="513" y="71" font-family="Arial,Helvetica,sans-serif" font-size="8" fill="#C53030" text-anchor="middle" font-weight="bold">瓶颈</text>
+  <text x="514" y="108" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#E53E3E" text-anchor="middle" font-weight="bold">~29.5s</text>
+
+  <!-- MinIO -->
+  <rect x="545" y="55" width="115" height="55" rx="8" fill="#FFFAF0" stroke="#DD6B20" stroke-width="2"/>
+  <text x="602" y="78" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="bold" fill="#C05621" text-anchor="middle">MinIO</text>
+  <text x="602" y="98" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#718096" text-anchor="middle">Port 9443</text>
+
+  <!-- 箭头4 -->
+  <line x1="660" y1="82" x2="705" y2="82" stroke="#A0AEC0" stroke-width="2"/>
+  <polygon points="705,78 713,82 705,86" fill="#A0AEC0"/>
+
+  <!-- 超时 -->
+  <rect x="715" y="55" width="60" height="55" rx="8" fill="#FFF5F5" stroke="#E53E3E" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="745" y="80" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="bold" fill="#C53030" text-anchor="middle">X</text>
+  <text x="745" y="100" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#E53E3E" text-anchor="middle">超时</text>
+
+  <!-- 底部提示 -->
+  <rect x="80" y="160" width="640" height="50" rx="6" fill="#FFF5F5" stroke="#FEB2B2" stroke-width="1"/>
+  <text x="400" y="183" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#C53030" text-anchor="middle">瓶颈：后端 Java 到 MinIO 跨公网传输，一张几百 KB 的图片耗时 ~29.5 秒</text>
+  <text x="400" y="200" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#C53030" text-anchor="middle">超过 Nginx 30s 超时阈值，导致 504 Gateway Timeout</text>
+</svg>
