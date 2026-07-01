@@ -5,6 +5,7 @@ export default function Footer() {
     { name: 'GitHub', href: 'https://github.com/lengmodkx' },
     { name: 'Twitter', href: 'https://twitter.com/DKX_LM' },
     { name: 'Telegram', href: 'https://t.me/lemon2Judy' },
+    { name: 'Analytics', href: 'https://cloud.umami.is/share/zpSFsgjbd68Fuk3l' },
   ];
 
   return (

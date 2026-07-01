@@ -61,15 +61,6 @@ export default function Navbar() {
               </Link>
             ))}
 
-            <a
-              href="https://cloud.umami.is/share/zpSFsgjbd68Fuk3l"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Analytics
-            </a>
-
             <div className="h-4 w-px bg-border" />
 
             <button
