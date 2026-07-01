@@ -1,0 +1,113 @@
+/* Custom light theme for Giscus — matches Lemon Blog zinc + indigo palette */
+
+main {
+  --color-canvas-default: #ffffff;
+  --color-canvas-overlay: #ffffff;
+  --color-canvas-subtle: #f4f4f5;
+  --color-canvas-inset: #fafafa;
+
+  --color-border-default: #e4e4e7;
+  --color-border-muted: #f4f4f5;
+
+  --color-fg-default: #18181b;
+  --color-fg-muted: #71717a;
+  --color-fg-subtle: #a1a1aa;
+  --color-fg-on-emphasis: #ffffff;
+
+  --color-neutral-emphasis-plus: #27272a;
+  --color-neutral-emphasis: #52525b;
+  --color-neutral-muted: #f4f4f5;
+  --color-neutral-subtle: #fafafa;
+
+  --color-accent-fg: #4f46e5;
+  --color-accent-emphasis: #4f46e5;
+  --color-accent-muted: #e0e7ff;
+  --color-accent-subtle: #eef2ff;
+
+  --color-success-fg: #16a34a;
+  --color-success-emphasis: #16a34a;
+  --color-success-muted: #dcfce7;
+  --color-success-subtle: #f0fdf4;
+
+  --color-attention-fg: #ca8a04;
+  --color-attention-emphasis: #ca8a04;
+  --color-attention-muted: #fef9c3;
+  --color-attention-subtle: #fefce8;
+
+  --color-danger-fg: #dc2626;
+  --color-danger-emphasis: #dc2626;
+  --color-danger-muted: #fee2e2;
+  --color-danger-subtle: #fef2f2;
+
+  --color-btn-text: #18181b;
+  --color-btn-bg: #f4f4f5;
+  --color-btn-border: #e4e4e7;
+  --color-btn-hover-bg: #e4e4e7;
+  --color-btn-hover-border: #d4d4d8;
+  --color-btn-active-bg: #d4d4d8;
+  --color-btn-selected-bg: #e4e4e7;
+
+  --color-btn-primary-text: #ffffff;
+  --color-btn-primary-bg: #4f46e5;
+  --color-btn-primary-border: #4f46e5;
+  --color-btn-primary-hover-bg: #4338ca;
+  --color-btn-primary-hover-border: #4338ca;
+  --color-btn-primary-disabled-bg: #a5b4fc;
+  --color-btn-primary-disabled-text: #ffffff;
+
+  --color-btn-outline-text: #4f46e5;
+  --color-btn-outline-hover-text: #ffffff;
+  --color-btn-outline-hover-bg: #4f46e5;
+  --color-btn-outline-selected-bg: #4338ca;
+
+  --color-action-list-item-default-hover-bg: #f4f4f5;
+  --color-action-list-item-default-active-bg: #e4e4e7;
+
+  --color-segmented-control-bg: #f4f4f5;
+  --color-segmented-control-button-bg: #ffffff;
+  --color-segmented-control-button-selected-bg: #ffffff;
+  --color-segmented-control-button-selected-border: #e4e4e7;
+
+  --color-tooltip-text: #ffffff;
+  --color-tooltip-bg: #18181b;
+
+  --color-header-text: #18181b;
+  --color-header-bg: #ffffff;
+  --color-header-divider: #e4e4e7;
+
+  --color-primer-shadow-focus: 0 0 0 3px rgba(79, 70, 229, 0.3);
+
+  font-family: 'Geist Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Rounder corners to match the blog cards */
+.gsc-comment-box,
+.gsc-comment,
+.gsc-comment-box-tabs,
+.gsc-comment-box-textarea,
+.gsc-comment-box-preview,
+.gsc-comment-box-write,
+.gsc-comment-box-button,
+.gsc-upvote-button,
+.gsc-reactions-button,
+.gsc-social-reaction-summary-button,
+.gsc-timeline > .gsc-comment,
+.gsc-loading,
+.gsc-error {
+  border-radius: 0.75rem !important;
+}
+
+.gsc-comment-box-textarea {
+  border-radius: 0.5rem !important;
+}
+
+.gsc-comment-box-tabs {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.gsc-comment-box-write,
+.gsc-comment-box-preview {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}

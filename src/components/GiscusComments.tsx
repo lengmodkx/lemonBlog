@@ -7,9 +7,11 @@ import { useIsDarkTheme } from '@/lib/use-theme';
 
 export default function GiscusComments() {
   const [isLoading, setIsLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
   const isDark = useIsDarkTheme();
 
   useEffect(() => {
+    setMounted(true);
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
@@ -37,6 +39,11 @@ export default function GiscusComments() {
     );
   }
 
+  const themeUrl =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}/giscus-${isDark ? 'dark' : 'light'}.css`
+      : '';
+
   return (
     <div className="mt-16">
       <div className="mb-6">
@@ -59,20 +66,23 @@ export default function GiscusComments() {
           </div>
         )}
 
-        <Giscus
-          id="comments"
-          repo={repo as `${string}/${string}`}
-          repoId={repoId}
-          category={category}
-          categoryId={categoryId}
-          mapping="title"
-          reactionsEnabled="1"
-          emitMetadata="0"
-          inputPosition="top"
-          theme={isDark ? 'dark' : 'light'}
-          lang="zh-CN"
-          loading="lazy"
-        />
+        {mounted && (
+          <Giscus
+            key={themeUrl}
+            id="comments"
+            repo={repo as `${string}/${string}`}
+            repoId={repoId}
+            category={category}
+            categoryId={categoryId}
+            mapping="title"
+            reactionsEnabled="1"
+            emitMetadata="0"
+            inputPosition="top"
+            theme={themeUrl}
+            lang="zh-CN"
+            loading="lazy"
+          />
+        )}
       </div>
 
       <div className="mt-4 flex items-start gap-3 text-sm text-muted-foreground">
