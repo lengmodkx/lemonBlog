@@ -13,6 +13,15 @@ export interface GitHubRepo {
 
 const GITHUB_USERNAME = 'lengmodkx';
 
+const ALLOWED_REPOS = [
+  'lemonBlog',
+  'screenshot-client',
+  'four-crossings-cc',
+  'sidu-red-river',
+  'omr-service-streamlit',
+  'claude-brainstorm-docs',
+];
+
 export async function getGitHubProjects(): Promise<GitHubRepo[]> {
   try {
     const res = await fetch(
@@ -33,7 +42,12 @@ export async function getGitHubProjects(): Promise<GitHubRepo[]> {
     const data = await res.json();
 
     return data
-      .filter((repo: { fork: boolean; name: string }) => !repo.fork && repo.name !== GITHUB_USERNAME)
+      .filter((repo: { fork: boolean; name: string }) =>
+        !repo.fork && ALLOWED_REPOS.includes(repo.name)
+      )
+      .sort((a: { name: string }, b: { name: string }) =>
+        ALLOWED_REPOS.indexOf(a.name) - ALLOWED_REPOS.indexOf(b.name)
+      )
       .map((repo: {
         id: number;
         name: string;
