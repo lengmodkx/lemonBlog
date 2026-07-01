@@ -87,24 +87,37 @@ function fixImagePaths(content: string, slug: string): string {
 }
 
 /**
- * Extract the first image URL from markdown content
+ * Check if an image path/url is a raster image suitable for a cover
+ */
+function isRasterImage(imagePath: string): boolean {
+  const lower = imagePath.toLowerCase();
+  return !lower.endsWith('.svg') && !lower.includes('.svg?');
+}
+
+/**
+ * Extract the first raster image URL from markdown content
  * Matches both markdown syntax ![alt](url) and HTML <img> tags
+ * Ignores SVG files since they are typically diagrams/icons, not cover photos
  */
 export function extractFirstImage(content: string): string | null {
   // Match markdown image syntax: ![alt](url)
-  const markdownImageRegex = /!\[([^\]]*)\]\(([^)]+)\)/;
-  const markdownMatch = content.match(markdownImageRegex);
-
-  if (markdownMatch) {
-    return markdownMatch[2];
+  const markdownImageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  let markdownMatch;
+  while ((markdownMatch = markdownImageRegex.exec(content)) !== null) {
+    const imagePath = markdownMatch[2];
+    if (isRasterImage(imagePath)) {
+      return imagePath;
+    }
   }
 
   // Match HTML img tag: <img src="url" alt="alt">
-  const htmlImageRegex = /<img\s+[^>]*src=["']([^"']+)["'][^>]*>/i;
-  const htmlMatch = content.match(htmlImageRegex);
-
-  if (htmlMatch) {
-    return htmlMatch[1];
+  const htmlImageRegex = /<img\s+[^>]*src=["']([^"']+)["'][^>]*>/gi;
+  let htmlMatch;
+  while ((htmlMatch = htmlImageRegex.exec(content)) !== null) {
+    const imagePath = htmlMatch[1];
+    if (isRasterImage(imagePath)) {
+      return imagePath;
+    }
   }
 
   return null;
@@ -122,23 +135,10 @@ export function removeFirstImage(content: string): string {
 
 /**
  * Extract cover image from markdown content (synchronous version)
+ * Prefers the first raster image; ignores SVG diagrams
  */
 function extractCoverImageSync(content: string, slug: string): string | undefined {
-  // Match markdown image syntax: ![alt](url)
-  const markdownImageRegex = /!\[([^\]]*)\]\(([^)]+)\)/;
-  const markdownMatch = content.match(markdownImageRegex);
-
-  let imagePath = null;
-  if (markdownMatch) {
-    imagePath = markdownMatch[2];
-  } else {
-    // Match HTML img tag
-    const htmlImageRegex = /<img\s+[^>]*src=["']([^"']+)["'][^>]*>/i;
-    const htmlMatch = content.match(htmlImageRegex);
-    if (htmlMatch) {
-      imagePath = htmlMatch[1];
-    }
-  }
+  const imagePath = extractFirstImage(content);
 
   if (!imagePath) return undefined;
 
@@ -186,6 +186,11 @@ export function getAllPosts(): Post[] {
         category = data.category[0] as Post['category'];
       }
 
+      // Filter out Obsidian/metadata tags that leak from the editor
+      const tags = Array.isArray(data.tags)
+        ? data.tags.filter((tag: string) => !tag.startsWith('format/'))
+        : [];
+
       // Ensure required fields with defaults
       const post: Post = {
         slug,
@@ -193,9 +198,10 @@ export function getAllPosts(): Post[] {
         date: data.date || new Date().toISOString().split('T')[0],
         description: data.description || '',
         author: data.author || 'Anonymous',
-        tags: Array.isArray(data.tags) ? data.tags : [],
+        tags,
         category,
         coverImage,
+        layout: data.layout === 'review' ? 'review' : 'default',
       };
 
       return post;
@@ -261,17 +267,26 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
         .trim()
         .substring(0, 200) + '...';
 
+    // Filter out Obsidian/metadata tags that leak from the editor
+    const tags = Array.isArray(data.tags)
+      ? data.tags.filter((tag: string) => !tag.startsWith('format/'))
+      : [];
+
+    const layout = data.layout === 'review' ? 'review' : 'default';
+
     const post: Post = {
       slug,
       title: data.title || 'Untitled',
       date: data.date || new Date().toISOString().split('T')[0],
       description: data.description || '',
       author: data.author || 'Anonymous',
-      tags: Array.isArray(data.tags) ? data.tags : [],
+      tags,
       content: contentWithoutFirstImage,
       excerpt,
       coverImage,
       readingTime: getReadingTime(content),
+      layout,
+      review: layout === 'review' ? (data.review ?? {}) : undefined,
     };
 
     return post;

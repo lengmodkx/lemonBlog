@@ -1,25 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, Patrick_Hand, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "../lib/styles.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
-const inter = Inter({
+const geistSans = Geist({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist-sans",
 });
 
-const patrickHand = Patrick_Hand({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-patrick-hand",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +22,7 @@ export const metadata: Metadata = {
     default: "Lemon Blog",
     template: "%s | Lemon Blog",
   },
-  description: "A blog about web development, programming, and technology.",
+  description: "Personal blog about web development, programming, and technology.",
   keywords: ["blog", "web development", "programming", "technology", "tutorials"],
   authors: [{ name: "Lemon" }],
   openGraph: {
@@ -36,13 +30,13 @@ export const metadata: Metadata = {
     locale: "zh_CN",
     url: "/",
     title: "Lemon Blog",
-    description: "A blog about web development, programming, and technology.",
+    description: "Personal blog about web development, programming, and technology.",
     siteName: "Lemon Blog",
   },
   twitter: {
     card: "summary_large_image",
     title: "Lemon Blog",
-    description: "A blog about web development, programming, and technology.",
+    description: "Personal blog about web development, programming, and technology.",
   },
   robots: {
     index: true,
@@ -57,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
-      <body className={`${inter.variable} ${patrickHand.variable} ${jetbrainsMono.variable} font-sans antialiased min-h-screen flex flex-col`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen flex flex-col`}>
         <ErrorBoundary>
           <Navbar />
           <main className="flex-grow">

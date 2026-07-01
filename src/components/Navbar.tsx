@@ -4,8 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useSyncExternalStore } from 'react';
 import { usePathname } from 'next/navigation';
+import { Sun, Moon } from '@phosphor-icons/react';
 
-// 用于避免 hydration 不匹配的订阅函数
 const getServerSnapshot = () => false;
 const getSnapshot = () => {
   if (typeof window === 'undefined') return false;
@@ -35,7 +35,6 @@ export default function Navbar() {
   const toggleDarkMode = () => {
     const newDarkMode = !isDarkMode;
     localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
-    // 触发 storage 事件以更新 useSyncExternalStore
     window.dispatchEvent(new StorageEvent('storage', { key: 'theme' }));
   };
 
@@ -46,54 +45,48 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-paper dark:bg-paper border-b border-border">
-      <div className="max-w-3xl mx-auto px-6">
-        <div className="flex justify-between items-center h-14">
-          {/* Avatar Logo */}
-          <Link href="/" className="flex items-center">
-            <div className="relative w-9 h-9">
+    <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="flex justify-between items-center h-16">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-9 h-9 rounded-full overflow-hidden ring-1 ring-border group-hover:ring-accent transition-colors">
               <Image
                 src="/images/avatar.jpg"
                 alt="lemon"
                 fill
-                className="rounded-sm object-cover"
+                sizes="36px"
+                className="object-cover"
               />
             </div>
+            <span className="font-semibold text-foreground tracking-tight">Lemon</span>
           </Link>
 
-          {/* Navigation Links and Theme Toggle */}
           <div className="flex items-center gap-6">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-sm tracking-wide transition-colors ${
+                className={`text-sm transition-colors ${
                   pathname === item.href
-                    ? 'text-ink font-medium'
-                    : 'text-ink-light hover:text-ink'
+                    ? 'text-foreground font-medium'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {item.name}
               </Link>
             ))}
 
-            {/* Divider */}
             <div className="h-4 w-px bg-border" />
 
-            {/* Theme Toggle */}
             <button
               onClick={toggleDarkMode}
-              className="p-1.5 text-ink-light hover:text-ink transition-colors"
+              className="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
               aria-label="Toggle dark mode"
             >
               {isDarkMode ? (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
+                <Sun size={18} weight="regular" />
               ) : (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
+                <Moon size={18} weight="regular" />
               )}
             </button>
           </div>

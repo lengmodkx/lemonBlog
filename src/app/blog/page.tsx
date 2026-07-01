@@ -19,11 +19,16 @@ export default async function BlogPage({
   const categories = getAllCategories();
 
   return (
-    <div className="min-h-screen bg-paper">
-      <div className="max-w-3xl mx-auto px-6 py-12">
-        <h1 className="font-hand text-3xl text-ink mb-8">
-          所有文章
-        </h1>
+    <div className="min-h-screen bg-background">
+      <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
+        <header className="mb-10">
+          <h1 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight mb-3">
+            所有文章
+          </h1>
+          <p className="text-muted-foreground max-w-xl">
+            记录学习、思考与技术实践。
+          </p>
+        </header>
 
         <CategoryFilter
           categories={categories}
@@ -31,14 +36,14 @@ export default async function BlogPage({
         />
 
         {posts.length > 0 ? (
-          <div>
+          <div className="bg-card rounded-xl border border-border px-6">
             {posts.map((post) => (
               <ArticleCard key={post.slug} post={post} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-12">
-            <p className="text-ink-light">暂无文章</p>
+          <div className="text-center py-16 bg-card rounded-xl border border-border">
+            <p className="text-muted-foreground">暂无文章</p>
           </div>
         )}
       </div>

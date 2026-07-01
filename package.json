@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@giscus/react": "^3.1.0",
+    "@phosphor-icons/react": "^2.1.10",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/typography": "^0.5.19",
     "@types/mdx": "^2.0.13",
@@ -20,6 +21,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
     "gray-matter": "^4.0.3",
+    "motion": "^12.42.2",
     "next": "16.1.0",
     "pinyin": "^4.0.0",
     "prism-themes": "^1.9.0",

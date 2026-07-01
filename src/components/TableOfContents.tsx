@@ -12,7 +12,6 @@ interface TableOfContentsProps {
   content: string;
 }
 
-// Generate stable ID from heading text
 function generateHeadingId(text: string, index: number): string {
   const slug = text
     .toLowerCase()
@@ -22,41 +21,53 @@ function generateHeadingId(text: string, index: number): string {
   return slug ? `heading-${slug}-${index}` : `heading-${index}`;
 }
 
+function parseHeadings(content: string): Heading[] {
+  // Use a lightweight regex-based parser so this works during SSR as well as
+  // on the client. DOMParser is only available in the browser, which caused the
+  // TOC to render empty on first paint.
+  const headingRegex = /<h([23])[^>]*>([\s\S]*?)<\/h\1>/gi;
+  const headings: Heading[] = [];
+  let match;
+
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = parseInt(match[1], 10);
+    // Strip any nested HTML tags (e.g. icons, anchors) to get clean text.
+    const text = match[2]
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .trim();
+
+    if (text) {
+      headings.push({
+        id: generateHeadingId(text, headings.length),
+        text,
+        level,
+      });
+    }
+  }
+
+  return headings;
+}
+
 export default function TableOfContents({ content }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>('');
 
-  // Extract headings and generate stable IDs
-  const headings = useMemo<Heading[]>(() => {
-    // DOMParser is only available in browser
-    if (typeof window === 'undefined') return [];
+  const headings = useMemo<Heading[]>(() => parseHeadings(content), [content]);
 
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(content, 'text/html');
-    const headingElements = doc.querySelectorAll('h2, h3');
-
-    return Array.from(headingElements).map((heading, index) => {
-      const text = heading.textContent || '';
-      return {
-        id: generateHeadingId(text, index),
-        text,
-        level: parseInt(heading.tagName.substring(1)),
-      };
-    });
-  }, [content]);
-
-  // Assign IDs to DOM elements and setup observer
   useEffect(() => {
     if (headings.length === 0) return;
 
-    const articleHeadings = document.querySelectorAll('article h2, article h3');
+    // Exclude headings inside the comments section so "文章评论" doesn't appear
+    // in the table of contents.
+    const articleHeadings = document.querySelectorAll(
+      'article h2:not(#comments *, [id*="comment"] *), article h3:not(#comments *, [id*="comment"] *)'
+    );
 
-    // Assign IDs using same logic as heading generation
     articleHeadings.forEach((heading, index) => {
       const text = heading.textContent || '';
       heading.id = generateHeadingId(text, index);
     });
 
-    // Setup IntersectionObserver
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -97,9 +108,9 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   if (headings.length === 0) return null;
 
   return (
-    <div className="hidden lg:block sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto">
-      <div className="w-48">
-        <h3 className="font-hand text-lg text-ink mb-4">
+    <aside className="hidden lg:block sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto">
+      <div className="w-52">
+        <h3 className="text-sm font-semibold text-foreground mb-4 tracking-tight">
           目录
         </h3>
         <nav className="space-y-1 border-l border-border">
@@ -107,22 +118,19 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
             <button
               key={heading.id}
               onClick={() => handleClick(heading.id)}
-              className={`block w-full text-left text-sm transition-colors ${
-                heading.level === 3 ? 'pl-4' : 'pl-3'
+              className={`block w-full text-left text-sm transition-colors py-1 ${
+                heading.level === 3 ? 'pl-5' : 'pl-4'
               } ${
                 activeId === heading.id
-                  ? 'text-accent border-l border-accent -ml-px'
-                  : 'text-ink-light hover:text-ink'
+                  ? 'text-accent border-l border-accent -ml-px font-medium'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
-              style={{
-                fontSize: heading.level === 3 ? '0.8125rem' : '0.875rem',
-              }}
             >
-              <span className="truncate block py-1">{heading.text}</span>
+              <span className="truncate block">{heading.text}</span>
             </button>
           ))}
         </nav>
       </div>
-    </div>
+    </aside>
   );
 }

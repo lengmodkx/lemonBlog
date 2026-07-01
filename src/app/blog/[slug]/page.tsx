@@ -1,9 +1,12 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getPostBySlug, getAllPosts } from '@/lib/posts';
 import TableOfContents from '@/components/TableOfContents';
 import ReadingProgress from '@/components/ReadingProgress';
 import GiscusComments from '@/components/GiscusComments';
+import ReviewPost from '@/components/review/ReviewPost';
+import { ArrowLeft, Clock, Calendar } from '@phosphor-icons/react/dist/ssr';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -36,74 +39,87 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   if (!post) notFound();
 
+  if (post.layout === 'review') {
+    return <ReviewPost post={post} />;
+  }
+
+  const formattedDate = new Date(post.date).toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
   return (
-    <div className="min-h-screen bg-paper">
-      {/* Reading Progress Bar */}
+    <div className="min-h-screen bg-background">
       <ReadingProgress />
+
       <div className="max-w-5xl mx-auto px-6 py-12">
         <div className="flex gap-16">
-          {/* Main Article Content */}
-          <article className="flex-1 max-w-2xl">
-            {/* Back Link */}
+          <article className="flex-1 max-w-2xl min-w-0">
             <Link
               href="/blog"
-              className="inline-flex items-center text-sm text-ink-light hover:text-ink mb-8 transition-colors"
+              className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
             >
-              ← 返回
+              <ArrowLeft size={14} weight="bold" />
+              返回文章列表
             </Link>
 
-            {/* Article Header */}
             <header className="mb-10">
-              <h1 className="font-hand text-3xl md:text-4xl text-ink mb-6 leading-tight">
+              <h1 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight tracking-tight mb-6">
                 {post.title}
               </h1>
 
-              <div className="flex flex-wrap items-center gap-3 text-sm text-ink-light">
-                <time dateTime={post.date}>
-                  {new Date(post.date).toLocaleDateString('zh-CN', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </time>
-                <span className="text-border">|</span>
-                <span>{post.readingTime || 5} 分钟阅读</span>
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-1.5">
+                  <Calendar size={14} weight="regular" />
+                  <time dateTime={post.date}>{formattedDate}</time>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Clock size={14} weight="regular" />
+                  <span>{post.readingTime || 5} 分钟阅读</span>
+                </div>
                 {post.tags && post.tags.length > 0 && (
-                  <>
-                    <span className="text-border">|</span>
-                    <div className="flex gap-2">
-                      {post.tags.map((tag) => (
-                        <span key={tag} className="text-accent">
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-                  </>
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-accent text-xs px-2 py-0.5 rounded-full bg-accent/10"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 )}
               </div>
             </header>
 
-            {/* Divider */}
-            <div className="w-16 h-px bg-accent mb-10" />
+            {post.coverImage && (
+              <div className="relative w-full aspect-[16/9] mb-10 rounded-xl overflow-hidden border border-border">
+                <Image
+                  src={post.coverImage}
+                  alt={post.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            )}
 
-            {/* Article Content */}
             <div
-              className="prose max-w-none"
+              className="markdown-content max-w-none"
               dangerouslySetInnerHTML={{ __html: post.content || '' }}
             />
 
-            {/* Article Footer */}
             <footer className="mt-16 pt-8 border-t border-border">
-              <p className="text-ink-light text-sm text-center">
+              <p className="text-muted-foreground text-sm text-center">
                 感谢阅读
               </p>
             </footer>
 
-            {/* Comments Section */}
             <GiscusComments />
           </article>
 
-          {/* Table of Contents */}
           <TableOfContents content={post.content || ''} />
         </div>
       </div>

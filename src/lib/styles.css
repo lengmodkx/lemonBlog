@@ -1,48 +1,39 @@
-/* Custom styles for Markdown content - 手写笔记风格 */
+/* Custom styles for Markdown content */
 @import 'prism-themes/themes/prism-vs.css';
 
-/* ========================================
-   Markdown Article Styles
-   ======================================== */
-
-/* Light theme base - 手写笔记风格 */
+/* Light theme */
 html:not(.dark) {
-  --article-bg: #FDFBF7;
-  --article-text: #3D3D3D;
-  --article-text-muted: #4A6355;
-  --article-border: #D4CFC4;
-  --article-accent: #C75B39;
-  --article-code-bg: #F5F1E8;
-  --article-pre-bg: #F5F1E8;
-  --article-blockquote-bg: transparent;
-  --article-blockquote-border: #C75B39;
-  --article-link: #C75B39;
-  --article-link-hover: #A84A2D;
-  --article-table-header: #F5F1E8;
-  --article-table-stripe: #FDFBF7;
+  --article-bg: #fafafa;
+  --article-text: #18181b;
+  --article-text-muted: #71717a;
+  --article-border: #e4e4e7;
+  --article-accent: #4f46e5;
+  --article-accent-hover: #4338ca;
+  --article-code-bg: #f4f4f5;
+  --article-pre-bg: #f4f4f5;
+  --article-blockquote-border: #4f46e5;
+  --article-link: #4f46e5;
+  --article-link-hover: #4338ca;
+  --article-table-header: #f4f4f5;
 }
 
-/* Dark theme base - 深墨绿色调 */
+/* Dark theme */
 html.dark {
-  --article-bg: #1A1F1C;
-  --article-text: #B0C0B2;
-  --article-text-muted: #A8B8AA;
-  --article-border: #3A453D;
-  --article-accent: #D97B5D;
-  --article-code-bg: #232925;
-  --article-pre-bg: #232925;
-  --article-blockquote-bg: transparent;
-  --article-blockquote-border: #D97B5D;
-  --article-link: #D97B5D;
-  --article-link-hover: #E89B7D;
-  --article-table-header: #232925;
-  --article-table-stripe: #1A1F1C;
+  --article-bg: #09090b;
+  --article-text: #fafafa;
+  --article-text-muted: #a1a1aa;
+  --article-border: #27272a;
+  --article-accent: #6366f1;
+  --article-accent-hover: #818cf8;
+  --article-code-bg: #18181b;
+  --article-pre-bg: #18181b;
+  --article-blockquote-border: #6366f1;
+  --article-link: #6366f1;
+  --article-link-hover: #818cf8;
+  --article-table-header: #18181b;
 }
 
-/* ========================================
-   Main Article Container
-   ======================================== */
-
+/* Main article container */
 .markdown-content {
   color: var(--article-text);
   line-height: 1.8;
@@ -54,37 +45,34 @@ html.dark {
   line-height: 1.8;
 }
 
-/* ========================================
-   Headings - 手写体
-   ======================================== */
-
+/* Headings */
 .markdown-content h1 {
   font-size: 2.25rem;
   font-weight: 600;
   color: var(--article-text);
   margin: 0 0 1rem 0;
   line-height: 1.2;
-  font-family: var(--font-patrick-hand), 'Caveat', cursive;
+  letter-spacing: -0.02em;
 }
 
 .markdown-content h2 {
   font-size: 1.75rem;
   font-weight: 600;
   color: var(--article-text);
-  margin: 2rem 0 0.75rem 0;
-  padding-bottom: 0.25em;
-  border-bottom: 2px solid var(--article-border);
+  margin: 2.5rem 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--article-border);
   line-height: 1.3;
-  font-family: var(--font-patrick-hand), 'Caveat', cursive;
+  letter-spacing: -0.02em;
 }
 
 .markdown-content h3 {
   font-size: 1.375rem;
   font-weight: 600;
   color: var(--article-text);
-  margin: 1.75rem 0 0.5rem 0;
+  margin: 2rem 0 0.75rem 0;
   line-height: 1.4;
-  font-family: var(--font-patrick-hand), 'Caveat', cursive;
+  letter-spacing: -0.01em;
 }
 
 .markdown-content h4 {
@@ -93,13 +81,9 @@ html.dark {
   color: var(--article-text);
   margin: 1.5rem 0 0.5rem 0;
   line-height: 1.5;
-  font-family: var(--font-patrick-hand), 'Caveat', cursive;
 }
 
-/* ========================================
-   Links
-   ======================================== */
-
+/* Links */
 .markdown-content a {
   color: var(--article-link);
   text-decoration: none;
@@ -113,17 +97,14 @@ html.dark {
   border-bottom-color: var(--article-link-hover);
 }
 
-/* ========================================
-   Code - Inline
-   ======================================== */
-
+/* Code inline */
 .markdown-content code {
-  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
   font-size: 0.875em;
   background-color: var(--article-code-bg);
   color: var(--article-accent);
-  padding: 0.15em 0.4em;
-  border-radius: 2px;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
   font-weight: 500;
 }
 
@@ -132,17 +113,14 @@ html.dark {
   background-color: var(--article-code-bg);
 }
 
-/* ========================================
-   Code Blocks - Pre - 纸质背景
-   ======================================== */
-
+/* Code blocks */
 .markdown-content pre {
   background-color: var(--article-pre-bg);
-  border-radius: 2px 4px 3px 5px;
+  border: 1px solid var(--article-border);
+  border-radius: 0.75rem;
   padding: 1.25rem;
   margin: 1.5rem 0;
   overflow-x: auto;
-  border: 1px solid var(--article-border);
 }
 
 .markdown-content pre code {
@@ -166,10 +144,7 @@ html.dark {
   letter-spacing: 0.05em;
 }
 
-/* ========================================
-   Blockquotes - 手写引用
-   ======================================== */
-
+/* Blockquotes */
 .markdown-content blockquote {
   border-left: 3px solid var(--article-blockquote-border);
   padding-left: 1.25rem;
@@ -191,13 +166,10 @@ html.dark {
 }
 
 .markdown-content blockquote cite::before {
-  content: '— ';
+  content: '- ';
 }
 
-/* ========================================
-   Lists
-   ======================================== */
-
+/* Lists */
 .markdown-content ul,
 .markdown-content ol {
   margin: 1.25rem 0;
@@ -218,13 +190,10 @@ html.dark {
 }
 
 .markdown-content li::marker {
-  color: var(--article-accent);
+  color: var(--article-text-muted);
 }
 
-/* ========================================
-   Tables - 手写表格
-   ======================================== */
-
+/* Tables */
 .markdown-content table,
 .prose table {
   width: 100%;
@@ -246,7 +215,6 @@ html.dark {
 .prose th {
   font-weight: 600;
   color: var(--article-text);
-  border-bottom-width: 2px;
   background-color: var(--article-table-header);
 }
 
@@ -255,19 +223,15 @@ html.dark {
   border-bottom: none;
 }
 
-/* ========================================
-   Images - 手写图片
-   ======================================== */
-
+/* Images */
 .markdown-content img {
   max-width: 100%;
   height: auto;
-  border-radius: 2px;
+  border-radius: 0.75rem;
   margin: 2rem auto;
   display: block;
 }
 
-/* Image caption */
 .markdown-content img + em,
 .markdown-content figure + em {
   display: block;
@@ -279,10 +243,7 @@ html.dark {
   font-style: normal;
 }
 
-/* ========================================
-   Horizontal Rule - 手绘分隔线
-   ======================================== */
-
+/* Horizontal rule */
 .markdown-content hr {
   border: none;
   height: 1px;
@@ -290,43 +251,31 @@ html.dark {
   margin: 2.5rem 0;
 }
 
-/* ========================================
-   Strong / Bold
-   ======================================== */
-
+/* Strong */
 .markdown-content strong {
   font-weight: 600;
   color: var(--article-text);
 }
 
-/* ========================================
-   Emphasis / Italic
-   ======================================== */
-
+/* Emphasis */
 .markdown-content em {
   font-style: italic;
 }
 
-/* ========================================
-   Keyboard Shortcuts
-   ======================================== */
-
+/* Keyboard */
 .markdown-content kbd {
-  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
   font-size: 0.8em;
   background-color: var(--article-code-bg);
   border: 1px solid var(--article-border);
-  border-radius: 2px;
+  border-radius: 4px;
   padding: 0.15rem 0.4rem;
 }
 
-/* ========================================
-   Details / Summary
-   ======================================== */
-
+/* Details / Summary */
 .markdown-content details {
   background-color: var(--article-code-bg);
-  border-radius: 2px 4px 3px 5px;
+  border-radius: 0.75rem;
   padding: 1rem;
   margin: 1.5rem 0;
   border: 1px solid var(--article-border);
@@ -342,7 +291,7 @@ html.dark {
 }
 
 .markdown-content summary::before {
-  content: '▶';
+  content: '>';
   font-size: 0.75rem;
   transition: transform 0.2s ease;
 }
@@ -355,10 +304,7 @@ html.dark {
   margin-top: 1rem;
 }
 
-/* ========================================
-   Responsive Adjustments
-   ======================================== */
-
+/* Responsive */
 @media (max-width: 768px) {
   .markdown-content {
     font-size: 1rem;
@@ -387,10 +333,7 @@ html.dark {
   }
 }
 
-/* ========================================
-   Print Styles
-   ======================================== */
-
+/* Print */
 @media print {
   .markdown-content {
     color: #000;

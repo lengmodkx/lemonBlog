@@ -32,6 +32,22 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'giphy.com',
       },
+      {
+        protocol: 'http',
+        hostname: 'lemon-blog-oss.oss-cn-beijing.aliyuncs.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lemon-blog-oss.oss-cn-beijing.aliyuncs.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'lemon-obsidian-article.oss-cn-beijing.aliyuncs.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lemon-obsidian-article.oss-cn-beijing.aliyuncs.com',
+      },
     ],
   },
 

@@ -24,31 +24,28 @@ export default function CategoryFilter({
     router.push(`/blog?${params.toString()}`);
   };
 
-  const buttonClasses = (isSelected: boolean) =>
-    `px-3 py-1 text-sm transition-colors ${
-      isSelected
-        ? 'text-ink border-b-2 border-accent'
-        : 'text-ink-light hover:text-ink'
-    }`;
+  const allCategories = ['全部', ...categories];
 
   return (
-    <div className="mb-8">
-      <div className="flex flex-wrap gap-1 border-b border-border pb-4">
-        <button
-          onClick={() => updateFilter()}
-          className={buttonClasses(!selectedCategory)}
-        >
-          全部
-        </button>
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => updateFilter(cat)}
-            className={buttonClasses(selectedCategory === cat)}
-          >
-            {cat}
-          </button>
-        ))}
+    <div className="mb-10">
+      <div className="flex flex-wrap gap-2">
+        {allCategories.map((cat) => {
+          const isSelected =
+            cat === '全部' ? !selectedCategory : selectedCategory === cat;
+          return (
+            <button
+              key={cat}
+              onClick={() => updateFilter(cat === '全部' ? undefined : cat)}
+              className={`px-4 py-1.5 text-sm rounded-full transition-colors ${
+                isSelected
+                  ? 'bg-accent text-accent-foreground font-medium'
+                  : 'bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80'
+              }`}
+            >
+              {cat}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

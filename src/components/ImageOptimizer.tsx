@@ -141,8 +141,8 @@ export default function ImageOptimizer({
         <div className="absolute top-2 right-2 opacity-0 hover:opacity-100 transition-opacity">
           <div className="bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
             {isLoading && 'Loading...'}
-            {!isLoading && !hasError && '✓'}
-            {hasError && '✗'}
+            {!isLoading && !hasError && 'Done'}
+            {hasError && 'Error'}
           </div>
         </div>
       )}

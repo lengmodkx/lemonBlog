@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import { MapPin, Briefcase, Envelope, GithubLogo, TwitterLogo, PaperPlaneRight } from '@phosphor-icons/react'
 
 export default function FixedInfoCard() {
   const [imageError, setImageError] = useState(false)
@@ -21,19 +22,7 @@ export default function FixedInfoCard() {
   }
 
   return (
-    <div className="
-      flex flex-col
-      backdrop-blur-md bg-paper-50/80 dark:bg-ink-DEFAULT/80
-      border border-lavender-200 dark:border-lavender-800
-      rounded-2xl shadow-md p-5
-      hover:scale-105
-      hover:shadow-2xl
-      hover:-translate-y-1
-      hover:border-primary
-      transition-all duration-300 ease-out
-      h-full
-    ">
-      {/* Avatar Section */}
+    <div className="flex flex-col bg-card border border-border rounded-xl shadow-sm p-6 h-full hover:shadow-md transition-shadow">
       <div className="flex justify-center mb-5">
         <div className="relative w-20 h-20">
           {!imageError ? (
@@ -41,76 +30,72 @@ export default function FixedInfoCard() {
               src={profile.avatar}
               alt={profile.name}
               fill
-              className="rounded-full object-cover shadow-lg"
+              sizes="80px"
+              className="rounded-full object-cover ring-2 ring-border"
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-full rounded-full bg-lavender-200 dark:bg-lavender-900/30 flex items-center justify-center text-3xl">
-              👤
+            <div className="w-full h-full rounded-full bg-muted flex items-center justify-center text-2xl text-muted-foreground">
+              {profile.name[0].toUpperCase()}
             </div>
           )}
         </div>
       </div>
 
-      {/* Name & Title Section */}
-      <div className="text-center mb-4">
-        <h2 className="text-xl font-bold text-ink dark:text-text-primary mb-1">
-          <span className="text-primary">{profile.name}</span>
+      <div className="text-center mb-5">
+        <h2 className="text-xl font-semibold text-foreground mb-1">
+          {profile.name}
         </h2>
-        <p className="text-xs text-text-secondary leading-relaxed">
+        <p className="text-xs text-muted-foreground leading-relaxed">
           {profile.title}
         </p>
       </div>
 
-      {/* Contact Info Section */}
-      <div className="space-y-3 mb-4 text-xs">
-        <p className="flex items-center gap-2 text-text-muted">
-          <span className="shrink-0">📍</span>
+      <div className="space-y-3 mb-5 text-sm">
+        <p className="flex items-center gap-2 text-muted-foreground">
+          <MapPin size={16} weight="regular" />
           <span>{profile.location}</span>
         </p>
-        <p className="flex items-center gap-2 text-text-muted">
-          <span className="shrink-0">💼</span>
+        <p className="flex items-center gap-2 text-muted-foreground">
+          <Briefcase size={16} weight="regular" />
           <span>{profile.job}</span>
         </p>
         <a
           href={`mailto:${profile.email}`}
-          className="flex items-center gap-2 text-text-muted hover:text-primary transition-colors"
+          className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors"
         >
-          <span className="shrink-0">📧</span>
+          <Envelope size={16} weight="regular" />
           <span>{profile.email}</span>
         </a>
       </div>
 
-      {/* Social Links Section */}
-      <div className="flex justify-center gap-4">
+      <div className="flex justify-center gap-4 mt-auto">
         <a
           href={profile.socialLinks.github}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
-          className="text-text-muted hover:text-primary transition-colors text-sm"
+          className="text-muted-foreground hover:text-foreground transition-colors"
         >
-          GitHub
+          <GithubLogo size={18} weight="regular" />
         </a>
-        <span className="text-text-muted">•</span>
         <a
           href={profile.socialLinks.twitter}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Twitter"
-          className="text-text-muted hover:text-primary transition-colors text-sm"
+          className="text-muted-foreground hover:text-foreground transition-colors"
         >
-          Twitter
+          <TwitterLogo size={18} weight="regular" />
         </a>
-        <span className="text-text-muted">•</span>
         <a
           href={profile.socialLinks.telegram}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Telegram"
-          className="text-text-muted hover:text-primary transition-colors text-sm"
+          className="text-muted-foreground hover:text-foreground transition-colors"
         >
-          Telegram
+          <PaperPlaneRight size={18} weight="regular" />
         </a>
       </div>
     </div>

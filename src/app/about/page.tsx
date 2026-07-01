@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Envelope, ArrowLeft } from '@phosphor-icons/react/dist/ssr';
 
 export const metadata = {
   title: 'About | Lemon Blog',
@@ -43,107 +44,97 @@ const socialLinks = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-paper-50 dark:bg-ink-DEFAULT">
-      <div className="max-w-2xl mx-auto px-4 py-12">
-        <h1 className="text-2xl font-bold text-ink dark:text-text-primary mb-8">
-          About Me
+    <div className="min-h-screen bg-background">
+      <div className="max-w-2xl mx-auto px-6 py-16 md:py-20">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-10 transition-colors"
+        >
+          <ArrowLeft size={14} weight="bold" />
+          返回首页
+        </Link>
+
+        <h1 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight mb-8">
+          关于我
         </h1>
 
-        <div className="prose dark:prose-invert max-w-none">
-          {/* About Section */}
-          <section className="mb-10">
-            <p className="text-text-secondary mb-6 leading-relaxed">
-              Hi, I&apos;m <span className="text-primary font-medium">lemon</span>, a Java backend developer from China.
-              I have been working in software development for over 7 years, specializing in enterprise application development
-              and distributed systems.
-            </p>
-            <p className="text-text-secondary mb-6 leading-relaxed">
-              I am passionate about building scalable, high-performance applications and constantly exploring new technologies
-              to improve my skills. Through this blog, I share my learning experiences, technical insights, and project practices.
-            </p>
-          </section>
+        <section className="mb-12">
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Hi, I&apos;m <span className="text-foreground font-medium">lemon</span>, a Java backend developer from China.
+            I have been working in software development for over 7 years, specializing in enterprise application development
+            and distributed systems.
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            I am passionate about building scalable, high-performance applications and constantly exploring new technologies
+            to improve my skills. Through this blog, I share my learning experiences, technical insights, and project practices.
+          </p>
+        </section>
 
-          {/* Work Experience Section */}
-          <section className="mb-10">
-            <h2 className="text-lg font-semibold text-ink dark:text-text-primary mb-4">
-              Work Experience
-            </h2>
-            <div className="border-l-2 border-lavender-300 dark:border-lavender-700 pl-6 space-y-6">
-              {workExperience.map((exp, index) => (
-                <div key={index} className="relative">
-                  <div className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-lavender-500" />
-                  <div className="text-sm text-text-muted mb-1">
-                    {exp.period}
-                  </div>
-                  <h3 className="font-medium text-ink dark:text-text-primary">
-                    {exp.company}
-                  </h3>
-                  <p className="text-sm text-text-secondary">
-                    {exp.description}
-                  </p>
+        <section className="mb-12">
+          <h2 className="text-lg font-semibold text-foreground mb-5 tracking-tight">
+            工作经历
+          </h2>
+          <div className="border-l border-border pl-6 space-y-8">
+            {workExperience.map((exp, index) => (
+              <div key={index} className="relative">
+                <div className="absolute -left-[25px] top-1.5 w-2 h-2 rounded-full bg-accent ring-4 ring-background" />
+                <div className="text-sm text-muted-foreground mb-1">
+                  {exp.period}
                 </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Tech Stack Section */}
-          <section className="mb-10">
-            <h2 className="text-lg font-semibold text-ink dark:text-text-primary mb-4">
-              Tech Stack
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {techStack.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 rounded-full bg-lavender-100 dark:bg-lavender-900/30 text-primary dark:text-lavender-400 text-sm"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </section>
-
-          {/* Contact Section */}
-          <section className="mb-10">
-            <h2 className="text-lg font-semibold text-ink dark:text-text-primary mb-4">
-              Get in Touch
-            </h2>
-            <p className="text-text-secondary mb-4">
-              Feel free to reach out through any of the following channels:
-            </p>
-            <div className="space-y-2">
-              <p className="text-text-secondary">
-                <span className="font-medium">Email: </span>
-                <a href="mailto:lengmodkx@gmail.com" className="text-primary hover:underline">
-                  lengmodkx@gmail.com
-                </a>
-              </p>
-              <div className="flex gap-4 pt-2">
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-text-muted hover:text-primary transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                ))}
+                <h3 className="font-medium text-foreground">
+                  {exp.company}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {exp.description}
+                </p>
               </div>
-            </div>
-          </section>
+            ))}
+          </div>
+        </section>
 
-          {/* Back to Home */}
-          <section>
-            <Link
-              href="/"
-              className="inline-flex items-center text-sm text-primary hover:text-primary-hover transition-colors"
+        <section className="mb-12">
+          <h2 className="text-lg font-semibold text-foreground mb-5 tracking-tight">
+            技术栈
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {techStack.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-sm border border-border"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-12">
+          <h2 className="text-lg font-semibold text-foreground mb-5 tracking-tight">
+            联系方式
+          </h2>
+          <div className="space-y-4">
+            <a
+              href="mailto:lengmodkx@gmail.com"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors"
             >
-              ← Back to Home
-            </Link>
-          </section>
-        </div>
+              <Envelope size={18} weight="regular" />
+              <span>lengmodkx@gmail.com</span>
+            </a>
+            <div className="flex items-center gap-6">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
