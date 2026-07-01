@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Lemon" }],
   openGraph: {
     type: "website",
-    locale: "zh_CN",
+    locale: "en_US",
     url: "/",
     title: "Lemon Blog",
     description: "Personal blog about web development, programming, and technology.",

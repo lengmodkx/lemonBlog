@@ -31,7 +31,7 @@ export default function ArticleCard({ post }: ArticleCardProps) {
           {post.layout === 'review' && (
             <span className="inline-flex items-center gap-1 self-start text-xs font-medium text-accent bg-accent/10 px-2 py-0.5 rounded-full">
               <Sparkle size={12} weight="fill" />
-              回顾
+              Review
             </span>
           )}
         </div>

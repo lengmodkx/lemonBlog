@@ -43,7 +43,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     return <ReviewPost post={post} />;
   }
 
-  const formattedDate = new Date(post.date).toLocaleDateString('zh-CN', {
+  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -61,7 +61,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
             >
               <ArrowLeft size={14} weight="bold" />
-              返回文章列表
+              Back to posts
             </Link>
 
             <header className="mb-10">
@@ -76,7 +76,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Clock size={14} weight="regular" />
-                  <span>{post.readingTime || 5} 分钟阅读</span>
+                  <span>{post.readingTime || 5} min read</span>
                 </div>
                 {post.tags && post.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2">
@@ -113,7 +113,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             <footer className="mt-16 pt-8 border-t border-border">
               <p className="text-muted-foreground text-sm text-center">
-                感谢阅读
+                Thanks for reading
               </p>
             </footer>
 

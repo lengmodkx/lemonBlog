@@ -4,8 +4,8 @@ import { getGitHubProjects } from '@/lib/github';
 import ProjectCard from '@/components/projects/ProjectCard';
 
 export const metadata = {
-  title: '项目 | Lemon Blog',
-  description: '我的开源项目与代码实验',
+  title: 'Projects',
+  description: 'Open source projects and code experiments',
 };
 
 export const revalidate = 3600;
@@ -21,15 +21,15 @@ export default async function ProjectsPage() {
           className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-10 transition-colors"
         >
           <ArrowLeft size={14} weight="bold" />
-          返回首页
+          Back to home
         </Link>
 
         <header className="mb-12">
           <h1 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight mb-3">
-            项目
+            Projects
           </h1>
           <p className="text-muted-foreground max-w-xl leading-relaxed">
-            这里是我的一些开源项目和代码实验，主要围绕后端开发、工具脚本和可视化应用。
+            A selection of open-source projects and experiments around backend development, tooling, and data visualization.
           </p>
         </header>
 
@@ -41,7 +41,7 @@ export default async function ProjectsPage() {
           </div>
         ) : (
           <div className="text-center py-16 bg-card rounded-xl border border-border">
-            <p className="text-muted-foreground">暂时无法加载项目列表</p>
+            <p className="text-muted-foreground">Unable to load projects right now</p>
           </div>
         )}
       </div>

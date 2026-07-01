@@ -1,7 +1,7 @@
 ---
 title: RustFS 部署指南（含 Nginx SSL 反向代理）
 date: 2026-03-15
-category: 技术学习
+category: Tech
 tags:
   - RustFS
   - 对象存储

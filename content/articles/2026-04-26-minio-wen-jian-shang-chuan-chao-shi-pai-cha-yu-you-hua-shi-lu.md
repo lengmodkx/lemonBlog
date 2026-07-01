@@ -1,7 +1,7 @@
 ---
 title: "MinIO 文件上传超时排查与优化实录"
 date: 2026-04-26
-category: 技术学习
+category: Tech
 tags:
   - MinIO
   - Nginx

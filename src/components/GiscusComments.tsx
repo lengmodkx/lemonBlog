@@ -27,12 +27,12 @@ export default function GiscusComments() {
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
             <ChatCircle size={20} weight="regular" />
-            <span>文章评论</span>
+            <span>Comments</span>
           </h3>
         </div>
         <div className="bg-muted rounded-xl p-6 border border-border text-center">
           <p className="text-muted-foreground text-sm">
-            评论功能暂不可用，请配置环境变量
+            Comments are not available. Please configure the Giscus environment variables.
           </p>
         </div>
       </div>
@@ -49,10 +49,10 @@ export default function GiscusComments() {
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
           <ChatCircle size={20} weight="regular" />
-          <span>文章评论</span>
+          <span>Comments</span>
         </h3>
         <p className="text-sm text-muted-foreground mt-1">
-          使用 GitHub 账号登录参与讨论
+          Log in with GitHub to join the discussion
         </p>
       </div>
 
@@ -61,7 +61,7 @@ export default function GiscusComments() {
           <div className="absolute inset-0 flex items-center justify-center bg-card/90 backdrop-blur-sm z-10">
             <div className="flex flex-col items-center gap-3">
               <Spinner size={24} weight="bold" className="animate-spin text-accent" />
-              <p className="text-sm text-muted-foreground">加载评论中...</p>
+              <p className="text-sm text-muted-foreground">Loading comments…</p>
             </div>
           </div>
         )}
@@ -79,7 +79,7 @@ export default function GiscusComments() {
             emitMetadata="0"
             inputPosition="top"
             theme={themeUrl}
-            lang="zh-CN"
+            lang="en"
             loading="lazy"
           />
         )}
@@ -88,9 +88,9 @@ export default function GiscusComments() {
       <div className="mt-4 flex items-start gap-3 text-sm text-muted-foreground">
         <Info size={18} weight="regular" className="shrink-0 mt-0.5" />
         <p>
-          评论基于 GitHub Discussions，数据存储在{' '}
+          Comments are powered by GitHub Discussions and stored in the{' '}
           <code className="px-1.5 py-0.5 rounded bg-muted text-xs">lengmodkx/lemonBlog</code>{' '}
-          仓库。支持 Markdown，可回复他人。
+          repository. Markdown and replies are supported.
         </p>
       </div>
     </div>

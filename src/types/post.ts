@@ -1,6 +1,6 @@
 // Type definitions that can be safely imported by client components
 
-export const VALID_CATEGORIES = ['技术学习', '读书笔记', '日常记录'] as const;
+export const VALID_CATEGORIES = ['Tech', 'Reading', 'Life'] as const;
 export type Category = typeof VALID_CATEGORIES[number];
 
 export type PostLayout = 'default' | 'review';

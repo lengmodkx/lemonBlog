@@ -3,8 +3,8 @@ import ArticleCard from '@/components/ArticleCard';
 import CategoryFilter from '@/components/CategoryFilter';
 
 export const metadata = {
-  title: '博客 | Lemon Blog',
-  description: '所有文章',
+  title: 'Blog',
+  description: 'All posts',
 };
 
 export default async function BlogPage({
@@ -23,10 +23,10 @@ export default async function BlogPage({
       <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight mb-3">
-            所有文章
+            All posts
           </h1>
           <p className="text-muted-foreground max-w-xl">
-            记录学习、思考与技术实践。
+            Notes on learning, thinking, and engineering practice.
           </p>
         </header>
 
@@ -43,7 +43,7 @@ export default async function BlogPage({
           </div>
         ) : (
           <div className="text-center py-16 bg-card rounded-xl border border-border">
-            <p className="text-muted-foreground">暂无文章</p>
+            <p className="text-muted-foreground">No posts yet</p>
           </div>
         )}
       </div>

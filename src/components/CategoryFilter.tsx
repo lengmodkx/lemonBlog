@@ -24,18 +24,18 @@ export default function CategoryFilter({
     router.push(`/blog?${params.toString()}`);
   };
 
-  const allCategories = ['全部', ...categories];
+  const allCategories = ['All', ...categories];
 
   return (
     <div className="mb-10">
       <div className="flex flex-wrap gap-2">
         {allCategories.map((cat) => {
           const isSelected =
-            cat === '全部' ? !selectedCategory : selectedCategory === cat;
+            cat === 'All' ? !selectedCategory : selectedCategory === cat;
           return (
             <button
               key={cat}
-              onClick={() => updateFilter(cat === '全部' ? undefined : cat)}
+              onClick={() => updateFilter(cat === 'All' ? undefined : cat)}
               className={`px-4 py-1.5 text-sm rounded-full transition-colors ${
                 isSelected
                   ? 'bg-accent text-accent-foreground font-medium'

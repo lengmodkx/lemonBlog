@@ -24,7 +24,7 @@ export default function ReviewPost({ post }: ReviewPostProps) {
 
   if (!review) return null;
 
-  const formattedDate = new Date(post.date).toLocaleDateString('zh-CN', {
+  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -40,7 +40,7 @@ export default function ReviewPost({ post }: ReviewPostProps) {
             className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft size={14} weight="bold" />
-            返回文章列表
+            Back to posts
           </Link>
 
           <header className="mb-6">
@@ -136,7 +136,7 @@ export default function ReviewPost({ post }: ReviewPostProps) {
 
           <footer className="mt-20 pt-8 border-t border-border">
             <p className="text-muted-foreground text-sm text-center">
-              感谢阅读
+              Thanks for reading
             </p>
           </footer>
 

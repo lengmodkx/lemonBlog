@@ -41,16 +41,16 @@ class ErrorBoundary extends Component<Props, State> {
                 <Warning size={32} weight="regular" className="text-accent" />
               </div>
               <h2 className="text-2xl font-semibold text-foreground mb-3 tracking-tight">
-                出错了
+                Something went wrong
               </h2>
               <p className="text-muted-foreground mb-6">
-                页面加载时发生了错误，请刷新页面重试。
+                An error occurred while loading the page. Please refresh and try again.
               </p>
               <button
                 onClick={() => window.location.reload()}
                 className="px-6 py-2.5 bg-accent text-accent-foreground rounded-lg font-medium hover:bg-accent/90 transition-colors"
               >
-                刷新页面
+                Refresh page
               </button>
             </div>
             {process.env.NODE_ENV === 'development' && this.state.error && (

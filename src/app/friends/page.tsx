@@ -2,12 +2,12 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
 
 export const metadata = {
-  title: '友链 | Lemon Blog',
-  description: '朋友们的博客',
+  title: 'Friends',
+  description: 'Blogs from friends',
 };
 
 const friendLinks = [
-  { name: 'cxhello', href: 'https://cxhello.top/about', description: 'Java 后端开发者的技术博客' },
+  { name: 'cxhello', href: 'https://cxhello.top/about', description: "Java backend developer's tech blog" },
 ];
 
 export default function FriendsPage() {
@@ -19,14 +19,14 @@ export default function FriendsPage() {
           className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-10 transition-colors"
         >
           <ArrowLeft size={14} weight="bold" />
-          返回首页
+          Back to home
         </Link>
 
         <h1 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight mb-3">
-          友链
+          Friends
         </h1>
         <p className="text-muted-foreground mb-10 leading-relaxed">
-          这里记录了一些朋友们的博客，欢迎互相交流学习。
+          A few blogs from friends. Feel free to explore and connect.
         </p>
 
         <div className="grid gap-4">
@@ -62,14 +62,14 @@ export default function FriendsPage() {
 
         <div className="mt-12 p-4 rounded-xl bg-muted border border-border text-sm text-muted-foreground">
           <p>
-            想交换友链？欢迎通过{' '}
+            Want to exchange links? Reach me by{' '}
             <a
               href="mailto:lengmodkx@gmail.com"
               className="text-foreground hover:text-accent transition-colors"
             >
-              邮件
-            </a>{' '}
-            联系我。
+              email
+            </a>
+            .
           </p>
         </div>
       </div>

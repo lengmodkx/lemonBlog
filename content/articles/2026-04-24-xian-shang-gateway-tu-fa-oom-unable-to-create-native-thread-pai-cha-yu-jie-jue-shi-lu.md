@@ -1,7 +1,7 @@
 ---
 title: "线上 Gateway 突发 OOM：unable to create native thread 排查与解决实录"
 date: "2026-04-24"
-category: 技术学习
+category: Tech
 tags:
   - Java
   - Spring Cloud

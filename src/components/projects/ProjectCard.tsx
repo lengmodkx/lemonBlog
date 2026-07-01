@@ -6,7 +6,7 @@ interface ProjectCardProps {
 }
 
 function formatDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString('zh-CN', {
+  return new Date(dateString).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
   });
@@ -30,7 +30,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       <p className="text-sm text-muted-foreground line-clamp-2 mb-4 min-h-[2.5rem]">
-        {project.description || '暂无描述'}
+        {project.description || 'No description'}
       </p>
 
       <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
@@ -51,7 +51,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {project.forksCount}
         </span>
 
-        <span className="ml-auto">更新于 {formatDate(project.updatedAt)}</span>
+        <span className="ml-auto">Updated {formatDate(project.updatedAt)}</span>
       </div>
     </a>
   );

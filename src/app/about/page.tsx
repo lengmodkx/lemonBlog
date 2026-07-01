@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Envelope, ArrowLeft } from '@phosphor-icons/react/dist/ssr';
 
 export const metadata = {
-  title: 'About | Lemon Blog',
+  title: 'About',
   description: 'About lemon and this blog',
 };
 
@@ -51,11 +51,11 @@ export default function AboutPage() {
           className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-10 transition-colors"
         >
           <ArrowLeft size={14} weight="bold" />
-          返回首页
+          Back to home
         </Link>
 
         <h1 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight mb-8">
-          关于我
+          About me
         </h1>
 
         <section className="mb-12">
@@ -72,7 +72,7 @@ export default function AboutPage() {
 
         <section className="mb-12">
           <h2 className="text-lg font-semibold text-foreground mb-5 tracking-tight">
-            工作经历
+            Work experience
           </h2>
           <div className="border-l border-border pl-6 space-y-8">
             {workExperience.map((exp, index) => (
@@ -94,7 +94,7 @@ export default function AboutPage() {
 
         <section className="mb-12">
           <h2 className="text-lg font-semibold text-foreground mb-5 tracking-tight">
-            技术栈
+            Tech stack
           </h2>
           <div className="flex flex-wrap gap-2">
             {techStack.map((tech) => (
@@ -110,7 +110,7 @@ export default function AboutPage() {
 
         <section className="mb-12">
           <h2 className="text-lg font-semibold text-foreground mb-5 tracking-tight">
-            联系方式
+            Contact
           </h2>
           <div className="space-y-4">
             <a

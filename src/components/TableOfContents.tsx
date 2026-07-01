@@ -57,7 +57,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   useEffect(() => {
     if (headings.length === 0) return;
 
-    // Exclude headings inside the comments section so "文章评论" doesn't appear
+    // Exclude headings inside the comments section so "Comments" doesn't appear
     // in the table of contents.
     const articleHeadings = document.querySelectorAll(
       'article h2:not(#comments *, [id*="comment"] *), article h3:not(#comments *, [id*="comment"] *)'
@@ -111,7 +111,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
     <aside className="hidden lg:block sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto">
       <div className="w-52">
         <h3 className="text-sm font-semibold text-foreground mb-4 tracking-tight">
-          目录
+          Contents
         </h3>
         <nav className="space-y-1 border-l border-border">
           {headings.map((heading) => (

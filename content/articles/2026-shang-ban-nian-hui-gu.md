@@ -2,7 +2,7 @@
 title: '2026 上半年 · 夜读相册'
 date: 2026-06-30
 description: '181 天。去过几个远方，见过一些人间。慢慢来，比较快。'
-category: 日常记录
+category: Life
 tags:
   - 总结
   - 旅行
