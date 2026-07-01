@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Envelope, ArrowLeft, ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
+import { Envelope, ArrowLeft } from '@phosphor-icons/react/dist/ssr';
 
 export const metadata = {
   title: 'About | Lemon Blog',
@@ -40,10 +40,6 @@ const socialLinks = [
   { name: 'GitHub', href: 'https://github.com/lengmodkx' },
   { name: 'Twitter', href: 'https://twitter.com/DKX_LM' },
   { name: 'Telegram', href: 'https://t.me/lemon2Judy' },
-];
-
-const friendLinks = [
-  { name: 'cxhello', href: 'https://cxhello.top/about' },
 ];
 
 export default function AboutPage() {
@@ -108,37 +104,6 @@ export default function AboutPage() {
               >
                 {tech}
               </span>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-12">
-          <h2 className="text-lg font-semibold text-foreground mb-5 tracking-tight">
-            友链
-          </h2>
-          <div className="grid gap-3">
-            {friendLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between p-4 rounded-xl border border-border bg-card hover:border-accent transition-colors"
-              >
-                <div>
-                  <h3 className="font-medium text-foreground group-hover:text-accent transition-colors">
-                    {link.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {link.href}
-                  </p>
-                </div>
-                <ArrowUpRight
-                  size={18}
-                  weight="bold"
-                  className="text-muted-foreground group-hover:text-accent transition-colors"
-                />
-              </a>
             ))}
           </div>
         </section>
