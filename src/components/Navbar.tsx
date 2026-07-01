@@ -22,11 +22,11 @@ export default function Navbar() {
   };
 
   const navigation = [
-    { name: '首页', href: '/' },
-    { name: '文章', href: '/blog' },
-    { name: '项目', href: '/projects' },
-    { name: '友链', href: '/friends' },
-    { name: '关于', href: '/about' },
+    { name: 'Home', href: '/' },
+    { name: 'Posts', href: '/blog' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Friends', href: '/friends' },
+    { name: 'About', href: '/about' },
   ];
 
   return (
