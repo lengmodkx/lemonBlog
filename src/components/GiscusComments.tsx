@@ -3,9 +3,11 @@
 import Giscus from '@giscus/react';
 import { useState, useEffect } from 'react';
 import { ChatCircle, Info, Spinner } from '@phosphor-icons/react';
+import { useIsDarkTheme } from '@/lib/use-theme';
 
 export default function GiscusComments() {
   const [isLoading, setIsLoading] = useState(true);
+  const isDark = useIsDarkTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1000);
@@ -47,9 +49,9 @@ export default function GiscusComments() {
         </p>
       </div>
 
-      <div className="relative bg-card rounded-xl p-6 shadow-sm border border-border">
+      <div className="relative bg-card rounded-xl border border-border overflow-hidden">
         {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-card/80 rounded-xl z-10">
+          <div className="absolute inset-0 flex items-center justify-center bg-card/90 backdrop-blur-sm z-10">
             <div className="flex flex-col items-center gap-3">
               <Spinner size={24} weight="bold" className="animate-spin text-accent" />
               <p className="text-sm text-muted-foreground">加载评论中...</p>
@@ -67,21 +69,19 @@ export default function GiscusComments() {
           reactionsEnabled="1"
           emitMetadata="0"
           inputPosition="top"
-          theme="preferred_color_scheme"
+          theme={isDark ? 'dark' : 'light'}
           lang="zh-CN"
           loading="lazy"
         />
       </div>
 
-      <div className="mt-4 p-4 bg-muted rounded-xl border border-border">
-        <div className="flex items-start gap-3">
-          <Info size={18} weight="regular" className="text-muted-foreground shrink-0 mt-0.5" />
-          <div className="text-sm text-muted-foreground space-y-1">
-            <p>评论基于 GitHub Discussions，数据存储在 <code className="px-1.5 py-0.5 rounded bg-background text-xs">lengmodkx/lemonBlog</code> 仓库</p>
-            <p>支持 Markdown 语法，可以回复他人评论</p>
-            <p>切换主题时会自动适配评论样式</p>
-          </div>
-        </div>
+      <div className="mt-4 flex items-start gap-3 text-sm text-muted-foreground">
+        <Info size={18} weight="regular" className="shrink-0 mt-0.5" />
+        <p>
+          评论基于 GitHub Discussions，数据存储在{' '}
+          <code className="px-1.5 py-0.5 rounded bg-muted text-xs">lengmodkx/lemonBlog</code>{' '}
+          仓库。支持 Markdown，可回复他人。
+        </p>
       </div>
     </div>
   );

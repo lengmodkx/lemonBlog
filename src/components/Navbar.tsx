@@ -2,31 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useSyncExternalStore } from 'react';
+import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Sun, Moon } from '@phosphor-icons/react';
-
-const getServerSnapshot = () => false;
-const getSnapshot = () => {
-  if (typeof window === 'undefined') return false;
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) return savedTheme === 'dark';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
-};
-const subscribe = (callback: () => void) => {
-  if (typeof window === 'undefined') return () => {};
-  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  mediaQuery.addEventListener('change', callback);
-  window.addEventListener('storage', callback);
-  return () => {
-    mediaQuery.removeEventListener('change', callback);
-    window.removeEventListener('storage', callback);
-  };
-};
+import { useIsDarkTheme } from '@/lib/use-theme';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const isDarkMode = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const isDarkMode = useIsDarkTheme();
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
