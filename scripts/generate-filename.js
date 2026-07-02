@@ -1,4 +1,5 @@
-const pinyin = require('pinyin');
+const pinyinModule = require('pinyin');
+const pinyin = typeof pinyinModule === 'function' ? pinyinModule : pinyinModule.default;
 
 const title = process.argv[2] || 'kk聊房价';
 const created = process.argv[3] || '2025-09-11';
