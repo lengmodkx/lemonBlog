@@ -26,6 +26,7 @@ export default function Navbar() {
     { name: 'Posts', href: '/blog' },
     { name: 'Projects', href: '/projects' },
     { name: 'Friends', href: '/friends' },
+    { name: 'Thoughts', href: '/thoughts' },
     { name: 'About', href: '/about' },
   ];
 
