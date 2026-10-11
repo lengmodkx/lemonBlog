@@ -1,0 +1,112 @@
+{
+  "trips": [
+    {
+      "id": "trip-2025-04-hangzhou",
+      "title": "杭州春行",
+      "startDate": "2025-04-12",
+      "endDate": "2025-04-15",
+      "description": "示例行程，可在真实数据中替换"
+    },
+    {
+      "id": "trip-2024-10-sichuan",
+      "title": "川西秋色",
+      "startDate": "2024-10-02",
+      "endDate": "2024-10-08"
+    }
+  ],
+  "photos": [
+    {
+      "id": "dkx04837",
+      "src": "https://storage.lengmodkx.club:9443/article/blog/travel/2026-10-02/DKX04837.jpg",
+      "thumb": "https://storage.lengmodkx.club:9443/article/blog/travel/2026-10-02/DKX04837_thumb.jpg",
+      "date": "2026-10-02",
+      "city": "兰州",
+      "province": "甘肃省",
+      "caption": "兰州"
+    },
+    {
+      "id": "demo-001",
+      "src": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1600&q=80",
+      "date": "2025-04-12",
+      "city": "杭州",
+      "province": "浙江省",
+      "caption": "示例照片：清晨的湖面（占位图，待替换为真实照片）",
+      "trip": "trip-2025-04-hangzhou"
+    },
+    {
+      "id": "demo-002",
+      "src": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80",
+      "date": "2025-04-13",
+      "city": "杭州",
+      "province": "浙江省",
+      "caption": "示例照片：林间小径",
+      "trip": "trip-2025-04-hangzhou"
+    },
+    {
+      "id": "demo-003",
+      "src": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&q=80",
+      "date": "2025-04-14",
+      "city": "杭州",
+      "province": "浙江省",
+      "caption": "示例照片：远山与湖"
+    },
+    {
+      "id": "demo-004",
+      "src": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1600&q=80",
+      "date": "2024-10-02",
+      "city": "成都",
+      "province": "四川省",
+      "caption": "示例照片：入川第一站",
+      "trip": "trip-2024-10-sichuan"
+    },
+    {
+      "id": "demo-005",
+      "src": "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1600&q=80",
+      "date": "2024-10-04",
+      "city": "稻城",
+      "province": "四川省",
+      "caption": "示例照片：高原湖泊",
+      "trip": "trip-2024-10-sichuan"
+    },
+    {
+      "id": "demo-006",
+      "src": "https://images.unsplash.com/photo-1465101162946-4377e57745c3?w=1600&q=80",
+      "date": "2024-10-06",
+      "city": "稻城",
+      "province": "四川省",
+      "caption": "示例照片：雪山星空"
+    },
+    {
+      "id": "demo-007",
+      "src": "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=1600&q=80",
+      "date": "2024-06-20",
+      "city": "北京",
+      "province": "北京市",
+      "caption": "示例照片：胡同的夏天"
+    },
+    {
+      "id": "demo-008",
+      "src": "https://images.unsplash.com/photo-1531971589569-0d9370cbe1e5?w=1600&q=80",
+      "date": "2025-08-18",
+      "city": "厦门",
+      "province": "福建省",
+      "caption": "示例照片：海边的傍晚"
+    },
+    {
+      "id": "demo-009",
+      "src": "https://images.unsplash.com/photo-1528164344705-47542687000d?w=1600&q=80",
+      "date": "2025-09-30",
+      "city": "拉萨",
+      "province": "西藏自治区",
+      "caption": "示例照片：高原日光"
+    },
+    {
+      "id": "demo-010",
+      "src": "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1600&q=80",
+      "date": "2026-01-05",
+      "city": "哈尔滨",
+      "province": "黑龙江省",
+      "caption": "示例照片：冰雪之城"
+    }
+  ]
+}
