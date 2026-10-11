@@ -79,7 +79,16 @@ export default function ChinaMap({
     const chart = echarts.init(container);
     chartRef.current = chart;
 
-    const onResize = () => chart.resize();
+    const onResize = () => {
+      // 两类异常触发都要挡住：
+      // 1) 实例已 dispose（React StrictMode 双挂载 / 延迟派发的 ResizeObserver 回调）
+      // 2) 容器已脱离文档或尺寸为 0（视图切换卸载瞬间）——此时 zrender 内部会崩
+      const instance = chartRef.current;
+      const el = containerRef.current;
+      if (!instance || instance.isDisposed()) return;
+      if (!el || !el.isConnected || el.clientWidth === 0 || el.clientHeight === 0) return;
+      instance.resize();
+    };
     window.addEventListener('resize', onResize);
     const observer = new ResizeObserver(onResize);
     observer.observe(container);
@@ -87,15 +96,15 @@ export default function ChinaMap({
     return () => {
       window.removeEventListener('resize', onResize);
       observer.disconnect();
-      chart.dispose();
       chartRef.current = null;
+      chart.dispose();
     };
   }, []);
 
   // (Re)render option when data or theme changes.
   useEffect(() => {
     const chart = chartRef.current;
-    if (!chart) return;
+    if (!chart || chart.isDisposed()) return;
 
     const palette = isDark ? DARK : LIGHT;
     const maxCount = Math.max(1, ...provinces.map((p) => p.photoCount));
@@ -213,7 +222,9 @@ export default function ChinaMap({
 
     chart.on('click', handleClick);
     return () => {
-      chart.off('click', handleClick);
+      if (!chart.isDisposed()) {
+        chart.off('click', handleClick);
+      }
     };
   }, [markers, provinces, isDark]);
 
