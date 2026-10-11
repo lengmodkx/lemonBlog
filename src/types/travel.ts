@@ -18,6 +18,9 @@ export interface TravelPhoto {
   caption?: string;
   /** Optional trip id this photo belongs to. */
   trip?: string;
+  /** Intrinsic size of the web image (for masonry layout without reflow). */
+  width?: number;
+  height?: number;
 }
 
 /** A trip groups photos taken in one journey. */
@@ -27,11 +30,32 @@ export interface TravelTrip {
   startDate: string;
   endDate: string;
   description?: string;
+  /** Cities passed on this trip; all of them light up on the map. */
+  cities?: string[];
+  /** Preferred cover photo id; defaults to the first landscape photo. */
+  cover?: string;
+}
+
+/** A travel video (e.g. drone footage) shown inside a trip chapter. */
+export interface TravelVideo {
+  id: string;
+  /** Video URL (mp4). */
+  src: string;
+  /** Taken date, YYYY-MM-DD. */
+  date: string;
+  city: string;
+  province: string;
+  trip?: string;
+  /** Optional title shown on the card. */
+  title?: string;
+  /** Optional file size label, e.g. "132 MB". */
+  size?: string;
 }
 
 export interface TravelData {
   trips: TravelTrip[];
   photos: TravelPhoto[];
+  videos: TravelVideo[];
 }
 
 /** One city aggregated on the map. */
@@ -52,9 +76,9 @@ export interface ProvinceStats {
   cities: string[];
 }
 
-/** Photos grouped by YYYY-MM for the timeline view. */
+/** Photos grouped by day for the timeline view. */
 export interface TimelineMonth {
-  /** YYYY-MM */
+  /** YYYY-MM-DD */
   key: string;
   photos: TravelPhoto[];
 }

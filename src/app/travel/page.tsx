@@ -15,8 +15,8 @@ export const metadata = {
 };
 
 export default function TravelPage() {
-  const { photos } = getTravelData();
-  const markers = getCityMarkers(photos);
+  const { trips, photos, videos } = getTravelData();
+  const markers = getCityMarkers(photos, trips);
   const provinces = getProvinceStats(photos);
   const timeline = getTimeline(photos);
   const stats = getTravelStats(photos);
@@ -44,6 +44,8 @@ export default function TravelPage() {
 
         <TravelGallery
           photos={photos}
+          trips={trips}
+          videos={videos}
           markers={markers}
           provinces={provinces}
           timeline={timeline}

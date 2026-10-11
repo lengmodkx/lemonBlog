@@ -1,18 +1,21 @@
 'use client';
 
-import PhotoGrid from './PhotoGrid';
+import PhotoMasonry from './PhotoMasonry';
 import type { TimelineMonth, TravelPhoto } from '@/types/travel';
 
 export interface TimelineViewProps {
   months: TimelineMonth[];
-  /** Called with the clicked photo, its index and the photos of the same month. */
+  /** Called with the clicked photo, its index and the photos of the same day. */
   onPhotoClick?: (photo: TravelPhoto, index: number, group: TravelPhoto[]) => void;
 }
 
-/** 月份标题：2026 年 8 月 */
-function formatMonth(key: string): string {
-  const [year, month] = key.split('-');
-  return `${year} 年 ${Number(month)} 月`;
+const WEEKDAYS = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+
+/** 日期标题：10 月 4 日 · 周六 */
+function formatDay(key: string): string {
+  const [year, month, day] = key.split('-').map(Number);
+  const weekday = WEEKDAYS[new Date(year, month - 1, day).getDay()];
+  return `${month} 月 ${day} 日 · ${weekday}`;
 }
 
 export default function TimelineView({ months, onPhotoClick }: TimelineViewProps) {
@@ -29,10 +32,10 @@ export default function TimelineView({ months, onPhotoClick }: TimelineViewProps
               aria-hidden
             />
             <header className="mb-4 flex items-baseline gap-3">
-              <h3 className="text-lg font-semibold text-foreground">{formatMonth(month.key)}</h3>
+              <h3 className="text-lg font-semibold text-foreground">{formatDay(month.key)}</h3>
               <span className="text-xs text-muted-foreground">{month.photos.length} 张照片</span>
             </header>
-            <PhotoGrid
+            <PhotoMasonry
               photos={month.photos}
               onPhotoClick={(photo, index) => onPhotoClick?.(photo, index, month.photos)}
             />

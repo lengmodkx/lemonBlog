@@ -11,15 +11,18 @@ const path = require('path');
 
 function extract(file) {
   const buf = fs.readFileSync(file);
-  const le = buf.toString('ascii', 0, 2) === 'II';
+  let le = false; // byte order flag, resolved after the TIFF header base is known
   const u16 = (o) => (le ? buf.readUInt16LE(o) : buf.readUInt16BE(o));
   const u32 = (o) => (le ? buf.readUInt32LE(o) : buf.readUInt32BE(o));
 
   const TYPE_SIZES = { 1: 1, 2: 1, 3: 2, 4: 4, 5: 8, 7: 1, 9: 4, 10: 8 };
 
+  // TIFF header base: ARW/TIFF at 0, JPEG inside APP1 after "Exif\0\0".
+  let base = 0;
+
   function readValue(type, count, valueOffset) {
     const size = (TYPE_SIZES[type] || 1) * count;
-    const off = size <= 4 ? valueOffset : u32(valueOffset);
+    const off = size <= 4 ? valueOffset : base + u32(valueOffset);
     if (type === 2) return buf.toString('ascii', off, off + count - 1);
     if (type === 3) return u16(off);
     if (type === 4) return u32(off);
@@ -45,28 +48,26 @@ function extract(file) {
   }
 
   // JPEG: locate APP1(EXIF) segment; ARW/TIFF: IFD0 at header offset 4.
-  let ifd0Offset;
-  if (buf.toString('ascii', 0, 2) === '\xff\xd8') {
+  if (buf[0] === 0xff && buf[1] === 0xd8) {
     let pos = 2;
     while (pos < buf.length - 4) {
       if (buf[pos] !== 0xff) break;
       const marker = buf[pos + 1];
       const size = buf.readUInt16BE(pos + 2);
       if (marker === 0xe1 && buf.toString('ascii', pos + 4, pos + 8) === 'Exif') {
-        ifd0Offset = pos + 10;
+        base = pos + 10;
         break;
       }
       pos += 2 + size;
     }
-    if (ifd0Offset === undefined) return { file, error: 'no EXIF segment' };
-  } else {
-    ifd0Offset = u32(4);
+    if (base === 0) return { file, error: 'no EXIF segment' };
   }
 
-  const ifd0 = readIFD(ifd0Offset);
+  le = buf.toString('ascii', base, base + 2) === 'II';
+  const ifd0 = readIFD(base + u32(base + 4));
   const pick = (t) => (ifd0[t] ? ifd0[t].value : null);
-  const exif = pick(0x8769) ? readIFD(pick(0x8769)) : {};
-  const gps = pick(0x8825) ? readIFD(pick(0x8825)) : {};
+  const exif = pick(0x8769) ? readIFD(base + pick(0x8769)) : {};
+  const gps = pick(0x8825) ? readIFD(base + pick(0x8825)) : {};
   const g = (t) => (gps[t] ? gps[t].value : null);
 
   const toDec = (arr, ref) =>

@@ -110,7 +110,8 @@ async function main() {
         Key: key,
         Body: body,
         ContentType: CONTENT_TYPES[ext] || 'application/octet-stream',
-        CacheControl: 'public, max-age=31536000, immutable',
+        // 注意：不要用 immutable——同 URL 替换内容时浏览器会一直吃旧缓存
+        CacheControl: 'public, max-age=86400',
       }),
     );
 

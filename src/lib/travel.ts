@@ -6,6 +6,7 @@ import {
   TravelData,
   TravelPhoto,
   TravelTrip,
+  TravelVideo,
   TravelStats,
   CityMarker,
   ProvinceStats,
@@ -16,6 +17,7 @@ export type {
   TravelData,
   TravelPhoto,
   TravelTrip,
+  TravelVideo,
   TravelStats,
   CityMarker,
   ProvinceStats,
@@ -72,17 +74,27 @@ function normalizePhoto(raw: RawPhoto, index: number): TravelPhoto | null {
  */
 export function getTravelData(): TravelData {
   if (!fs.existsSync(photosJsonPath)) {
-    return { trips: [], photos: [] };
+    return { trips: [], photos: [], videos: [] };
   }
 
   const raw = JSON.parse(fs.readFileSync(photosJsonPath, 'utf8'));
   const rawPhotos: RawPhoto[] = Array.isArray(raw) ? raw : (raw.photos ?? []);
   const rawTrips: TravelTrip[] = Array.isArray(raw?.trips) ? raw.trips : [];
+  const rawVideos: TravelVideo[] = Array.isArray(raw?.videos) ? raw.videos : [];
 
   const photos = rawPhotos
     .map((p, i) => normalizePhoto(p, i))
     .filter((p): p is TravelPhoto => p !== null)
     .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+
+  const videos = rawVideos
+    .filter((v) => v && typeof v.src === 'string' && v.city && v.province)
+    .map((v, i) => ({
+      ...v,
+      id: v.id ?? `video-${i}`,
+      date: normalizeDate(v.date),
+    }))
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
 
   const trips = rawTrips
     .map((t) => ({
@@ -92,22 +104,39 @@ export function getTravelData(): TravelData {
     }))
     .sort((a, b) => (a.startDate < b.startDate ? 1 : -1));
 
-  return { trips, photos };
+  return { trips, photos, videos };
 }
 
-/** Aggregate photos into city markers for the map. */
-export function getCityMarkers(photos: TravelPhoto[]): CityMarker[] {
-  const byCity = new Map<string, TravelPhoto[]>();
+/**
+ * Aggregate photos into city markers for the map.
+ * A city shows photos taken there, plus photos of trips that passed it.
+ */
+export function getCityMarkers(photos: TravelPhoto[], trips: TravelTrip[] = []): CityMarker[] {
+  const tripById = new Map(trips.map((t) => [t.id, t]));
+
+  // Candidate cities: explicit photo cities + trip waypoints.
+  const candidateCities = new Map<string, string>(); // city -> province
   for (const photo of photos) {
-    const key = `${photo.province}|${photo.city}`;
-    const list = byCity.get(key) ?? [];
-    list.push(photo);
-    byCity.set(key, list);
+    if (!candidateCities.has(photo.city)) candidateCities.set(photo.city, photo.province);
+  }
+  for (const trip of trips) {
+    for (const city of trip.cities ?? []) {
+      if (!candidateCities.has(city)) {
+        const province = photos.find((p) => p.trip === trip.id)?.province;
+        if (province) candidateCities.set(city, province);
+      }
+    }
   }
 
   const markers: CityMarker[] = [];
-  for (const [key, list] of byCity) {
-    const [province, city] = key.split('|');
+  for (const [city, province] of candidateCities) {
+    const list = photos.filter((photo) => {
+      if (photo.city === city) return true;
+      const trip = photo.trip ? tripById.get(photo.trip) : undefined;
+      return !!trip?.cities?.includes(city);
+    });
+    if (list.length === 0) continue;
+
     const coords = list.find((p) => p.coords)?.coords ?? resolveCityCoords(city);
     if (!coords) {
       console.warn(`[travel] no coords for city "${city}", add it to src/data/city-coords.ts`);
@@ -144,16 +173,19 @@ export function getProvinceStats(photos: TravelPhoto[]): ProvinceStats[] {
     .sort((a, b) => b.photoCount - a.photoCount);
 }
 
-/** Group photos into YYYY-MM buckets for the timeline (newest first). */
+/**
+ * Group photos for the timeline (newest first).
+ * Key is a YYYY-MM-DD date bucket, so dense multi-day trips read naturally.
+ */
 export function getTimeline(photos: TravelPhoto[]): TimelineMonth[] {
-  const byMonth = new Map<string, TravelPhoto[]>();
+  const byDay = new Map<string, TravelPhoto[]>();
   for (const photo of photos) {
-    const key = photo.date.slice(0, 7);
-    const list = byMonth.get(key) ?? [];
+    const key = photo.date.slice(0, 10);
+    const list = byDay.get(key) ?? [];
     list.push(photo);
-    byMonth.set(key, list);
+    byDay.set(key, list);
   }
-  return [...byMonth.entries()]
+  return [...byDay.entries()]
     .map(([key, list]) => ({ key, photos: list }))
     .sort((a, b) => (a.key < b.key ? 1 : -1));
 }

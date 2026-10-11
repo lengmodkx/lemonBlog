@@ -3,10 +3,11 @@
 import { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { MapTrifold, ClockCounterClockwise, X, MapPin } from '@phosphor-icons/react';
+import { BookOpen, MapTrifold, ClockCounterClockwise, X, MapPin } from '@phosphor-icons/react';
 import { useIsDarkTheme } from '@/lib/use-theme';
 import PhotoGrid from './PhotoGrid';
 import TimelineView from './TimelineView';
+import TripJourneys from './TripJourneys';
 import PhotoLightbox from './PhotoLightbox';
 import type {
   CityMarker,
@@ -14,6 +15,8 @@ import type {
   TimelineMonth,
   TravelPhoto,
   TravelStats,
+  TravelTrip,
+  TravelVideo,
 } from '@/types/travel';
 
 const ChinaMap = dynamic(() => import('./ChinaMap'), {
@@ -27,6 +30,8 @@ const ChinaMap = dynamic(() => import('./ChinaMap'), {
 
 export interface TravelGalleryProps {
   photos: TravelPhoto[];
+  trips: TravelTrip[];
+  videos: TravelVideo[];
   markers: CityMarker[];
   provinces: ProvinceStats[];
   timeline: TimelineMonth[];
@@ -39,12 +44,12 @@ interface Selection {
   photos: TravelPhoto[];
 }
 
-type ViewMode = 'map' | 'timeline';
+type ViewMode = 'journeys' | 'map' | 'timeline';
 
-export default function TravelGallery({ photos, markers, provinces, timeline, stats }: TravelGalleryProps) {
+export default function TravelGallery({ photos, trips, videos, markers, provinces, timeline, stats }: TravelGalleryProps) {
   const isDark = useIsDarkTheme();
   const reduce = useReducedMotion();
-  const [view, setView] = useState<ViewMode>('map');
+  const [view, setView] = useState<ViewMode>('journeys');
   const [selection, setSelection] = useState<Selection | null>(null);
   const [lightbox, setLightbox] = useState<{ group: TravelPhoto[]; index: number } | null>(null);
 
@@ -90,6 +95,7 @@ export default function TravelGallery({ photos, markers, provinces, timeline, st
         <div className="inline-flex rounded-lg border border-border p-1 bg-card">
           {(
             [
+              { key: 'journeys', label: '旅程', icon: BookOpen },
               { key: 'map', label: '地图', icon: MapTrifold },
               { key: 'timeline', label: '时间线', icon: ClockCounterClockwise },
             ] as const
@@ -112,13 +118,30 @@ export default function TravelGallery({ photos, markers, provinces, timeline, st
         <p className="text-xs text-muted-foreground hidden md:block">
           {view === 'map'
             ? '滚轮缩放、拖拽移动地图；点击城市圆点或省份查看照片'
-            : '按拍摄时间倒序浏览'}
+            : view === 'timeline'
+              ? '按拍摄时间倒序浏览'
+              : '按行程翻阅每一天的光影'}
         </p>
       </div>
 
       {/* views */}
       <AnimatePresence mode="wait">
-        {view === 'map' ? (
+        {view === 'journeys' ? (
+          <motion.div
+            key="journeys"
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <TripJourneys
+              trips={trips}
+              photos={photos}
+              videos={videos}
+              onPhotoClick={(_, index, group) => setLightbox({ group, index })}
+            />
+          </motion.div>
+        ) : view === 'map' ? (
           <motion.div
             key="map"
             initial={reduce ? false : { opacity: 0, y: 12 }}

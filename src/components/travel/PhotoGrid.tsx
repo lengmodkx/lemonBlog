@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'motion/react';
+import { photoUrl } from '@/lib/photo-url';
 import type { TravelPhoto } from '@/types/travel';
 
 export interface PhotoGridProps {
@@ -36,10 +37,11 @@ export default function PhotoGrid({ photos, onPhotoClick, columns = 3 }: PhotoGr
         >
           <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-muted">
             <Image
-              src={photo.thumb || photo.src}
+              src={photoUrl(photo.thumb || photo.src)}
               alt={photo.caption || `${photo.city} · ${photo.date}`}
               fill
               sizes="(max-width: 768px) 50vw, 33vw"
+              unoptimized
               className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
             />
             <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/55 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">

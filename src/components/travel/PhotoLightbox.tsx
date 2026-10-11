@@ -4,6 +4,7 @@ import { useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { CaretLeft, CaretRight, X } from '@phosphor-icons/react';
+import { photoUrl } from '@/lib/photo-url';
 import type { TravelPhoto } from '@/types/travel';
 
 export interface PhotoLightboxProps {
@@ -99,11 +100,12 @@ export default function PhotoLightbox({ photos, index, onClose, onNavigate }: Ph
           >
             <div className="relative w-full max-h-[75vh] aspect-[3/2]">
               <Image
-                src={photo.src}
+                src={photoUrl(photo.src)}
                 alt={photo.caption || `${photo.city} · ${photo.date}`}
                 fill
                 sizes="(max-width: 1024px) 100vw, 1024px"
                 className="object-contain"
+                unoptimized
                 priority
               />
             </div>
