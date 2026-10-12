@@ -118,17 +118,16 @@ export default function PhotoLightbox({ photos, index, onClose, onNavigate }: Ph
             className="max-w-5xl w-full flex flex-col items-center gap-3"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative w-full max-h-[75vh] aspect-[3/2]">
-              <Image
-                src={photoUrl(shown!.src)}
-                alt={shown!.caption || `${shown!.city} · ${shown!.date}`}
-                fill
-                sizes="(max-width: 1024px) 100vw, 1024px"
-                className="object-contain"
-                unoptimized
-                priority
-              />
-            </div>
+            <Image
+              src={photoUrl(shown!.src)}
+              alt={shown!.caption || `${shown!.city} · ${shown!.date}`}
+              width={shown!.width ?? 1600}
+              height={shown!.height ?? 1067}
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              className="max-w-full max-h-[58vh] md:max-h-[68vh] w-auto h-auto object-contain rounded-lg"
+              unoptimized
+              priority
+            />
             <figcaption className="text-center text-sm text-white/80 space-y-1">
               {shown!.caption && <p>{shown!.caption}</p>}
               <p>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { BookOpen, MapTrifold, ClockCounterClockwise, X, MapPin } from '@phosphor-icons/react';
@@ -54,6 +54,29 @@ export default function TravelGallery({ photos, trips, videos, markers, province
   const [selection, setSelection] = useState<Selection | null>(null);
   const [lightbox, setLightbox] = useState<{ group: TravelPhoto[]; index: number } | null>(null);
 
+  // ?view=map / ?view=timeline / ?photo=<id> 深链（挂载后异步读取，避免水合不匹配）
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+      const v = params.get('view');
+      if (v === 'journeys' || v === 'map' || v === 'timeline') setView(v);
+      // ?photo=<id> 直接打开灯箱（照片分享链接）
+      const pid = params.get('photo');
+      if (pid) {
+        const idx = photos.findIndex((p) => p.id === pid);
+        if (idx >= 0) setLightbox({ group: photos, index: idx });
+      }
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [photos]);
+
+  const changeView = (v: ViewMode) => {
+    setView(v);
+    const url = new URL(window.location.href);
+    url.searchParams.set('view', v);
+    window.history.replaceState(null, '', url.toString());
+  };
+
   const photoCountByCity = useMemo(
     () => new Map(markers.map((m) => [m.city, countPhotos(m.photos)])),
     [markers],
@@ -72,18 +95,19 @@ export default function TravelGallery({ photos, trips, videos, markers, province
       {/* stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: '照片', value: stats.photoCount, unit: '张' },
-          { label: '足迹', value: stats.cityCount, unit: '个城市' },
-          { label: '点亮', value: stats.provinceCount, unit: '个省份' },
+          { label: '照片', value: stats.photoCount, unit: '张', valueClass: 'text-xl' },
+          { label: '足迹', value: stats.cityCount, unit: '个城市', valueClass: 'text-xl' },
+          { label: '点亮', value: stats.provinceCount, unit: '个省份', valueClass: 'text-xl' },
           {
             label: '时间跨度',
             value: stats.startDate ? `${stats.startDate.slice(0, 7)} ~ ${stats.endDate?.slice(0, 7)}` : '—',
             unit: '',
+            valueClass: 'text-base md:text-xl whitespace-nowrap tabular-nums',
           },
         ].map((item) => (
           <div key={item.label} className="rounded-xl border border-border bg-card p-4">
             <p className="text-xs text-muted-foreground">{item.label}</p>
-            <p className="mt-1 text-xl font-semibold text-foreground">
+            <p className={`mt-1 font-semibold text-foreground ${item.valueClass}`}>
               {item.value}
               {item.unit && <span className="ml-1 text-xs font-normal text-muted-foreground">{item.unit}</span>}
             </p>
@@ -104,7 +128,7 @@ export default function TravelGallery({ photos, trips, videos, markers, province
             <button
               key={key}
               type="button"
-              onClick={() => setView(key)}
+              onClick={() => changeView(key)}
               className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-md text-sm transition-colors ${
                 view === key
                   ? 'bg-accent text-accent-foreground'
