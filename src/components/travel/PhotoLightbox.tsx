@@ -1,9 +1,9 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { CaretLeft, CaretRight, X } from '@phosphor-icons/react';
+import { CaretLeft, CaretRight, Stack, X } from '@phosphor-icons/react';
 import { photoUrl } from '@/lib/photo-url';
 import type { TravelPhoto } from '@/types/travel';
 
@@ -19,6 +19,26 @@ export default function PhotoLightbox({ photos, index, onClose, onNavigate }: Ph
   const reduce = useReducedMotion();
   const open = index !== null && index >= 0 && index < photos.length;
   const photo = open ? photos[index] : null;
+
+  // Burst browsing: position is keyed by photo id, so it resets automatically
+  // when navigating to another photo (no effect needed).
+  const burst = photo?.burst && photo.burst.length > 1 ? photo.burst : null;
+  const [burstPos, setBurstPos] = useState<{ id: string; index: number } | null>(null);
+
+  const repIndex = burst ? burst.findIndex((f) => f.id === photo!.id) : -1;
+  const shownIndex =
+    burst && burstPos && burstPos.id === photo?.id ? burstPos.index : repIndex >= 0 ? repIndex : 0;
+  const shown = burst ? burst[shownIndex] : photo;
+
+  const goBurstPrev = useCallback(() => {
+    if (!burst || !photo) return;
+    setBurstPos({ id: photo.id, index: (shownIndex - 1 + burst.length) % burst.length });
+  }, [burst, photo, shownIndex]);
+
+  const goBurstNext = useCallback(() => {
+    if (!burst || !photo) return;
+    setBurstPos({ id: photo.id, index: (shownIndex + 1) % burst.length });
+  }, [burst, photo, shownIndex]);
 
   const goPrev = useCallback(() => {
     if (index === null) return;
@@ -100,8 +120,8 @@ export default function PhotoLightbox({ photos, index, onClose, onNavigate }: Ph
           >
             <div className="relative w-full max-h-[75vh] aspect-[3/2]">
               <Image
-                src={photoUrl(photo.src)}
-                alt={photo.caption || `${photo.city} · ${photo.date}`}
+                src={photoUrl(shown!.src)}
+                alt={shown!.caption || `${shown!.city} · ${shown!.date}`}
                 fill
                 sizes="(max-width: 1024px) 100vw, 1024px"
                 className="object-contain"
@@ -110,15 +130,39 @@ export default function PhotoLightbox({ photos, index, onClose, onNavigate }: Ph
               />
             </div>
             <figcaption className="text-center text-sm text-white/80 space-y-1">
-              {photo.caption && <p>{photo.caption}</p>}
+              {shown!.caption && <p>{shown!.caption}</p>}
               <p>
-                {photo.date} · {photo.city}，{photo.province}
+                {shown!.date} · {shown!.city}，{shown!.province}
                 {photos.length > 1 && (
                   <span className="ml-2 text-white/50">
                     {index! + 1} / {photos.length}
                   </span>
                 )}
               </p>
+              {burst && (
+                <div className="inline-flex items-center gap-2 text-white/70">
+                  <button
+                    type="button"
+                    onClick={goBurstPrev}
+                    aria-label="连拍上一帧"
+                    className="p-1 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  >
+                    <CaretLeft size={14} />
+                  </button>
+                  <span className="inline-flex items-center gap-1 text-xs">
+                    <Stack size={13} />
+                    {photo.stackKind === 'group' ? '同景' : '连拍'} {shownIndex + 1} / {burst.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={goBurstNext}
+                    aria-label="连拍下一帧"
+                    className="p-1 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  >
+                    <CaretRight size={14} />
+                  </button>
+                </div>
+              )}
             </figcaption>
           </motion.figure>
         </motion.div>

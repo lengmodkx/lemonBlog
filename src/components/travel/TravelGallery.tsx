@@ -9,6 +9,7 @@ import PhotoGrid from './PhotoGrid';
 import TimelineView from './TimelineView';
 import TripJourneys from './TripJourneys';
 import PhotoLightbox from './PhotoLightbox';
+import { countPhotos } from '@/lib/travel-burst';
 import type {
   CityMarker,
   ProvinceStats,
@@ -54,7 +55,7 @@ export default function TravelGallery({ photos, trips, videos, markers, province
   const [lightbox, setLightbox] = useState<{ group: TravelPhoto[]; index: number } | null>(null);
 
   const photoCountByCity = useMemo(
-    () => new Map(markers.map((m) => [m.city, m.photos.length])),
+    () => new Map(markers.map((m) => [m.city, countPhotos(m.photos)])),
     [markers],
   );
 
@@ -176,7 +177,7 @@ export default function TravelGallery({ photos, trips, videos, markers, province
                         <MapPin size={18} className="text-accent" />
                         {selection.name}
                         <span className="text-xs font-normal text-muted-foreground">
-                          {selection.type === 'city' ? '城市' : '省份'} · {selection.photos.length} 张照片
+                          {selection.type === 'city' ? '城市' : '省份'} · {countPhotos(selection.photos)} 张照片
                         </span>
                       </h3>
                       {selection.type === 'city' && photoCountByCity.has(selection.name) && (

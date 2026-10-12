@@ -44,6 +44,11 @@ export default function PhotoGrid({ photos, onPhotoClick, columns = 3 }: PhotoGr
               unoptimized
               className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
             />
+            {(photo.burst?.length ?? 0) > 1 && (
+              <span className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-black/55 text-white text-[10px] font-medium tracking-wide">
+                ×{photo.burst!.length}
+              </span>
+            )}
             <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/55 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
               <p className="text-xs text-white/90 truncate">{photo.city}</p>
             </div>

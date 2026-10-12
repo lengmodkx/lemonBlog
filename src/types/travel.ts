@@ -21,6 +21,28 @@ export interface TravelPhoto {
   /** Intrinsic size of the web image (for masonry layout without reflow). */
   width?: number;
   height?: number;
+  /**
+   * Explicit "same scene" group id. Photos sharing a group (and date/city) are
+   * collapsed into one stack even when their ids are not camera frame numbers —
+   * for hand-renamed series like "lz13"/"ck04". The first photo of the group in
+   * list order becomes the representative.
+   */
+  group?: string;
+  /**
+   * Never collapse this photo into a burst/group stack — each photo stays
+   * visible on its own. Used for portraits and other shots the author wants
+   * shown individually.
+   */
+  solo?: boolean;
+  /**
+   * All frames of the same stack (including this photo), in shooting order.
+   * Filled for both camera frame bursts and explicit `group` stacks. Only the
+   * representative carries this field; other frames are hidden from grids and
+   * only reachable via the lightbox.
+   */
+  burst?: TravelPhoto[];
+  /** How the stack was formed: camera frame burst or explicit `group`. */
+  stackKind?: 'burst' | 'group';
 }
 
 /** A trip groups photos taken in one journey. */

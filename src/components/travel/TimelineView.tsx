@@ -1,6 +1,7 @@
 'use client';
 
 import PhotoMasonry from './PhotoMasonry';
+import { countPhotos } from '@/lib/travel-burst';
 import type { TimelineMonth, TravelPhoto } from '@/types/travel';
 
 export interface TimelineViewProps {
@@ -33,7 +34,7 @@ export default function TimelineView({ months, onPhotoClick }: TimelineViewProps
             />
             <header className="mb-4 flex items-baseline gap-3">
               <h3 className="text-lg font-semibold text-foreground">{formatDay(month.key)}</h3>
-              <span className="text-xs text-muted-foreground">{month.photos.length} 张照片</span>
+              <span className="text-xs text-muted-foreground">{countPhotos(month.photos)} 张照片</span>
             </header>
             <PhotoMasonry
               photos={month.photos}

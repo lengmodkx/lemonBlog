@@ -53,6 +53,11 @@ export default function PhotoMasonry({ photos, onPhotoClick, columns = 3 }: Phot
                 unoptimized
                 className="w-full h-auto transition-transform duration-500 ease-out group-hover:scale-[1.03]"
               />
+              {(photo.burst?.length ?? 0) > 1 && (
+                <span className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-black/55 text-white text-[10px] font-medium tracking-wide">
+                  ×{photo.burst!.length}
+                </span>
+              )}
               <div className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <p className="text-[11px] text-white/90 tracking-wide">
                   {photo.date} · {photo.city}

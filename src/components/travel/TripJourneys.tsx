@@ -7,6 +7,7 @@ import { CaretDown, Images } from '@phosphor-icons/react';
 import PhotoMasonry from './PhotoMasonry';
 import TripVideos from './TripVideos';
 import { photoUrl } from '@/lib/photo-url';
+import { countPhotos } from '@/lib/travel-burst';
 import type { TravelPhoto, TravelTrip, TravelVideo } from '@/types/travel';
 
 export interface TripJourneysProps {
@@ -103,7 +104,7 @@ export default function TripJourneys({ trips, photos, videos = [], onPhotoClick 
               </h3>
               <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
                 <Images size={14} />
-                {chapter.photos.length} 张
+                {countPhotos(chapter.photos)} 张
               </span>
             </header>
 
@@ -140,7 +141,13 @@ export default function TripJourneys({ trips, photos, videos = [], onPhotoClick 
 
             <PhotoMasonry
               photos={visible}
-              onPhotoClick={(photo, index) => onPhotoClick?.(photo, index, [chapter.cover!, ...gridPhotos].filter(Boolean))}
+              onPhotoClick={(photo) =>
+                onPhotoClick?.(
+                  photo,
+                  chapter.photos.findIndex((p) => p.id === photo.id),
+                  chapter.photos,
+                )
+              }
             />
 
             {!isExpanded && hiddenCount > 0 && (

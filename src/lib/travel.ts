@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { resolveCityCoords } from '@/data/city-coords';
+import { collapseBursts, countPhotos } from './travel-burst';
 import {
   TravelData,
   TravelPhoto,
@@ -46,6 +47,10 @@ interface RawPhoto {
   coords?: [number, number];
   caption?: string;
   trip?: string;
+  group?: string;
+  solo?: boolean;
+  width?: number;
+  height?: number;
 }
 
 /** Fill in missing coords from the city table and validate required fields. */
@@ -65,6 +70,10 @@ function normalizePhoto(raw: RawPhoto, index: number): TravelPhoto | null {
     coords: coords ?? undefined,
     caption: raw.caption,
     trip: raw.trip,
+    group: raw.group,
+    solo: raw.solo,
+    width: raw.width,
+    height: raw.height,
   };
 }
 
@@ -82,10 +91,11 @@ export function getTravelData(): TravelData {
   const rawTrips: TravelTrip[] = Array.isArray(raw?.trips) ? raw.trips : [];
   const rawVideos: TravelVideo[] = Array.isArray(raw?.videos) ? raw.videos : [];
 
-  const photos = rawPhotos
-    .map((p, i) => normalizePhoto(p, i))
-    .filter((p): p is TravelPhoto => p !== null)
-    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  const photos = collapseBursts(
+    rawPhotos
+      .map((p, i) => normalizePhoto(p, i))
+      .filter((p): p is TravelPhoto => p !== null),
+  ).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 
   const videos = rawVideos
     .filter((v) => v && typeof v.src === 'string' && v.city && v.province)
@@ -195,7 +205,7 @@ export function getTravelStats(photos: TravelPhoto[]): TravelStats {
   const provinces = new Set(photos.map((p) => p.province));
   const dates = photos.map((p) => p.date).sort();
   return {
-    photoCount: photos.length,
+    photoCount: countPhotos(photos),
     cityCount: cities.size,
     provinceCount: provinces.size,
     startDate: dates[0],

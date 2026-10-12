@@ -158,7 +158,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "lz-bridge"
     },
     {
       "id": "lz03",
@@ -169,7 +170,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "lz-bridge"
     },
     {
       "id": "lz04",
@@ -180,7 +182,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "lz-bridge"
     },
     {
       "id": "lz05",
@@ -191,7 +194,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "lz-bridge"
     },
     {
       "id": "lz06",
@@ -202,7 +206,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "lz-bridge"
     },
     {
       "id": "lz07",
@@ -213,7 +218,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "lz-bridge"
     },
     {
       "id": "lz08",
@@ -224,7 +230,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "lz-bridge"
     },
     {
       "id": "lz09",
@@ -267,8 +274,8 @@
       "city": "兰州",
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
-      "width": 1600,
-      "height": 902
+      "width": 902,
+      "height": 1600
     },
     {
       "id": "lz13",
@@ -279,7 +286,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1200,
-      "height": 1600
+      "height": 1600,
+      "group": "lz-sunset-river"
     },
     {
       "id": "lz14",
@@ -290,7 +298,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1200,
-      "height": 1600
+      "height": 1600,
+      "group": "lz-sunset-river"
     },
     {
       "id": "lz15",
@@ -301,7 +310,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1200,
-      "height": 1600
+      "height": 1600,
+      "group": "lz-sunset-river"
     },
     {
       "id": "lz16",
@@ -312,7 +322,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1200,
-      "height": 1600
+      "height": 1600,
+      "group": "lz-sunset-city"
     },
     {
       "id": "lz17",
@@ -323,7 +334,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1200,
-      "height": 1600
+      "height": 1600,
+      "group": "lz-sunset-city"
     },
     {
       "id": "lz18",
@@ -334,7 +346,8 @@
       "province": "甘肃省",
       "trip": "trip-2026-10-02",
       "width": 1200,
-      "height": 1600
+      "height": 1600,
+      "group": "lz-sunset-city"
     },
     {
       "id": "lz19",
@@ -1401,7 +1414,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-05",
       "width": 1600,
-      "height": 1067
+      "height": 1067,
+      "group": "tj-puppy"
     },
     {
       "id": "dkx05675",
@@ -1412,7 +1426,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-05",
       "width": 1600,
-      "height": 1067
+      "height": 1067,
+      "group": "tj-puppy"
     },
     {
       "id": "dkx05680",
@@ -1423,7 +1438,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-05",
       "width": 1600,
-      "height": 1067
+      "height": 1067,
+      "group": "tj-puppy"
     },
     {
       "id": "dkx05690",
@@ -2259,7 +2275,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "ck-boardwalk"
     },
     {
       "id": "ck03",
@@ -2270,7 +2287,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "ck-boardwalk"
     },
     {
       "id": "ck04",
@@ -2281,7 +2299,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1200,
-      "height": 1600
+      "height": 1600,
+      "group": "ck-mirror-open"
     },
     {
       "id": "ck05",
@@ -2292,7 +2311,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1200,
-      "height": 1600
+      "height": 1600,
+      "group": "ck-mirror-open"
     },
     {
       "id": "ck06",
@@ -2303,7 +2323,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1200,
-      "height": 1600
+      "height": 1600,
+      "group": "ck-mirror-open"
     },
     {
       "id": "ck07",
@@ -2314,7 +2335,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "ck-mirror-open"
     },
     {
       "id": "ck08",
@@ -2325,7 +2347,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "ck-mirror-shore"
     },
     {
       "id": "ck09",
@@ -2336,7 +2359,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "ck-mirror-shore"
     },
     {
       "id": "ck10",
@@ -2347,7 +2371,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1600,
-      "height": 1200
+      "height": 1200,
+      "group": "ck-mirror-shore"
     },
     {
       "id": "dkx06061",
@@ -3139,7 +3164,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1600,
-      "height": 1067
+      "height": 1067,
+      "solo": true
     },
     {
       "id": "dkx06215",
@@ -3150,7 +3176,8 @@
       "province": "青海省",
       "trip": "trip-2026-10-07",
       "width": 1067,
-      "height": 1600
+      "height": 1600,
+      "solo": true
     },
     {
       "id": "dkx06265",
